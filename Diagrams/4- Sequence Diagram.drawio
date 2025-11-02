@@ -1,0 +1,109 @@
+<mxfile host="65bd71144e">
+    <diagram id="2jayyqEsX_-c_gL-B3UR" name="Page-1">
+        <mxGraphModel dx="1419" dy="427" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0" adaptiveColors="none">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="7" value="CourseService" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+                    <mxGeometry x="-633" y="45" width="100" height="520" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="7" vertex="1">
+                    <mxGeometry x="45" y="60" width="10" height="350" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="7" vertex="1">
+                    <mxGeometry x="50" y="90" width="10" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="getEnrollmentStatus(student, course)" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="7" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="55" y="74.99761904761904" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="90" y="74.95"/>
+                            <mxPoint x="90" y="109.95"/>
+                        </Array>
+                        <mxPoint x="60" y="109.95" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="AnalyticsService" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+                    <mxGeometry x="-383" y="40" width="100" height="525" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="13" vertex="1">
+                    <mxGeometry x="45" y="266" width="10" height="89" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="serialize()" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="13" source="55" target="56" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="55" y="280" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="280"/>
+                            <mxPoint x="80" y="310"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="56" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="13" vertex="1">
+                    <mxGeometry x="50" y="300.5" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="UserService" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+                    <mxGeometry x="-163" y="40" width="100" height="525" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="36" vertex="1">
+                    <mxGeometry x="45" y="370" width="10" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="enrollStudent(student, course)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;" parent="1" source="5" target="38" edge="1">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="-773.0714285714286" y="104.99999999999999" as="sourcePoint"/>
+                        <mxPoint x="-584.1" y="104.99999999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="41" value="opt" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+                    <mxGeometry x="-743" y="175" width="313" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="[status = &quot;enrolled&quot;]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-743" y="205" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+                    <mxGeometry x="0.0011" relative="1" as="geometry">
+                        <mxPoint x="-593" y="245" as="sourcePoint"/>
+                        <mxPoint x="-770.6633333333333" y="245" as="targetPoint"/>
+                        <Array as="points"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="48" value="addEmptyCourseData(student, course)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;" parent="1" source="38" target="55" edge="1">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="-577.9999999999999" y="305" as="sourcePoint"/>
+                        <mxPoint x="-333.5" y="305" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="61" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;" parent="1" source="55" target="38" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-333.5" y="395.0000000000001" as="sourcePoint"/>
+                        <mxPoint x="-577.9999999999999" y="395.0000000000001" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="63" value="serialize()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" target="36" edge="1">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="-577.9999999999999" y="415" as="sourcePoint"/>
+                        <mxPoint x="-333" y="415" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="65" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;" parent="1" source="64" target="38" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-183" y="435" as="sourcePoint"/>
+                        <mxPoint x="-578" y="434" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="66" value=":CourseData" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+                    <mxGeometry x="-233" y="295" width="85" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Student" style="shape=umlLifeline;perimeter=lifelinePerimeter;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;verticalAlign=bottom;whiteSpace=wrap;horizontal=1;labelPosition=center;verticalLabelPosition=top;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="-787" y="61.11" width="20" height="498.89" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;" parent="1" source="38" target="5" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-581" y="456" as="sourcePoint"/>
+                        <mxPoint x="-775.2185714285713" y="460.0000000000001" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
