@@ -27,20 +27,21 @@ public class CourseDatabase extends JsonDatabase<Course> {
 	public void enroll(String courseId, String studentId) {
 		// Get lesson -> get student-progress map -> add k:v = studentId : 0 # 0 lessons
 		// done
-		this.records.get(courseId).getStudentsAndProgress().put(studentId, 0);
+	
+		this.records.get(courseId).getStudentsAndLessonsDone().put(studentId, new ArrayList<String>());
 	}
 
 	// get students enrolled in a course by their id
 	public Set<String> getEnrolledStudents(String courseID) {
 		var course = this.records.get(courseID);
-		var studentIds = course.getStudentsAndProgress().keySet();
+		var studentIds = course.getStudentsAndLessonsDone().keySet();
 		return studentIds;
 	}
 
 	// get progress of course for student
-	public Collection<Integer> getStudentsProgress(String courseID) {
+	public Collection<List<String>> getStudentsProgress(String courseID) {
 		var course = this.records.get(courseID);
-		var studentsProgress = course.getStudentsAndProgress().values();
+		var studentsProgress = course.getStudentsAndLessonsDone().values();
 		return studentsProgress;
 	}
 
@@ -79,14 +80,25 @@ public class CourseDatabase extends JsonDatabase<Course> {
 		return List.copyOf(enrolledCourses);
 	}
 
-	public List<String> getAvailableCourses(String studentId) {
-		var availableCourses = new ArrayList<String>();
-		for (var courseId : records.keySet()) {
-			if (!isStudentEnrolledIn(courseId, studentId)) {
-				availableCourses.add(courseId);
-			}
-		}
-		return List.copyOf(availableCourses);
+	public ArrayList<String> getLessons(String courseID){
+		ArrayList<String> lessons = new ArrayList<>();
+		var course = this.records.get(courseID);
+		var temp = List.copyOf(course.getLessons().keySet());
+		lessons.addAll(temp);
+		return lessons;
 	}
 
+	public void completeLesson(Lesson lessonToComplete, String studentID, String courseID) {
+		var course = this.records.get(courseID);
+		ArrayList<String> allLessons = getLessons(courseID);
+		for (var lesson : allLessons){
+			if (lesson.equals(lessonToComplete)){
+				var studentProgress = course.getStudentsAndLessonsDone().get(studentID);
+				studentProgress.add(lesson);
+			}
+		}
+    }
+
 }
+
+

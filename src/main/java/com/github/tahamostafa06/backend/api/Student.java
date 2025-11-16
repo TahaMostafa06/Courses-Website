@@ -14,22 +14,22 @@ public class Student extends UserApi {
     }
 
     public void viewAvailableCourses() {
-
+        courseService.viewAvailableCourses(this.accessToken);
     }
 
-    public void viewAvailableCourses(boolean includeEnrolled) {
-        
+    public void viewAllCourses() {
+        courseService.getAllCourses(this.accessToken);
     }
 
     public void viewEnrolledCourses() {
-
+        courseService.viewEnrolledCourses(this.accessToken);
     }
 
     public void viewLessons(String courseId) {
-
+        courseService.getLessons(this.accessToken, courseId);
     }
 
-    public void completeLesson(String lessonId) {
-
+    public void completeLesson(Lesson lessonId, String courseId) {
+        courseService.completeLesson(this.accessToken, courseId, lessonId);
     }
 }
