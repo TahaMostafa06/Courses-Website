@@ -1,25 +1,20 @@
 package com.github.tahamostafa06.backend.courseservice;
 
+import com.github.tahamostafa06.backend.auth.AuthenticationManager;
 import com.github.tahamostafa06.backend.auth.LoginToken;
 import com.github.tahamostafa06.backend.database.coursedatabase.CourseDatabase;
 
 public class CourseService {
     private CourseDatabase courseDb;
+    private AuthenticationManager authenticationManager;
 
-    public CourseService(CourseDatabase courseDb) {
+    public CourseService(CourseDatabase courseDb, AuthenticationManager authenticationManager) {
         this.courseDb = courseDb;
-    }
-
-    private static boolean authenticateStudent(LoginToken token) {
-        return token.getRole().equals("Student");
-    }
-
-    private static boolean authenticateInstructor(LoginToken token) {
-        return token.getRole().equals("Instructor");
+        this.authenticationManager = authenticationManager;
     }
 
     public void enroll(LoginToken token, String courseId) {
-        if (!authenticateStudent(token))
+        if (this.authenticationManager.authenticate(token, "Student"))
             return;
         if (courseDb.isStudentEnrolledIn(courseId, token.getUserId()))
             return;

@@ -3,6 +3,7 @@ package com.github.tahamostafa06.backend.auth;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 
@@ -18,12 +19,13 @@ import com.github.tahamostafa06.backend.database.userdatabase.UserDatabase;
 public class AuthenticationHelper {
     private UserDatabase userDb;
     private CourseService courseService;
-    private HashMap<String, LoginToken> grantedTokens;
+    private AuthenticationManager authenticationManager;
 
-    public AuthenticationHelper(UserDatabase userDb, CourseService courseService) {
+    public AuthenticationHelper(UserDatabase userDb, CourseService courseService,
+            AuthenticationManager authenticationManager) {
         this.userDb = userDb;
         this.courseService = courseService;
-        this.grantedTokens = new HashMap<>();
+        this.authenticationManager = authenticationManager;
     }
 
     public static String sha256(String input) {
@@ -48,7 +50,7 @@ public class AuthenticationHelper {
         }
         var userId = this.userDb.getIdByRecord(user);
         var token = new LoginToken(user.getRole(), userId);
-        this.grantedTokens.put(userId, token);
+        this.authenticationManager.addToken(token);
         if (user.getRole().equals("Instructor"))
             return new Instructor(token, this.courseService);
         else
@@ -60,11 +62,10 @@ public class AuthenticationHelper {
         var user = this.userDb.addUser(role, username, email, passwordHash);
         var userId = this.userDb.getIdByRecord(user);
         var token = new LoginToken(user.getRole(), userId);
-        this.grantedTokens.put(userId, token);
+        this.authenticationManager.addToken(token);
         if (user.getRole().equals("Instructor"))
             return new Instructor(token, this.courseService);
         else
             return new Student(token, this.courseService);
     }
-
 }

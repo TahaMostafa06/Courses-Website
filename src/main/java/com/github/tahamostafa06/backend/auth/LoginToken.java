@@ -16,4 +16,5 @@ public class LoginToken {
     public String getUserId() {
         return this.userId;
     }
+
 }
