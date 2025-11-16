@@ -10,7 +10,7 @@ public class Course implements Record {
     private String description;
     private String instructorId;
     private Map<String, Lesson> lessons;
-    private Map<String, Integer> studentsAndProgress;
+    private Map<String, Integer> students;
 
     private Course() {
     }
@@ -31,28 +31,28 @@ public class Course implements Record {
         return lessons;
     }
 
-	public Map<String, Integer> getStudentsAndProgress() {
-		return studentsAndProgress;
-	}
+    public Map<String, Integer> getStudentsAndProgress() {
+        return students;
+    }
 }
 
 class Lesson {
-	private String title;
-	private String content;
-	private ArrayList<String> optionalResources;
+    private String title;
+    private String content;
+    private ArrayList<String> optionalResources;
 
-	private Lesson() {
-	}
+    private Lesson() {
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public ArrayList<String> getOptionalResources() {
-		return optionalResources;
-	}
+    public ArrayList<String> getOptionalResources() {
+        return optionalResources;
+    }
 }

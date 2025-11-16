@@ -33,7 +33,7 @@ public class UserDatabase extends JsonDatabase<User> {
         String id;
         var keys = this.records.keySet();
         while (true) {
-            id = idPrefix + generator.nextLong();
+            id = idPrefix + generator.nextLong(1000000, 9999999);
             if (!keys.contains(id))
                 return id;
         }

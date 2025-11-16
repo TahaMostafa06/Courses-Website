@@ -23,6 +23,7 @@ public class AuthenticationHelper {
     public AuthenticationHelper(UserDatabase userDb, CourseService courseService) {
         this.userDb = userDb;
         this.courseService = courseService;
+        this.grantedTokens = new HashMap<>();
     }
 
     public static String sha256(String input) {

@@ -24,6 +24,7 @@ public abstract class JsonDatabase<RecordType extends Record> {
         var jsonReader = new JsonReader(new FileReader(this.filePath));
         var gson = new Gson();
         this.records = gson.fromJson(jsonReader, deserializationTypeToken.getType());
+        jsonReader.close();
     }
 
     public RecordType getRecord(String key) {
@@ -48,6 +49,7 @@ public abstract class JsonDatabase<RecordType extends Record> {
         var gson = new GsonBuilder().setPrettyPrinting().create();
         var fileWriter = new FileWriter(this.filePath);
         gson.toJson(this.records, fileWriter);
+        fileWriter.close();
     }
 
 }

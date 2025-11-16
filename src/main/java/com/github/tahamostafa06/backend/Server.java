@@ -1,5 +1,7 @@
 package com.github.tahamostafa06.backend;
 
+import java.io.IOException;
+
 import com.github.tahamostafa06.backend.auth.AuthenticationHelper;
 import com.github.tahamostafa06.backend.courseservice.CourseService;
 import com.github.tahamostafa06.backend.database.coursedatabase.CourseDatabase;
@@ -28,11 +30,16 @@ public class Server {
         return this.authHelper;
     }
 
-    private Server() throws Exception {
+    private Server() throws IOException {
         this.userDb = new UserDatabase();
         this.courseDb = new CourseDatabase();
         this.courseService = new CourseService(this.courseDb);
         this.authHelper = new AuthenticationHelper(this.userDb, this.courseService);
+    }
+
+    public void close() throws IOException {
+        this.userDb.saveToFile();
+        this.courseDb.saveToFile();
     }
 
 }
