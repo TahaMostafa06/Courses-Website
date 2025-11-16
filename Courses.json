@@ -1,21 +1,21 @@
 {
-    "courseId1": {
-        "title": "Course Title",
-        "description": "Brief Course Description",
-        "instructorId": "instructorId1",
-        "students": {
-            "studentId1": 1,
-            "studentId2": 2
-        },
-        "lessons": {
-            "lessonId1": {
-                "title": "Lesson Name",
-                "content": "Lesson video link",
-                "optionalResources": [
-                    "More video links",
-                    "another one"
-                ]
-            }
-        }
+  "courseId1": {
+    "title": "Course Title",
+    "description": "Brief Course Description",
+    "instructorId": "instructorId1",
+    "lessons": {
+      "lessonId1": {
+        "title": "Lesson Name",
+        "content": "Lesson video link",
+        "optionalResources": [
+          "More video links",
+          "another one"
+        ]
+      }
+    },
+    "students": {
+      "studentId1": ["lessonId1"],
+      "studentId2": []
     }
+  }
 }

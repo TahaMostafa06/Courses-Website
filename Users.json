@@ -1,14 +1,38 @@
 {
-    "userId": {
-        "role": "Student",
-        "username": "myUsername",
-        "passwordHash": "ojmfimwuij",
-        "email": "example@email.com"
-    },
-    "userId2": {
-        "role": "Instructor",
-        "username": "myUsername",
-        "passwordHash": "ojmfimwuij",
-        "email": "example@email.com"
-    }
+  "userId": {
+    "role": "Student",
+    "username": "myUsername",
+    "email": "example@email.com",
+    "passwordHash": "ojmfimwuij"
+  },
+  "userId2": {
+    "role": "Instructor",
+    "username": "myUsername",
+    "email": "example@email.com",
+    "passwordHash": "ojmfimwuij"
+  },
+  "S--869268617087979105": {
+    "role": "Student",
+    "username": "youssef",
+    "email": "eee",
+    "passwordHash": "a2xPvamgKkQAg01uJ3hNnh/kr7+tagDrF1HzolTQPBY\u003d"
+  },
+  "S--1181595351040570491": {
+    "role": "Student",
+    "username": "youssef",
+    "email": "eee",
+    "passwordHash": "a2xPvamgKkQAg01uJ3hNnh/kr7+tagDrF1HzolTQPBY\u003d"
+  },
+  "S-2357836": {
+    "role": "Student",
+    "username": "youssef",
+    "email": "eee",
+    "passwordHash": "a2xPvamgKkQAg01uJ3hNnh/kr7+tagDrF1HzolTQPBY\u003d"
+  },
+  "S-4333638": {
+    "role": "Student",
+    "username": "youssef",
+    "email": "eee",
+    "passwordHash": "a2xPvamgKkQAg01uJ3hNnh/kr7+tagDrF1HzolTQPBY\u003d"
+  }
 }
