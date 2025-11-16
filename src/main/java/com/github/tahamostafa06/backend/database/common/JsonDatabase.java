@@ -1,4 +1,4 @@
-package com.github.tahamostafa06.backend.database;
+package com.github.tahamostafa06.backend.database.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
-import com.github.tahamostafa06.backend.database.records.Record;
 
 public abstract class JsonDatabase<RecordType extends Record> {
     private String filePath;
@@ -29,6 +28,21 @@ public abstract class JsonDatabase<RecordType extends Record> {
 
     public RecordType getRecord(String key) {
         return records.get(key);
+    }
+
+    public void addRecord(RecordType record) {
+        this.records.put(generateNewId(record), record);
+    }
+
+    public abstract String generateNewId(RecordType record);
+
+
+
+    public String getIdByRecord(RecordType record) {
+        for (var entry : this.records.entrySet()) {
+            if (entry.getValue().equals(record)) return entry.getKey();
+        }
+        return null;
     }
 
     public void saveToFile() throws IOException {

@@ -1,5 +1,35 @@
 package com.github.tahamostafa06.backend.api;
 
-public class Student {
+import com.github.tahamostafa06.backend.auth.LoginToken;
+import com.github.tahamostafa06.backend.courseservice.CourseService;
 
+public class Student extends UserApi {
+
+    public Student(LoginToken accessToken, CourseService courseService) {
+        super(accessToken, courseService);
+    }
+
+    public void viewAvailableCourses() {
+
+    }
+
+    public void viewAvailableCourses(boolean includeEnrolled) {
+        
+    }
+
+    public void viewEnrolledCourses() {
+
+    }
+
+    public void enroll(String courseId) {
+        courseService.enroll(this.accessToken, courseId);
+    }
+
+    public void viewLessons(String courseId) {
+
+    }
+
+    public void completeLesson(String lessonId) {
+
+    }
 }

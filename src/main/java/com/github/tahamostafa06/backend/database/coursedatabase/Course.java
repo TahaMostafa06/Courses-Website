@@ -1,14 +1,16 @@
-package com.github.tahamostafa06.backend.database.records;
+package com.github.tahamostafa06.backend.database.coursedatabase;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import com.github.tahamostafa06.backend.database.common.Record;
 
 public class Course implements Record {
     private String title;
     private String description;
     private String instructorId;
     private Map<String, Lesson> lessons;
-    private ArrayList<Map<String, Integer>> studentsAndProgress;
+    private Map<String, Integer> studentsAndProgress;
 
     private Course() {
     }
@@ -29,7 +31,7 @@ public class Course implements Record {
         return lessons;
     }
 
-	public ArrayList<Map<String, Integer>> getStudentsAndProgress() {
+	public Map<String, Integer> getStudentsAndProgress() {
 		return studentsAndProgress;
 	}
 }

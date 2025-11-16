@@ -1,4 +1,6 @@
-package com.github.tahamostafa06.backend.database.records;
+package com.github.tahamostafa06.backend.database.userdatabase;
+
+import com.github.tahamostafa06.backend.database.common.Record;
 
 public class User implements Record {
 	private String role;
@@ -6,7 +8,11 @@ public class User implements Record {
 	private String email;
 	private String passwordHash;
 
-	private User() {
+	User(String role, String username, String email, String passwordHash) {
+		this.role = role;
+		this.username = username;
+		this.email = email;
+		this.passwordHash = passwordHash;
 	}
 
 	public String getRole() {
