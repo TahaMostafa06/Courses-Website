@@ -1,0 +1,14 @@
+{
+    "userId": {
+        "role": "Student",
+        "username": "myUsername",
+        "passwordHash": "ojmfimwuij",
+        "email": "example@email.com"
+    },
+    "userId2": {
+        "role": "Instructor",
+        "username": "myUsername",
+        "passwordHash": "ojmfimwuij",
+        "email": "example@email.com"
+    }
+}

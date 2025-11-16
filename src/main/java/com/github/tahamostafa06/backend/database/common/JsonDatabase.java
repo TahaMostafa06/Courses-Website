@@ -12,18 +12,18 @@ import java.util.Map;
 public abstract class JsonDatabase<RecordType extends Record> {
     private String filePath;
     protected Map<String, RecordType> records;
-    protected TypeToken<Map<String, RecordType>> deserializationTypeToken = new TypeToken<>() {
-    };
+    protected TypeToken<?> deserializationTypeToken;
 
-    protected JsonDatabase(String filePath) throws IOException {
+    protected JsonDatabase(String filePath, TypeToken<Map<String, RecordType>> typeToken) throws IOException {
         this.filePath = filePath;
+        this.deserializationTypeToken = typeToken;
         load();
     }
 
     protected void load() throws IOException {
         var jsonReader = new JsonReader(new FileReader(this.filePath));
         var gson = new Gson();
-        gson.fromJson(jsonReader, deserializationTypeToken);
+        this.records = gson.fromJson(jsonReader, deserializationTypeToken.getType());
     }
 
     public RecordType getRecord(String key) {
@@ -36,11 +36,10 @@ public abstract class JsonDatabase<RecordType extends Record> {
 
     public abstract String generateNewId(RecordType record);
 
-
-
     public String getIdByRecord(RecordType record) {
         for (var entry : this.records.entrySet()) {
-            if (entry.getValue().equals(record)) return entry.getKey();
+            if (entry.getValue().equals(record))
+                return entry.getKey();
         }
         return null;
     }

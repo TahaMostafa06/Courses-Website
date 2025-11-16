@@ -1,14 +1,17 @@
 package com.github.tahamostafa06.backend.database.userdatabase;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Random;
 
 import com.github.tahamostafa06.backend.database.common.JsonDatabase;
+import com.google.gson.reflect.TypeToken;
 
 public class UserDatabase extends JsonDatabase<User> {
 
     public UserDatabase() throws IOException {
-        super("Users.json");
+        super("Users.json", new TypeToken<Map<String, User>>() {
+        });
 
     }
 
@@ -31,7 +34,8 @@ public class UserDatabase extends JsonDatabase<User> {
         var keys = this.records.keySet();
         while (true) {
             id = idPrefix + generator.nextLong();
-            if (!keys.contains(id)) return id;
+            if (!keys.contains(id))
+                return id;
         }
     }
 

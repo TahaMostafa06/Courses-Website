@@ -4,18 +4,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
 import com.github.tahamostafa06.backend.database.common.JsonDatabase;
 import com.github.tahamostafa06.backend.database.userdatabase.User;
+import com.google.gson.reflect.TypeToken;
 import com.github.tahamostafa06.backend.api.Instructor;
 import com.github.tahamostafa06.backend.api.Student;
 
 public class CourseDatabase extends JsonDatabase<Course> {
 
 	public CourseDatabase() throws IOException {
-		super("Courses.json");
+		super("Courses.json", new TypeToken<Map<String, Course>>(){});
 	}
 
 	public Boolean isStudentEnrolledIn(String courseId, String studentId) {
