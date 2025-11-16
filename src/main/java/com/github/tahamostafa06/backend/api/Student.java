@@ -9,6 +9,10 @@ public class Student extends UserApi {
         super(accessToken, courseService);
     }
 
+    public void enroll(String courseId) {
+        courseService.enroll(this.accessToken, courseId);
+    }
+
     public void viewAvailableCourses() {
 
     }
@@ -19,10 +23,6 @@ public class Student extends UserApi {
 
     public void viewEnrolledCourses() {
 
-    }
-
-    public void enroll(String courseId) {
-        courseService.enroll(this.accessToken, courseId);
     }
 
     public void viewLessons(String courseId) {

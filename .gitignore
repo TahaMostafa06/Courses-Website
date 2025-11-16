@@ -1,3 +1,5 @@
 *.bkp
 *nbproject/*
 .vscode/
+build/
+target/
