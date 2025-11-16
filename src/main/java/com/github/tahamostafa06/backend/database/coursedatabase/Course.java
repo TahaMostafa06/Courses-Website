@@ -1,6 +1,7 @@
 package com.github.tahamostafa06.backend.database.coursedatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.github.tahamostafa06.backend.database.common.Record;
@@ -10,7 +11,7 @@ public class Course implements Record {
     private String description;
     private String instructorId;
     private Map<String, Lesson> lessons;
-    private Map<String, Integer> students;
+    private Map<String, ArrayList<String>> students; // studentId : [doneLessonId1, doneLessonId2]
 
     private Course() {
     }
@@ -31,28 +32,12 @@ public class Course implements Record {
         return lessons;
     }
 
-    public Map<String, Integer> getStudentsAndProgress() {
+    public Map<String, List<String>> getStudentsAndLessonsDone() {
         return students;
     }
-}
 
-class Lesson {
-    private String title;
-    private String content;
-    private ArrayList<String> optionalResources;
-
-    private Lesson() {
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public ArrayList<String> getOptionalResources() {
-        return optionalResources;
+    public List<String> getStudents() {
+        return List.copyOf(students.keySet());
     }
 }
+
