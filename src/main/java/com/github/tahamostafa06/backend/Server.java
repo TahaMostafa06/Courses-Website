@@ -20,7 +20,7 @@ public class Server {
     private AuthenticationHelper authHelper;
     private CourseService courseService;
 
-    public static Server getServer() throws Exception {
+    public static Server getServer() throws IOException {
         if (Server.serverInstance == null) {
             return new Server();
         } else {
