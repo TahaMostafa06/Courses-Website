@@ -2,6 +2,7 @@ package com.github.tahamostafa06.backend.api;
 
 import com.github.tahamostafa06.backend.auth.LoginToken;
 import com.github.tahamostafa06.backend.courseservice.CourseService;
+import com.github.tahamostafa06.backend.database.coursedatabase.Lesson;
 
 public class Student extends UserApi {
 

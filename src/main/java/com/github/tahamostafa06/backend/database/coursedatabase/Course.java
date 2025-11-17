@@ -32,7 +32,7 @@ public class Course implements Record {
         return lessons;
     }
 
-    public Map<String, List<String>> getStudentsAndLessonsDone() {
+    public Map<String, ArrayList<String>> getStudentsAndLessonsDone() {
         return students;
     }
 

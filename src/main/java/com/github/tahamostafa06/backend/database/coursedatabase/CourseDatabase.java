@@ -39,7 +39,7 @@ public class CourseDatabase extends JsonDatabase<Course> {
 	}
 
 	// get progress of course for student
-	public Collection<List<String>> getStudentsProgress(String courseID) {
+	public Collection<ArrayList<String>> getStudentsProgress(String courseID) {
 		var course = this.records.get(courseID);
 		var studentsProgress = course.getStudentsAndLessonsDone().values();
 		return studentsProgress;
