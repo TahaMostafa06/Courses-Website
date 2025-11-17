@@ -3,15 +3,12 @@ package com.github.tahamostafa06.backend.auth;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.HashMap;
 
 import com.github.tahamostafa06.backend.api.Instructor;
 import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.api.UserApi;
 import com.github.tahamostafa06.backend.auth.Exceptions.IncorrectPassword;
-import com.github.tahamostafa06.backend.auth.Exceptions.LoginException;
 import com.github.tahamostafa06.backend.auth.Exceptions.UserNotFound;
 import com.github.tahamostafa06.backend.courseservice.CourseService;
 import com.github.tahamostafa06.backend.database.userdatabase.UserDatabase;
@@ -40,7 +37,7 @@ public class AuthenticationHelper {
 
     }
 
-    public UserApi login(String username, String password) throws LoginException {
+    public UserApi login(String username, String password) throws UserNotFound, IncorrectPassword {
         var user = userDb.getUserByUsername(username);
         if (user == null) {
             throw new UserNotFound("No user with " + username + " was found.");

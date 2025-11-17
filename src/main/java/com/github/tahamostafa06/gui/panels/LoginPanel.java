@@ -1,12 +1,31 @@
 package com.github.tahamostafa06.gui.panels;
 
+import com.github.tahamostafa06.backend.api.UserApi;
+import com.github.tahamostafa06.gui.validation.LoginValidator;
+
 public class LoginPanel extends javax.swing.JPanel {
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
+    private com.github.tahamostafa06.gui.validation.AlertLabel invalidityAlertLabel;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JButton submitButton;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JTextField usernameField;
+    private javax.swing.JLabel usernameLabel;
+    private javax.swing.JLabel welcomeLabel;
+    // End of variables declaration//GEN-END:variables
+    private LoginValidator loginValidator;
 
     public LoginPanel() {
         initComponents();
+        loginValidator = new LoginValidator(usernameField, passwordField, invalidityAlertLabel, MainWindowFrame.getServer().getAuthHelper());
     }
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -19,6 +38,7 @@ public class LoginPanel extends javax.swing.JPanel {
         passwordField = new javax.swing.JPasswordField();
         submitButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        invalidityAlertLabel = new com.github.tahamostafa06.gui.validation.AlertLabel();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -98,33 +118,30 @@ public class LoginPanel extends javax.swing.JPanel {
         gridBagConstraints.ipady = 10;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(cancelButton, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(invalidityAlertLabel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameFieldActionPerformed
+    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_usernameFieldActionPerformed
+        usernameField.transferFocus();
+    }// GEN-LAST:event_usernameFieldActionPerformed
 
-    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordFieldActionPerformed
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_passwordFieldActionPerformed
+        passwordField.transferFocus();
+    }// GEN-LAST:event_passwordFieldActionPerformed
 
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_submitButtonActionPerformed
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
+        UserApi login = loginValidator.verifyLogin();
+        if (login != null) {
+            MainWindowFrame.switchTo("LoggedInPanelHolder", login);
+        }
+    }// GEN-LAST:event_submitButtonActionPerformed
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
         MainWindowFrame.switchTo("OnboardingPanel", "");
-    }//GEN-LAST:event_cancelButtonActionPerformed
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JLabel passwordLabel;
-    private javax.swing.JButton submitButton;
-    private javax.swing.JLabel titleLabel;
-    private javax.swing.JTextField usernameField;
-    private javax.swing.JLabel usernameLabel;
-    private javax.swing.JLabel welcomeLabel;
-    // End of variables declaration//GEN-END:variables
+    }// GEN-LAST:event_cancelButtonActionPerformed
 }
