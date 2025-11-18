@@ -2,7 +2,7 @@
   "courseId1": {
     "title": "Course Title",
     "description": "Brief Course Description",
-    "instructorId": "instructorId1",
+    "instructorId": "userId2",
     "lessons": {
       "lessonId1": {
         "title": "Lesson Name",
@@ -14,8 +14,10 @@
       }
     },
     "students": {
-      "studentId1": ["lessonId1"],
-      "studentId2": []
+      "studentId1": [
+        "lessonId1"
+      ],
+      "S-4333638": []
     }
   }
 }

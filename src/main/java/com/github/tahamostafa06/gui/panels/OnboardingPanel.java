@@ -1,6 +1,6 @@
 package com.github.tahamostafa06.gui.panels;
 
-public class OnboardingPanel extends javax.swing.JPanel {
+public class OnboardingPanel extends CardPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton loginButton;
     private javax.swing.JButton signupButton;
@@ -65,10 +65,16 @@ public class OnboardingPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_loginButtonActionPerformed
-        MainWindowFrame.switchTo("LoginPanel", null);
+        MainWindowFrame.switchTo(MainWindowFrame.PANELS.LoginPanel);
     }// GEN-LAST:event_loginButtonActionPerformed
 
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_signupButtonActionPerformed
-        MainWindowFrame.switchTo("SignupPanel", null);
+        MainWindowFrame.switchTo(MainWindowFrame.PANELS.SignupPanel);
     }// GEN-LAST:event_signupButtonActionPerformed
+
+    @Override
+    public void receiveTransitionMessage(Object message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'receiveTransitionMessage'");
+    }
 }

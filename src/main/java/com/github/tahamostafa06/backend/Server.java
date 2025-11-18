@@ -7,6 +7,7 @@ import com.github.tahamostafa06.backend.auth.AuthenticationManager;
 import com.github.tahamostafa06.backend.courseservice.CourseService;
 import com.github.tahamostafa06.backend.database.coursedatabase.CourseDatabase;
 import com.github.tahamostafa06.backend.database.userdatabase.UserDatabase;
+import com.github.tahamostafa06.backend.userservice.UserService;
 
 // Initialize Databases
 // A singleton
@@ -19,6 +20,7 @@ public class Server {
     private AuthenticationManager authenticationManager;
     private AuthenticationHelper authHelper;
     private CourseService courseService;
+    private UserService userService;
 
     public static Server getServer() throws IOException {
         if (Server.serverInstance == null) {
@@ -33,11 +35,12 @@ public class Server {
     }
 
     private Server() throws IOException {
-        this.userDb = new UserDatabase();
-        this.courseDb = new CourseDatabase();
-        this.authenticationManager = new AuthenticationManager();
-        this.courseService = new CourseService(this.courseDb, this.authenticationManager);
-        this.authHelper = new AuthenticationHelper(this.userDb, this.courseService, this.authenticationManager);
+        userDb = new UserDatabase();
+        courseDb = new CourseDatabase();
+        authenticationManager = new AuthenticationManager();
+        userService = new UserService(userDb, authenticationManager);
+        courseService = new CourseService(courseDb, userService, authenticationManager);
+        authHelper = new AuthenticationHelper(userDb, courseService, userService, authenticationManager);
     }
 
     public void close() throws IOException {

@@ -14,15 +14,18 @@ import com.github.tahamostafa06.backend.auth.Exceptions.UserAlreadyExists;
 import com.github.tahamostafa06.backend.auth.Exceptions.UserNotFound;
 import com.github.tahamostafa06.backend.courseservice.CourseService;
 import com.github.tahamostafa06.backend.database.userdatabase.UserDatabase;
+import com.github.tahamostafa06.backend.userservice.UserService;
 
 public class AuthenticationHelper {
     private UserDatabase userDb;
     private CourseService courseService;
+    private UserService userService;
     private AuthenticationManager authenticationManager;
 
     public AuthenticationHelper(UserDatabase userDb, CourseService courseService,
-            AuthenticationManager authenticationManager) {
+            UserService userService, AuthenticationManager authenticationManager) {
         this.userDb = userDb;
+        this.userService = userService;
         this.courseService = courseService;
         this.authenticationManager = authenticationManager;
     }
@@ -47,13 +50,13 @@ public class AuthenticationHelper {
         if (!user.getPasswordHash().equals(sha256(password))) {
             throw new IncorrectPassword("Incorrect password.");
         }
-        var userId = this.userDb.getIdByRecord(user);
+        var userId = userDb.getIdByRecord(user);
         var token = new LoginToken(user.getRole(), userId);
-        this.authenticationManager.addToken(token);
+        authenticationManager.addToken(token);
         if (user.getRole().equals("Instructor"))
-            return new Instructor(token, this.courseService);
+            return new Instructor(token, courseService, userService);
         else
-            return new Student(token, this.courseService);
+            return new Student(token, courseService, userService);
     }
 
     public UserApi signUp(String role, String username, String email, String password) throws UserAlreadyExists, EmailAlreadyInUse {
@@ -62,13 +65,13 @@ public class AuthenticationHelper {
         if (userDb.getUserByEmail(email) != null)
             throw new EmailAlreadyInUse("Email " + email + " is already in use by another user.");
         var passwordHash = sha256(password);
-        var user = this.userDb.addUser(role, username, email, passwordHash);
-        var userId = this.userDb.getIdByRecord(user);
+        var user = userDb.addUser(role, username, email, passwordHash);
+        var userId = userDb.getIdByRecord(user);
         var token = new LoginToken(user.getRole(), userId);
-        this.authenticationManager.addToken(token);
+        authenticationManager.addToken(token);
         if (user.getRole().equals("Instructor"))
-            return new Instructor(token, this.courseService);
+            return new Instructor(token, courseService, userService);
         else
-            return new Student(token, this.courseService);
+            return new Student(token, courseService, userService);
     }
 }

@@ -1,9 +1,11 @@
 package com.github.tahamostafa06.gui.panels;
 
+import com.github.tahamostafa06.backend.api.Instructor;
+import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.api.UserApi;
 import com.github.tahamostafa06.gui.validation.LoginValidator;
 
-public class LoginPanel extends javax.swing.JPanel {
+public class LoginPanel extends CardPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
@@ -24,8 +26,14 @@ public class LoginPanel extends javax.swing.JPanel {
                 MainWindowFrame.getServer().getAuthHelper());
     }
 
+    private void resetComponents() {
+        usernameField.setText("");
+        passwordField.setText("");
+        invalidityAlertLabel.conceal();
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="GeneratedCode">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed"
+    // desc="GeneratedCode">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -137,18 +145,25 @@ public class LoginPanel extends javax.swing.JPanel {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
         UserApi login = loginValidator.verifyLogin();
         if (login != null) {
-            invalidityAlertLabel.conceal();
-            MainWindowFrame.switchTo("LoggedInPanelHolder", login);
+            resetComponents();
+            if (login.getClass() == Student.class)
+                MainWindowFrame.switchTo(MainWindowFrame.PANELS.StudentDashboardPanel, login);
+            else if (login.getClass() == Instructor.class)
+                MainWindowFrame.switchTo(MainWindowFrame.PANELS.InstructorDashboardPanel, login);
         }
     }// GEN-LAST:event_submitButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
         cancelButton.setFocusable(false);
-        usernameField.setText("");
-        passwordField.setText("");
-        invalidityAlertLabel.conceal();
+        resetComponents();
         cancelButton.setFocusable(true);
-        MainWindowFrame.switchTo("OnboardingPanel", "");
+        MainWindowFrame.switchTo(MainWindowFrame.PANELS.OnboardingPanel);
 
     }// GEN-LAST:event_cancelButtonActionPerformed
+
+    @Override
+    public void receiveTransitionMessage(Object message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'receiveTransitionMessage'");
+    }
 }

@@ -1,9 +1,11 @@
 package com.github.tahamostafa06.gui.panels;
 
+import com.github.tahamostafa06.backend.api.Instructor;
+import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.api.UserApi;
 import com.github.tahamostafa06.gui.validation.SignupValidator;
 
-public class SignupPanel extends javax.swing.JPanel {
+public class SignupPanel extends CardPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator authSeparator;
@@ -31,14 +33,24 @@ public class SignupPanel extends javax.swing.JPanel {
         initComponents();
         signupValidator = new SignupValidator(usernameField, passwordField, repeatPasswordField, roleComboBox,
                 emailField, invalidityAlertLabel, MainWindowFrame.getServer().getAuthHelper());
+    }
+
+    private void resetComponents() {
+        usernameField.setText("");
+        passwordField.setText("");
+        repeatPasswordField.setText("");
+        roleComboBox.setSelectedIndex(0);
+        emailField.setText("");
         passwordStrengthBar.setVisible(false);
         passwordStrengthLabel.setVisible(false);
         repeatPasswordField.setVisible(false);
         repeatPasswordLabel.setVisible(false);
+        invalidityAlertLabel.conceal();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -63,7 +75,7 @@ public class SignupPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        emailLabel.setFont(emailLabel.getFont().deriveFont(emailLabel.getFont().getSize()+4f));
+        emailLabel.setFont(emailLabel.getFont().deriveFont(emailLabel.getFont().getSize() + 4f));
         emailLabel.setText("Email");
         emailLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -73,7 +85,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 24, 16);
         add(emailLabel, gridBagConstraints);
 
-        emailField.setFont(emailField.getFont().deriveFont(emailField.getFont().getSize()+4f));
+        emailField.setFont(emailField.getFont().deriveFont(emailField.getFont().getSize() + 4f));
         emailField.addActionListener(this::emailFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -90,7 +102,8 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(authSeparator, gridBagConstraints);
 
-        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD, titleLabel.getFont().getSize()+12));
+        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD,
+                titleLabel.getFont().getSize() + 12));
         titleLabel.setText("SkillForge");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -100,7 +113,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(54, 143, 54, 143);
         add(titleLabel, gridBagConstraints);
 
-        usernameLabel.setFont(usernameLabel.getFont().deriveFont(usernameLabel.getFont().getSize()+4f));
+        usernameLabel.setFont(usernameLabel.getFont().deriveFont(usernameLabel.getFont().getSize() + 4f));
         usernameLabel.setText("Username");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -109,7 +122,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(usernameLabel, gridBagConstraints);
 
-        passwordLabel.setFont(passwordLabel.getFont().deriveFont(passwordLabel.getFont().getSize()+4f));
+        passwordLabel.setFont(passwordLabel.getFont().deriveFont(passwordLabel.getFont().getSize() + 4f));
         passwordLabel.setText("Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -118,7 +131,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(passwordLabel, gridBagConstraints);
 
-        usernameField.setFont(usernameField.getFont().deriveFont(usernameField.getFont().getSize()+4f));
+        usernameField.setFont(usernameField.getFont().deriveFont(usernameField.getFont().getSize() + 4f));
         usernameField.addActionListener(this::usernameFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -127,7 +140,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(usernameField, gridBagConstraints);
 
-        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(welcomeLabel.getFont().getSize()+8f));
+        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(welcomeLabel.getFont().getSize() + 8f));
         welcomeLabel.setText("Sign Up");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -136,7 +149,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(15, 39, 15, 39);
         add(welcomeLabel, gridBagConstraints);
 
-        passwordField.setFont(passwordField.getFont().deriveFont(passwordField.getFont().getSize()+4f));
+        passwordField.setFont(passwordField.getFont().deriveFont(passwordField.getFont().getSize() + 4f));
         passwordField.addActionListener(this::passwordFieldActionPerformed);
         passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -174,7 +187,8 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         add(cancelButton, gridBagConstraints);
 
-        repeatPasswordLabel.setFont(repeatPasswordLabel.getFont().deriveFont(repeatPasswordLabel.getFont().getSize()+4f));
+        repeatPasswordLabel
+                .setFont(repeatPasswordLabel.getFont().deriveFont(repeatPasswordLabel.getFont().getSize() + 4f));
         repeatPasswordLabel.setText("Repeat Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -183,7 +197,8 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(repeatPasswordLabel, gridBagConstraints);
 
-        repeatPasswordField.setFont(repeatPasswordField.getFont().deriveFont(repeatPasswordField.getFont().getSize()+4f));
+        repeatPasswordField
+                .setFont(repeatPasswordField.getFont().deriveFont(repeatPasswordField.getFont().getSize() + 4f));
         repeatPasswordField.addActionListener(this::repeatPasswordFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -192,7 +207,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(repeatPasswordField, gridBagConstraints);
 
-        roleComboBox.setFont(roleComboBox.getFont().deriveFont(roleComboBox.getFont().getSize()+4f));
+        roleComboBox.setFont(roleComboBox.getFont().deriveFont(roleComboBox.getFont().getSize() + 4f));
         roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Student", "Instructor" }));
         roleComboBox.addActionListener(this::roleComboBoxActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -202,7 +217,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(roleComboBox, gridBagConstraints);
 
-        roleLabel.setFont(roleLabel.getFont().deriveFont(roleLabel.getFont().getSize()+4f));
+        roleLabel.setFont(roleLabel.getFont().deriveFont(roleLabel.getFont().getSize() + 4f));
         roleLabel.setText("Role");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -270,8 +285,11 @@ public class SignupPanel extends javax.swing.JPanel {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
         UserApi user = signupValidator.verifySignup();
         if (user != null) {
-            invalidityAlertLabel.conceal();
-            MainWindowFrame.switchTo("LoggedInPanelHolder", user);
+            resetComponents();
+            if (user.getClass() == Student.class)
+                MainWindowFrame.switchTo(MainWindowFrame.PANELS.StudentDashboardPanel, user);
+            else if (user.getClass() == Instructor.class)
+                MainWindowFrame.switchTo(MainWindowFrame.PANELS.InstructorDashboardPanel, user);
         }
     }// GEN-LAST:event_submitButtonActionPerformed
 
@@ -297,16 +315,14 @@ public class SignupPanel extends javax.swing.JPanel {
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
         cancelButton.setFocusable(false);
-        usernameField.setText("");
-        passwordField.setText("");
-        repeatPasswordField.setText("");
-        roleComboBox.setSelectedIndex(0);
-        emailField.setText("");
-        passwordStrengthBar.setVisible(false);
-        passwordStrengthLabel.setVisible(false);
-        repeatPasswordField.setVisible(false);
-        repeatPasswordLabel.setVisible(false);
-        invalidityAlertLabel.conceal();
-        MainWindowFrame.switchTo("OnboardingPanel", null);
+        resetComponents();
+        cancelButton.setFocusable(true);
+        MainWindowFrame.switchTo(MainWindowFrame.PANELS.OnboardingPanel);
     }// GEN-LAST:event_cancelButtonActionPerformed
+
+    @Override
+    public void receiveTransitionMessage(Object message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'receiveTransitionMessage'");
+    }
 }

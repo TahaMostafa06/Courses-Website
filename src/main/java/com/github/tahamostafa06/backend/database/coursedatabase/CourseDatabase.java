@@ -9,33 +9,12 @@ import java.util.Random;
 import java.util.Set;
 
 import com.github.tahamostafa06.backend.database.common.JsonDatabase;
-import com.github.tahamostafa06.backend.database.userdatabase.User;
 import com.google.gson.reflect.TypeToken;
-import com.github.tahamostafa06.backend.api.Instructor;
-import com.github.tahamostafa06.backend.api.Student;
 
 public class CourseDatabase extends JsonDatabase<Course> {
 
 	public CourseDatabase() throws IOException {
 		super("Courses.json", new TypeToken<Map<String, Course>>(){});
-	}
-
-	public Boolean isStudentEnrolledIn(String courseId, String studentId) {
-		return getEnrolledStudents(courseId).contains(studentId);
-	}
-
-	public void enroll(String courseId, String studentId) {
-		// Get lesson -> get student-progress map -> add k:v = studentId : 0 # 0 lessons
-		// done
-	
-		this.records.get(courseId).getStudentsAndLessonsDone().put(studentId, new ArrayList<String>());
-	}
-
-	// get students enrolled in a course by their id
-	public Set<String> getEnrolledStudents(String courseID) {
-		var course = this.records.get(courseID);
-		var studentIds = course.getStudentsAndLessonsDone().keySet();
-		return studentIds;
 	}
 
 	// get progress of course for student
@@ -65,19 +44,8 @@ public class CourseDatabase extends JsonDatabase<Course> {
 		}
 	}
 
-	public List<String> getAllCourses() {
-		return List.copyOf(this.records.keySet());
-	}
-
-	public List<String> getEnrolledCourses(String studentId) {
-		// for each course in records, is student enrolled in course? add to set
-		var enrolledCourses = new ArrayList<String>();
-		for (var courseID : records.keySet()){
-			if (isStudentEnrolledIn(courseID,studentId)){
-				enrolledCourses.add(courseID);
-			}
-		}
-		return List.copyOf(enrolledCourses);
+	public List<Course> getAllCourses() {
+		return List.copyOf(this.records.values());
 	}
 
 	public ArrayList<String> getLessons(String courseID){

@@ -1,12 +1,13 @@
 package com.github.tahamostafa06.gui.panels;
 
+import com.github.tahamostafa06.gui.panels.student.StudentDashboardPanel;
+import com.github.tahamostafa06.gui.panels.instructor.InstructorDashboardPanel;
 import java.awt.CardLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import com.github.tahamostafa06.backend.Server;
 
@@ -18,19 +19,8 @@ public class MainWindowFrame extends javax.swing.JFrame {
     private OnboardingPanel onboardingPanel;
     private LoginPanel loginPanel;
     private SignupPanel signupPanel;
-    private LoggedInPanelHolder loggedInPanelHolder;
-
-    public static void switchTo(String name, Object data) {
-        instance.cardLayout.show(instance.getContentPane(), name);
-    }
-
-    public static Server getServer() {
-        return backendServer;
-    }
-
-    private void registerCard(JPanel panel) {
-        getContentPane().add(panel.getClass().getSimpleName(), panel);
-    }
+    private StudentDashboardPanel studentDashboardPanel;
+    private InstructorDashboardPanel instructorDashboardPanel;
 
     public MainWindowFrame() {
         instance = this;
@@ -60,12 +50,15 @@ public class MainWindowFrame extends javax.swing.JFrame {
         onboardingPanel = new OnboardingPanel();
         loginPanel = new LoginPanel();
         signupPanel = new SignupPanel();
-        loggedInPanelHolder = new LoggedInPanelHolder();
+        studentDashboardPanel = new StudentDashboardPanel();
+        instructorDashboardPanel = new InstructorDashboardPanel();
         registerCard(onboardingPanel);
         registerCard(loginPanel);
         registerCard(signupPanel);
-        registerCard(loggedInPanelHolder);
-        switchTo("OnboardingPanel", "");
+        registerCard(loginPanel);
+        registerCard(studentDashboardPanel);
+        registerCard(instructorDashboardPanel);
+        switchTo(PANELS.OnboardingPanel);
 
         pack();
 
@@ -84,5 +77,33 @@ public class MainWindowFrame extends javax.swing.JFrame {
         }
         dispose();
         System.exit(exitCode);
+    }
+
+    public static Server getServer() {
+        return backendServer;
+    }
+
+    public static enum PANELS {
+        OnboardingPanel,
+        LoginPanel,
+        SignupPanel,
+        StudentDashboardPanel,
+        InstructorDashboardPanel;
+
+        private CardPanel instance;
+    }
+
+    private void registerCard(CardPanel panel) {
+        PANELS.valueOf(panel.getClass().getSimpleName()).instance = panel;
+        getContentPane().add(panel.getClass().getSimpleName(), panel);
+    }
+
+    public static void switchTo(PANELS panel) {
+        instance.cardLayout.show(instance.getContentPane(), panel.name());
+    }
+
+    public static void switchTo(PANELS panel, Object message) {
+        panel.instance.receiveTransitionMessage(message);
+        instance.cardLayout.show(instance.getContentPane(), panel.name());
     }
 }
