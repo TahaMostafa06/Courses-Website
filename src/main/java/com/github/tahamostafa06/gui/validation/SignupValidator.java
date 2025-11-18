@@ -83,12 +83,14 @@ public class SignupValidator {
     }
 
     private boolean verifyPassword() {
-        boolean lengthCheck = (String.valueOf(passwordField.getPassword()).length() > 0);
+        boolean lengthCheck = (passwordField.getPassword().length > 8);
         boolean repeatedCheck = String.valueOf(passwordField.getPassword())
                 .equals(String.valueOf(repeatPasswordField.getPassword()));
         var check = lengthCheck && repeatedCheck;
-        if (!lengthCheck) {
+        if (passwordField.getPassword().length == 0) {
             alertLabel.display("Password cannot be empty");
+        } else if (!lengthCheck) {
+            alertLabel.display("Password too short");
         } else if (!repeatedCheck) {
             alertLabel.display("Passwords must be identical");
         } else {
@@ -126,7 +128,7 @@ public class SignupValidator {
             check = false;
 
         if (!check) {
-            alertLabel.display("Invalid email format");
+            alertLabel.display("Invalid email entered");
         } else {
             alertLabel.conceal();
         }
