@@ -1,14 +1,18 @@
 package com.github.tahamostafa06.gui.panels;
 
 public class OnboardingPanel extends javax.swing.JPanel {
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton loginButton;
+    private javax.swing.JButton signupButton;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel welcomeLabel;
+    // End of variables declaration//GEN-END:variables
 
     public OnboardingPanel() {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed"desc="GeneratedCode">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -67,11 +71,4 @@ public class OnboardingPanel extends javax.swing.JPanel {
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_signupButtonActionPerformed
         MainWindowFrame.switchTo("SignupPanel", null);
     }// GEN-LAST:event_signupButtonActionPerformed
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton loginButton;
-    private javax.swing.JButton signupButton;
-    private javax.swing.JLabel titleLabel;
-    private javax.swing.JLabel welcomeLabel;
-    // End of variables declaration//GEN-END:variables
 }

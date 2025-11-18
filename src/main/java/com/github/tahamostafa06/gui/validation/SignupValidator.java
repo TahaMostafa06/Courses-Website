@@ -1,7 +1,6 @@
 package com.github.tahamostafa06.gui.validation;
 
 import javax.swing.InputVerifier;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
