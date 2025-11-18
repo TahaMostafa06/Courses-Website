@@ -32,7 +32,13 @@
   "S-4333638": {
     "role": "Student",
     "username": "abc",
-    "email": "eee",
+    "email": "eee@gmail.com",
+    "passwordHash": "ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0\u003d"
+  },
+  "S-1442920": {
+    "role": "Student",
+    "username": "a",
+    "email": "efg@gmail.com",
     "passwordHash": "ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0\u003d"
   }
 }

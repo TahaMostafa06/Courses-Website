@@ -1,14 +1,44 @@
 package com.github.tahamostafa06.gui.panels;
 
+import com.github.tahamostafa06.backend.api.UserApi;
+import com.github.tahamostafa06.gui.validation.SignupValidator;
+
 public class SignupPanel extends javax.swing.JPanel {
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSeparator authSeparator;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JLabel emailLabel;
+    private com.github.tahamostafa06.gui.validation.AlertLabel invalidityAlertLabel;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JPasswordField repeatPasswordField;
+    private javax.swing.JLabel repeatPasswordLabel;
+    private javax.swing.JComboBox<String> roleComboBox;
+    private javax.swing.JLabel roleLabel;
+    private javax.swing.JButton submitButton;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JTextField usernameField;
+    private javax.swing.JLabel usernameLabel;
+    private javax.swing.JLabel welcomeLabel;
+    // End of variables declaration//GEN-END:variables
+    private SignupValidator signupValidator;
 
     public SignupPanel() {
         initComponents();
+        signupValidator = new SignupValidator(usernameField, passwordField, repeatPasswordField, roleComboBox,
+                emailField, invalidityAlertLabel, MainWindowFrame.getServer().getAuthHelper());
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -31,7 +61,7 @@ public class SignupPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        emailLabel.setFont(emailLabel.getFont().deriveFont(emailLabel.getFont().getSize()+4f));
+        emailLabel.setFont(emailLabel.getFont().deriveFont(emailLabel.getFont().getSize() + 4f));
         emailLabel.setText("Email");
         emailLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -41,7 +71,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 24, 16);
         add(emailLabel, gridBagConstraints);
 
-        emailField.setFont(emailField.getFont().deriveFont(emailField.getFont().getSize()+4f));
+        emailField.setFont(emailField.getFont().deriveFont(emailField.getFont().getSize() + 4f));
         emailField.addActionListener(this::emailFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -58,7 +88,8 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(authSeparator, gridBagConstraints);
 
-        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD, titleLabel.getFont().getSize()+12));
+        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD,
+                titleLabel.getFont().getSize() + 12));
         titleLabel.setText("SkillForge");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -68,7 +99,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(54, 143, 54, 143);
         add(titleLabel, gridBagConstraints);
 
-        usernameLabel.setFont(usernameLabel.getFont().deriveFont(usernameLabel.getFont().getSize()+4f));
+        usernameLabel.setFont(usernameLabel.getFont().deriveFont(usernameLabel.getFont().getSize() + 4f));
         usernameLabel.setText("Username");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -77,7 +108,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(usernameLabel, gridBagConstraints);
 
-        passwordLabel.setFont(passwordLabel.getFont().deriveFont(passwordLabel.getFont().getSize()+4f));
+        passwordLabel.setFont(passwordLabel.getFont().deriveFont(passwordLabel.getFont().getSize() + 4f));
         passwordLabel.setText("Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -86,7 +117,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(passwordLabel, gridBagConstraints);
 
-        usernameField.setFont(usernameField.getFont().deriveFont(usernameField.getFont().getSize()+4f));
+        usernameField.setFont(usernameField.getFont().deriveFont(usernameField.getFont().getSize() + 4f));
         usernameField.addActionListener(this::usernameFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -95,7 +126,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(usernameField, gridBagConstraints);
 
-        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(welcomeLabel.getFont().getSize()+8f));
+        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(welcomeLabel.getFont().getSize() + 8f));
         welcomeLabel.setText("Sign Up");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -104,7 +135,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(15, 39, 15, 39);
         add(welcomeLabel, gridBagConstraints);
 
-        passwordField.setFont(passwordField.getFont().deriveFont(passwordField.getFont().getSize()+4f));
+        passwordField.setFont(passwordField.getFont().deriveFont(passwordField.getFont().getSize() + 4f));
         passwordField.addActionListener(this::passwordFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -114,6 +145,7 @@ public class SignupPanel extends javax.swing.JPanel {
         add(passwordField, gridBagConstraints);
 
         submitButton.setText("Submit");
+        submitButton.addActionListener(this::submitButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 12;
@@ -136,7 +168,8 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         add(cancelButton, gridBagConstraints);
 
-        repeatPasswordLabel.setFont(repeatPasswordLabel.getFont().deriveFont(repeatPasswordLabel.getFont().getSize()+4f));
+        repeatPasswordLabel
+                .setFont(repeatPasswordLabel.getFont().deriveFont(repeatPasswordLabel.getFont().getSize() + 4f));
         repeatPasswordLabel.setText("Repeat Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -145,7 +178,8 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(repeatPasswordLabel, gridBagConstraints);
 
-        repeatPasswordField.setFont(repeatPasswordField.getFont().deriveFont(repeatPasswordField.getFont().getSize()+4f));
+        repeatPasswordField
+                .setFont(repeatPasswordField.getFont().deriveFont(repeatPasswordField.getFont().getSize() + 4f));
         repeatPasswordField.addActionListener(this::repeatPasswordFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -154,7 +188,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(repeatPasswordField, gridBagConstraints);
 
-        roleComboBox.setFont(roleComboBox.getFont().deriveFont(roleComboBox.getFont().getSize()+4f));
+        roleComboBox.setFont(roleComboBox.getFont().deriveFont(roleComboBox.getFont().getSize() + 4f));
         roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Student", "Instructor" }));
         roleComboBox.addActionListener(this::roleComboBoxActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -164,7 +198,7 @@ public class SignupPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(roleComboBox, gridBagConstraints);
 
-        roleLabel.setFont(roleLabel.getFont().deriveFont(roleLabel.getFont().getSize()+4f));
+        roleLabel.setFont(roleLabel.getFont().deriveFont(roleLabel.getFont().getSize() + 4f));
         roleLabel.setText("Role");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -180,46 +214,42 @@ public class SignupPanel extends javax.swing.JPanel {
         add(invalidityAlertLabel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
+        UserApi user = signupValidator.verifySignup();
+        if (user != null) {
+            invalidityAlertLabel.conceal();
+            MainWindowFrame.switchTo("LoggedInPanelHolder", user);
+        }
+    }// GEN-LAST:event_submitButtonActionPerformed
+
     private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_usernameFieldActionPerformed
-        // TODO add your handling code here:
+        passwordField.requestFocus();
     }// GEN-LAST:event_usernameFieldActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_passwordFieldActionPerformed
-        // TODO add your handling code here:
+        repeatPasswordField.requestFocus();
     }// GEN-LAST:event_passwordFieldActionPerformed
 
     private void repeatPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_repeatPasswordFieldActionPerformed
-        // TODO add your handling code here:
+        roleComboBox.requestFocus();
     }// GEN-LAST:event_repeatPasswordFieldActionPerformed
 
     private void roleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_roleComboBoxActionPerformed
-        // TODO add your handling code here:
+        emailField.requestFocus();
     }// GEN-LAST:event_roleComboBoxActionPerformed
 
     private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_emailFieldActionPerformed
-        // TODO add your handling code here:
+        submitButtonActionPerformed(evt);
     }// GEN-LAST:event_emailFieldActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
+        cancelButton.setFocusable(false);
+        usernameField.setText("");
+        passwordField.setText("");
+        repeatPasswordField.setText("");
+        roleComboBox.setSelectedIndex(0);
+        emailField.setText("");
+        invalidityAlertLabel.conceal();
         MainWindowFrame.switchTo("OnboardingPanel", null);
     }// GEN-LAST:event_cancelButtonActionPerformed
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JSeparator authSeparator;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JTextField emailField;
-    private javax.swing.JLabel emailLabel;
-    private com.github.tahamostafa06.gui.validation.AlertLabel invalidityAlertLabel;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JLabel passwordLabel;
-    private javax.swing.JPasswordField repeatPasswordField;
-    private javax.swing.JLabel repeatPasswordLabel;
-    private javax.swing.JComboBox<String> roleComboBox;
-    private javax.swing.JLabel roleLabel;
-    private javax.swing.JButton submitButton;
-    private javax.swing.JLabel titleLabel;
-    private javax.swing.JTextField usernameField;
-    private javax.swing.JLabel usernameLabel;
-    private javax.swing.JLabel welcomeLabel;
-    // End of variables declaration//GEN-END:variables
 }

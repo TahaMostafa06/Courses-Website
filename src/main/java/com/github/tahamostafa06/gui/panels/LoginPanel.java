@@ -140,11 +140,18 @@ public class LoginPanel extends javax.swing.JPanel {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
         UserApi login = loginValidator.verifyLogin();
         if (login != null) {
+            invalidityAlertLabel.conceal();
             MainWindowFrame.switchTo("LoggedInPanelHolder", login);
         }
     }// GEN-LAST:event_submitButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
+        cancelButton.setFocusable(false);
+        usernameField.setText("");
+        passwordField.setText("");
+        invalidityAlertLabel.conceal();
+        cancelButton.setFocusable(true);
         MainWindowFrame.switchTo("OnboardingPanel", "");
+
     }// GEN-LAST:event_cancelButtonActionPerformed
 }

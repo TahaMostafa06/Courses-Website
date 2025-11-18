@@ -51,6 +51,14 @@ public class UserDatabase extends JsonDatabase<User> {
         return null;
     }
 
+    public User getUserByEmail(String email) {
+        for (var user : this.records.values()) {
+            if (user.getEmail().equals(email))
+                return user;
+        }
+        return null;
+    }
+
     public String getRoleByUsername(String username) {
         for (var user : this.records.values()) {
             if (user.getUsername().equals(username))

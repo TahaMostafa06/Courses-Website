@@ -14,9 +14,7 @@ import javax.swing.JPasswordField;
 public class LoginValidator {
 
     JTextField usernameField;
-    InputVerifier usernameVerifier;
     JPasswordField passwordField;
-    InputVerifier passwordVerifier;
     AlertLabel alertLabel;
     AuthenticationHelper authHelper;
 
@@ -26,12 +24,14 @@ public class LoginValidator {
         this.passwordField = passwordField;
         this.alertLabel = alertLabel;
         this.authHelper = authHelper;
-        this.usernameVerifier = new InputVerifier() {
+        var usernameVerifier = new InputVerifier() {
+            @Override
             public boolean verify(JComponent component) {
                 return verifyUsernameLength();
             }
         };
-        this.passwordVerifier = new InputVerifier() {
+        var passwordVerifier = new InputVerifier() {
+            @Override
             public boolean verify(JComponent component) {
                 return verifyPasswordLength();
             }
@@ -61,6 +61,14 @@ public class LoginValidator {
     }
 
     public UserApi verifyLogin() {
+        if (!verifyUsernameLength()) {
+            usernameField.requestFocus();
+            return null;
+        }
+        if (!verifyPasswordLength()) {
+            passwordField.requestFocus();
+            return null;
+        }
         try {
             return authHelper.login(usernameField.getText(), String.valueOf(passwordField.getPassword()));
         } catch (UserNotFound exception) {

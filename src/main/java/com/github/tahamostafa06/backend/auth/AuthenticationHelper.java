@@ -8,7 +8,9 @@ import java.util.Base64;
 import com.github.tahamostafa06.backend.api.Instructor;
 import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.api.UserApi;
+import com.github.tahamostafa06.backend.auth.Exceptions.EmailAlreadyInUse;
 import com.github.tahamostafa06.backend.auth.Exceptions.IncorrectPassword;
+import com.github.tahamostafa06.backend.auth.Exceptions.UserAlreadyExists;
 import com.github.tahamostafa06.backend.auth.Exceptions.UserNotFound;
 import com.github.tahamostafa06.backend.courseservice.CourseService;
 import com.github.tahamostafa06.backend.database.userdatabase.UserDatabase;
@@ -54,7 +56,11 @@ public class AuthenticationHelper {
             return new Student(token, this.courseService);
     }
 
-    public UserApi signUp(String role, String username, String email, String password) {
+    public UserApi signUp(String role, String username, String email, String password) throws UserAlreadyExists, EmailAlreadyInUse {
+        if (userDb.getUserByUsername(username) != null)
+            throw new UserAlreadyExists("User with username " + username + " already exists");
+        if (userDb.getUserByEmail(email) != null)
+            throw new EmailAlreadyInUse("Email " + email + " is already in use by another user.");
         var passwordHash = sha256(password);
         var user = this.userDb.addUser(role, username, email, passwordHash);
         var userId = this.userDb.getIdByRecord(user);
