@@ -64,11 +64,15 @@ public class LoginValidator {
         try {
             return authHelper.login(usernameField.getText(), String.valueOf(passwordField.getPassword()));
         } catch (UserNotFound exception) {
-            alertLabel.display("Username was not found");
+            /*
+             * Request focus must come before display
+             * since requestFocus calls the InputVerifiers
+             */
             usernameField.requestFocus();
+            alertLabel.display("Username was not found");
         } catch (IncorrectPassword exception) {
-            alertLabel.display("Incorrect password entered");
             passwordField.requestFocus();
+            alertLabel.display("Incorrect password entered");
         }
         return null;
     }

@@ -20,13 +20,15 @@ public class LoginPanel extends javax.swing.JPanel {
 
     public LoginPanel() {
         initComponents();
-        loginValidator = new LoginValidator(usernameField, passwordField, invalidityAlertLabel, MainWindowFrame.getServer().getAuthHelper());
+        loginValidator = new LoginValidator(usernameField, passwordField, invalidityAlertLabel,
+                MainWindowFrame.getServer().getAuthHelper());
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -42,7 +44,8 @@ public class LoginPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD, titleLabel.getFont().getSize()+12));
+        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD,
+                titleLabel.getFont().getSize() + 12));
         titleLabel.setText("SkillForge");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -51,7 +54,7 @@ public class LoginPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(54, 100, 54, 100);
         add(titleLabel, gridBagConstraints);
 
-        usernameLabel.setFont(usernameLabel.getFont().deriveFont(usernameLabel.getFont().getSize()+4f));
+        usernameLabel.setFont(usernameLabel.getFont().deriveFont(usernameLabel.getFont().getSize() + 4f));
         usernameLabel.setText("Username");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -59,7 +62,7 @@ public class LoginPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(usernameLabel, gridBagConstraints);
 
-        passwordLabel.setFont(passwordLabel.getFont().deriveFont(passwordLabel.getFont().getSize()+4f));
+        passwordLabel.setFont(passwordLabel.getFont().deriveFont(passwordLabel.getFont().getSize() + 4f));
         passwordLabel.setText("Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -67,7 +70,7 @@ public class LoginPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(passwordLabel, gridBagConstraints);
 
-        usernameField.setFont(usernameField.getFont().deriveFont(usernameField.getFont().getSize()+4f));
+        usernameField.setFont(usernameField.getFont().deriveFont(usernameField.getFont().getSize() + 4f));
         usernameField.addActionListener(this::usernameFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -76,7 +79,7 @@ public class LoginPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(usernameField, gridBagConstraints);
 
-        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(welcomeLabel.getFont().getSize()+8f));
+        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(welcomeLabel.getFont().getSize() + 8f));
         welcomeLabel.setText("Login");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -85,7 +88,7 @@ public class LoginPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(15, 39, 15, 39);
         add(welcomeLabel, gridBagConstraints);
 
-        passwordField.setFont(passwordField.getFont().deriveFont(passwordField.getFont().getSize()+4f));
+        passwordField.setFont(passwordField.getFont().deriveFont(passwordField.getFont().getSize() + 4f));
         passwordField.addActionListener(this::passwordFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -131,7 +134,7 @@ public class LoginPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_usernameFieldActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_passwordFieldActionPerformed
-        passwordField.transferFocus();
+        submitButtonActionPerformed(evt);
     }// GEN-LAST:event_passwordFieldActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
