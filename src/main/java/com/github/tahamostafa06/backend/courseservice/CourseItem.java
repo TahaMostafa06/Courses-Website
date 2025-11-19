@@ -2,10 +2,10 @@ package com.github.tahamostafa06.backend.courseservice;
 
 import com.github.tahamostafa06.backend.database.coursedatabase.Course;
 
-public class StudentCourseItem {
+public class CourseItem {
     private final Course course;
 
-    public StudentCourseItem(Course course) {
+    public CourseItem(Course course) {
         this.course = course;
     }
 

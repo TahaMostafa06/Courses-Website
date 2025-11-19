@@ -1,7 +1,7 @@
 package com.github.tahamostafa06.gui.panels;
 
-import com.github.tahamostafa06.gui.panels.student.StudentDashboardPanel;
 import com.github.tahamostafa06.gui.panels.instructor.InstructorDashboardPanel;
+import com.github.tahamostafa06.gui.panels.student.StudentDashboardPanel;
 import java.awt.CardLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

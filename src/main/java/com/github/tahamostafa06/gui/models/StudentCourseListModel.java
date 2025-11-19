@@ -5,9 +5,9 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 
 import com.github.tahamostafa06.backend.api.Student;
-import com.github.tahamostafa06.backend.courseservice.StudentCourseItem;
+import com.github.tahamostafa06.backend.courseservice.CourseItem;
 
-public class StudentCourseListModel extends AbstractListModel<StudentCourseItem> {
+public class StudentCourseListModel extends AbstractListModel<CourseItem> {
     private Student student;
     private EnrollmentFilter filter;
 
@@ -21,7 +21,7 @@ public class StudentCourseListModel extends AbstractListModel<StudentCourseItem>
         this.student = student;
     }
 
-    private List<StudentCourseItem> getCourses() {
+    private List<CourseItem> getCourses() {
         if (filter == EnrollmentFilter.AVAILABLE)
             return student.getAvailableCourses();
         else
@@ -29,7 +29,7 @@ public class StudentCourseListModel extends AbstractListModel<StudentCourseItem>
     }
 
     @Override
-    public StudentCourseItem getElementAt(int index) {
+    public CourseItem getElementAt(int index) {
         return getCourses().get(index);
     }
 

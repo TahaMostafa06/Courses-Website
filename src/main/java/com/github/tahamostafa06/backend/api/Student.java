@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.github.tahamostafa06.backend.auth.LoginToken;
 import com.github.tahamostafa06.backend.courseservice.CourseService;
-import com.github.tahamostafa06.backend.courseservice.StudentCourseItem;
-import com.github.tahamostafa06.backend.database.coursedatabase.Lesson;
+import com.github.tahamostafa06.backend.courseservice.CourseItem;
+import com.github.tahamostafa06.backend.courseservice.LessonItem;
 import com.github.tahamostafa06.backend.userservice.UserService;
 
 public class Student extends UserApi {
@@ -18,36 +18,44 @@ public class Student extends UserApi {
         return userService.getUsernameByToken(accessToken);
     }
 
-    public void enroll(StudentCourseItem course) {
+    public void enroll(CourseItem course) {
         courseService.enroll(accessToken, course);
     }
 
-    public List<StudentCourseItem> getAvailableCourses() {
+    public List<CourseItem> getAvailableCourses() {
         return courseService.getAvailableCourses(accessToken);
     }
 
-    public List<StudentCourseItem> getEnrolledCourses() {
+    public List<CourseItem> getEnrolledCourses() {
         return courseService.getEnrolledCourses(accessToken);
     }
 
-    public Integer getEnrolledStudentsCount(StudentCourseItem course) {
+    public Integer getEnrolledStudentsCount(CourseItem course) {
         return courseService.getEnrolledStudentCount(accessToken, course);
     }
 
-    public String getInstructorName(StudentCourseItem course) {
+    public String getInstructorName(CourseItem course) {
         return courseService.getInstructorName(accessToken, course);
     }
 
-    public Integer getLessonCount(StudentCourseItem course) {
+    public Integer getLessonCount(CourseItem course) {
         return courseService.getLessonCount(accessToken, course);
     }
 
-    // TODO: revisit
-    public void viewLessons(String courseId) {
-        courseService.getLessons(accessToken, courseId);
+    public Integer getFinishedLessonsCount(CourseItem course) {
+        return courseService.getFinishedLessonsCount(accessToken, course);
     }
 
-    public void completeLesson(Lesson lessonId, String courseId) {
-        courseService.completeLesson(accessToken, courseId, lessonId);
+    public List<LessonItem> getLessons(CourseItem course) {
+        return courseService.getLessons(accessToken, course);
     }
+
+    public void completeLesson(CourseItem course, LessonItem lesson) {
+        courseService.completeLesson(accessToken, course, lesson);
+    }
+
+    public boolean isLessonDone(CourseItem course, LessonItem lesson) {
+        return courseService.isLessonDone(accessToken, course, lesson);
+    }
+
 }

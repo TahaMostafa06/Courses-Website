@@ -1,6 +1,7 @@
 package com.github.tahamostafa06.gui.panels.student;
 
 import com.github.tahamostafa06.backend.api.Student;
+import com.github.tahamostafa06.backend.courseservice.CourseItem;
 import com.github.tahamostafa06.gui.panels.CardPanel;
 import com.github.tahamostafa06.gui.panels.MainWindowFrame;
 
@@ -12,13 +13,24 @@ public class StudentDashboardPanel extends CardPanel {
     private javax.swing.JPanel navBarPanel;
     private javax.swing.JLabel studentNameLabel;
     private javax.swing.JLabel studentRoleLabel;
-    private com.github.tahamostafa06.gui.panels.student.ViewAvailableCoursesPane viewAvailableCoursesPane1;
-    private com.github.tahamostafa06.gui.panels.student.ViewEnrolledCourses viewEnrolledCourses1;
+    private com.github.tahamostafa06.gui.panels.student.ViewAvailableCoursesTab viewAvailableCoursesTab;
+    private com.github.tahamostafa06.gui.panels.student.ViewEnrolledCoursesTab viewEnrolledCoursesTab;
+    private com.github.tahamostafa06.gui.panels.student.ViewLessonsTab viewLessonsTab;
     // End of variables declaration//GEN-END:variables
     private Student student;
+    private static StudentDashboardPanel instance;
 
     public StudentDashboardPanel() {
         initComponents();
+        instance = this;
+        dashboardTabbedPane.remove(2);
+    }
+
+    public static void showLessonViewer(CourseItem selectedCourseItem) {
+        var tabManager = instance.dashboardTabbedPane;
+        instance.viewLessonsTab.updateLessonView(instance.student, selectedCourseItem);
+        tabManager.add("Lessons", instance.viewLessonsTab);
+        tabManager.setSelectedIndex(2);
     }
 
     @Override
@@ -28,39 +40,42 @@ public class StudentDashboardPanel extends CardPanel {
     }
 
     private void updateAllChildren() {
+        if (student == null)
+            return;
         studentNameLabel.setText(student.getName());
-        viewAvailableCoursesPane1.updateCourses(student);
+        viewAvailableCoursesTab.updateCourses(student);
+        viewEnrolledCoursesTab.updateCourses(student);
     }
 
-    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_logoutButtonActionPerformed
         MainWindowFrame.switchTo(MainWindowFrame.PANELS.OnboardingPanel);
-    }//GEN-LAST:event_logoutButtonActionPerformed
+    }// GEN-LAST:event_logoutButtonActionPerformed
 
+    private void dashboardTabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_dashboardTabbedPaneStateChanged
+        if (dashboardTabbedPane.getSelectedIndex() != 2 && dashboardTabbedPane.getTabCount() == 3) {
+            dashboardTabbedPane.remove(2);
+        }
+        updateAllChildren();
+    }// GEN-LAST:event_dashboardTabbedPaneStateChanged
+
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         dashboardTabbedPane = new javax.swing.JTabbedPane();
-        viewAvailableCoursesPane1 = new com.github.tahamostafa06.gui.panels.student.ViewAvailableCoursesPane();
-        viewEnrolledCourses1 = new com.github.tahamostafa06.gui.panels.student.ViewEnrolledCourses();
+        viewAvailableCoursesTab = new com.github.tahamostafa06.gui.panels.student.ViewAvailableCoursesTab();
+        viewEnrolledCoursesTab = new com.github.tahamostafa06.gui.panels.student.ViewEnrolledCoursesTab();
+        viewLessonsTab = new com.github.tahamostafa06.gui.panels.student.ViewLessonsTab();
         navBarPanel = new javax.swing.JPanel();
         studentNameLabel = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
         studentRoleLabel = new javax.swing.JLabel();
 
-        dashboardTabbedPane.addTab("Explore Courses", viewAvailableCoursesPane1);
-
-        javax.swing.GroupLayout viewEnrolledCourses1Layout = new javax.swing.GroupLayout(viewEnrolledCourses1);
-        viewEnrolledCourses1.setLayout(viewEnrolledCourses1Layout);
-        viewEnrolledCourses1Layout.setHorizontalGroup(
-            viewEnrolledCourses1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 677, Short.MAX_VALUE)
-        );
-        viewEnrolledCourses1Layout.setVerticalGroup(
-            viewEnrolledCourses1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 454, Short.MAX_VALUE)
-        );
-
-        dashboardTabbedPane.addTab("My Courses", viewEnrolledCourses1);
+        dashboardTabbedPane.addChangeListener(this::dashboardTabbedPaneStateChanged);
+        dashboardTabbedPane.addTab("Explore Courses", viewAvailableCoursesTab);
+        dashboardTabbedPane.addTab("My Courses", viewEnrolledCoursesTab);
+        dashboardTabbedPane.addTab("Lessons", viewLessonsTab);
 
         studentNameLabel.setFont(studentNameLabel.getFont().deriveFont(studentNameLabel.getFont().getSize()+2f));
         studentNameLabel.setText("Student Name");

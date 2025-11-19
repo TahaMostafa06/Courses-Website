@@ -17,7 +17,9 @@
       "studentId1": [
         "lessonId1"
       ],
-      "S-4333638": []
+      "S-4333638": [
+        "lessonId1"
+      ]
     }
   }
 }
