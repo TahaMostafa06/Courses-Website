@@ -14,4 +14,8 @@ public abstract class UserApi {
         this.courseService = courseService;
         this.userService = userService;
     }
+
+    public String getName() {
+        return userService.getUsernameByToken(accessToken);
+    }
 }

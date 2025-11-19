@@ -14,10 +14,6 @@ public class Student extends UserApi {
         super(accessToken, courseService, userService);
     }
 
-    public String getName() {
-        return userService.getUsernameByToken(accessToken);
-    }
-
     public void enroll(CourseItem course) {
         courseService.enroll(accessToken, course);
     }
