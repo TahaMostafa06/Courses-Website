@@ -22,11 +22,25 @@ public class LessonItem {
     }
 
     public String getAdditionalResource() {
-        return lesson.getOptionalResources().toString();
+        var resString = lesson.getOptionalResources().toString();
+        return resString.substring(1, resString.length() - 1);
     }
 
     @Override
     public String toString() {
         return lesson.getTitle();
+    }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject)
+            return true;
+        if (otherObject == null)
+            return false;
+        if (getClass() != otherObject.getClass())
+            return false;
+        LessonItem otherItem = (LessonItem) otherObject;
+        // Assuming you have a unique ID field. If not, compare title/description
+        return this.lesson == otherItem.lesson;
     }
 }

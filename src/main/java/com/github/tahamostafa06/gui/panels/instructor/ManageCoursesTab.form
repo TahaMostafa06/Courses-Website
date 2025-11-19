@@ -51,8 +51,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="courseInformationTitle">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="16" style="1"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+              <FontInfo relative="true">
+                <Font component="courseInformationTitle" property="font" relativeSize="true" size="4"/>
+              </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="Course Information"/>
           </Properties>
@@ -64,9 +66,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="selectionPromptLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Select a course to edit its information or create a new course"/>
           </Properties>
           <Constraints>
@@ -77,8 +76,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="courseTitleInputLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="1"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+              <FontInfo relative="true">
+                <Font bold="true" component="courseTitleInputLabel" property="font" relativeSize="true" size="0"/>
+              </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="Title"/>
           </Properties>
@@ -90,8 +91,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="courseDescriptionInputLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="1"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+              <FontInfo relative="true">
+                <Font bold="true" component="courseDescriptionInputLabel" property="font" relativeSize="true" size="0"/>
+              </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="Description"/>
           </Properties>
@@ -103,9 +106,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="saveButton">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Save"/>
           </Properties>
           <Events>
@@ -144,9 +144,6 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="60" green="58" id="Actions.Red" palette="3" red="db" type="palette"/>
             </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="0"/>
-            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="text" palette="3" red="ff" type="palette"/>
             </Property>
@@ -163,9 +160,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="createNewButton">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Create New"/>
           </Properties>
           <Events>
@@ -179,9 +173,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="cancelButton">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
@@ -195,9 +186,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="editLessonsButton">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Edit Lessons"/>
           </Properties>
           <Events>

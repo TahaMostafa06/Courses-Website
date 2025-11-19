@@ -10,7 +10,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel courseDetailsPanel;
     private javax.swing.JLabel courseInformationTitle;
-    private javax.swing.JList<com.github.tahamostafa06.backend.courseservice.CourseItem> courseListComponent;
+    private javax.swing.JList<CourseItem> courseListComponent;
     private javax.swing.JScrollPane courseListScrollPane;
     private javax.swing.JLabel descriptionContentLabel;
     private javax.swing.JLabel descriptionLabel;
@@ -45,6 +45,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         } else {
             studentCourseListModel.setStudent(student);
             studentCourseListModel.setFilter(StudentCourseListModel.EnrollmentFilter.ENROLLED);
+            onSelectionChange(null);
         }
 
     }
@@ -99,7 +100,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
 
         courseDetailsPanel.setLayout(new java.awt.GridBagLayout());
 
-        courseInformationTitle.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        courseInformationTitle.setFont(courseInformationTitle.getFont().deriveFont(courseInformationTitle.getFont().getSize()+4f));
         courseInformationTitle.setText("Course Information");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -107,7 +108,6 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 4;
         courseDetailsPanel.add(courseInformationTitle, gridBagConstraints);
 
-        selectionPromptLabel.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         selectionPromptLabel.setText("Select a course to view its information");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -116,7 +116,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 40, 0);
         courseDetailsPanel.add(selectionPromptLabel, gridBagConstraints);
 
-        instructorLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        instructorLabel.setFont(instructorLabel.getFont().deriveFont(instructorLabel.getFont().getStyle() | java.awt.Font.BOLD));
         instructorLabel.setText("Instructor");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -133,7 +133,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         courseDetailsPanel.add(instructorNameLabel, gridBagConstraints);
 
-        descriptionLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        descriptionLabel.setFont(descriptionLabel.getFont().deriveFont(descriptionLabel.getFont().getStyle() | java.awt.Font.BOLD));
         descriptionLabel.setText("Description");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -150,7 +150,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         courseDetailsPanel.add(descriptionContentLabel, gridBagConstraints);
 
-        lessonsLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lessonsLabel.setFont(lessonsLabel.getFont().deriveFont(lessonsLabel.getFont().getStyle() | java.awt.Font.BOLD));
         lessonsLabel.setText("Lesson Progress");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -167,7 +167,6 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         courseDetailsPanel.add(lessonsCountLabel, gridBagConstraints);
 
-        viewLessonsButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         viewLessonsButton.setText("View Lessons");
         viewLessonsButton.addActionListener(this::viewLessonsButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -72,7 +72,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="instructorNameLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="547" max="32767" attributes="0"/>
+                          <EmptySpace pref="535" max="32767" attributes="0"/>
                           <Component id="logoutButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -98,8 +98,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="instructorNameLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="1"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+              <FontInfo relative="true">
+                <Font component="instructorNameLabel" property="font" relativeSize="true" size="2"/>
+              </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="Instructor Name"/>
           </Properties>
@@ -108,9 +110,6 @@
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="60" green="58" id="Actions.Red" palette="3" red="db" type="palette"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="text" palette="3" red="ff" type="palette"/>
@@ -123,8 +122,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="instructorRoleLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SansSerif" size="12" style="3"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+              <FontInfo relative="true">
+                <Font component="instructorRoleLabel" italic="true" property="font" relativeSize="true" size="0"/>
+              </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="Instructor"/>
           </Properties>

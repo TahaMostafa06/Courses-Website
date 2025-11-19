@@ -33,7 +33,7 @@ public class LoginPanel extends CardPanel {
     }
 
     // <editor-fold defaultstate="collapsed"
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // desc="GeneratedCode">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -49,7 +49,8 @@ public class LoginPanel extends CardPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        titleLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD,
+                titleLabel.getFont().getSize() + 12));
         titleLabel.setText("SkillForge");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -58,7 +59,7 @@ public class LoginPanel extends CardPanel {
         gridBagConstraints.insets = new java.awt.Insets(54, 100, 54, 100);
         add(titleLabel, gridBagConstraints);
 
-        usernameLabel.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        usernameLabel.setFont(usernameLabel.getFont().deriveFont(usernameLabel.getFont().getSize() + 4f));
         usernameLabel.setText("Username");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -66,7 +67,7 @@ public class LoginPanel extends CardPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(usernameLabel, gridBagConstraints);
 
-        passwordLabel.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        passwordLabel.setFont(passwordLabel.getFont().deriveFont(passwordLabel.getFont().getSize() + 4f));
         passwordLabel.setText("Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -74,7 +75,7 @@ public class LoginPanel extends CardPanel {
         gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         add(passwordLabel, gridBagConstraints);
 
-        usernameField.setFont(usernameField.getFont().deriveFont(usernameField.getFont().getSize()+4f));
+        usernameField.setFont(usernameField.getFont().deriveFont(usernameField.getFont().getSize() + 4f));
         usernameField.addActionListener(this::usernameFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -83,7 +84,7 @@ public class LoginPanel extends CardPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(usernameField, gridBagConstraints);
 
-        welcomeLabel.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
+        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(welcomeLabel.getFont().getSize() + 8f));
         welcomeLabel.setText("Login");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -92,7 +93,7 @@ public class LoginPanel extends CardPanel {
         gridBagConstraints.insets = new java.awt.Insets(15, 39, 15, 39);
         add(welcomeLabel, gridBagConstraints);
 
-        passwordField.setFont(passwordField.getFont().deriveFont(passwordField.getFont().getSize()+4f));
+        passwordField.setFont(passwordField.getFont().deriveFont(passwordField.getFont().getSize() + 4f));
         passwordField.addActionListener(this::passwordFieldActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -102,7 +103,6 @@ public class LoginPanel extends CardPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 16, 0);
         add(passwordField, gridBagConstraints);
 
-        submitButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         submitButton.setText("Submit");
         submitButton.addActionListener(this::submitButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -115,7 +115,6 @@ public class LoginPanel extends CardPanel {
         add(submitButton, gridBagConstraints);
 
         cancelButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
-        cancelButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         cancelButton.setForeground(javax.swing.UIManager.getDefaults().getColor("text"));
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(this::cancelButtonActionPerformed);

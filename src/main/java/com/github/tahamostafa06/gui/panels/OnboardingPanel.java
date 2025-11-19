@@ -12,7 +12,7 @@ public class OnboardingPanel extends CardPanel {
         initComponents();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed"desc="GeneratedCode">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -23,7 +23,8 @@ public class OnboardingPanel extends CardPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        titleLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD,
+                titleLabel.getFont().getSize() + 12));
         titleLabel.setText("SkillForge");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -32,7 +33,7 @@ public class OnboardingPanel extends CardPanel {
         gridBagConstraints.insets = new java.awt.Insets(54, 54, 54, 54);
         add(titleLabel, gridBagConstraints);
 
-        welcomeLabel.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(welcomeLabel.getFont().getSize() + 6f));
         welcomeLabel.setText("Welcome");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

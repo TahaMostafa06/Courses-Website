@@ -204,6 +204,19 @@ public class CourseService {
         return myStudentsNames;
     }
 
+    public List<LessonItem> getMyLessonsForCourse(LoginToken token, CourseItem courseItem) {
+        if (!this.authenticationManager.authenticate(token, "Instructor"))
+            return null;
+        var courseRecord = courseItem.getCourse();
+        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+            return null;
+        var myLessons = new ArrayList<LessonItem>();
+        for (var lesson : courseRecord.getLessons().values()) {
+            myLessons.add(new LessonItem(lesson));
+        }
+        return myLessons;
+    }
+
     public LessonItem addLesson(LoginToken token, CourseItem courseItem, String title, String content,
             Collection<String> additionalResources) {
         if (!this.authenticationManager.authenticate(token, "Instructor"))

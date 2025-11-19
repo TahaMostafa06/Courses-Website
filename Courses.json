@@ -1,32 +1,21 @@
 {
-  "courseId1": {
-    "title": "Course Title",
-    "description": "Brief Course Description",
-    "instructorId": "userId2",
-    "lessons": {
-      "lessonId1": {
-        "title": "Lesson Name",
-        "content": "Lesson video link",
-        "optionalResources": [
-          "More video links",
-          "another one"
-        ]
-      }
-    },
-    "students": {
-      "studentId1": [
-        "lessonId1"
-      ],
-      "S-4333638": [
-        "lessonId1"
-      ]
-    }
-  },
   "C-2715944": {
     "title": "e",
     "description": "e",
     "instructorId": "I-6206562",
-    "lessons": {},
-    "students": {}
+    "lessons": {
+      "L-5920399": {
+        "title": "My second lesson",
+        "content": "new lesson content",
+        "optionalResources": [
+          "more resources 1",
+          "more resources 2",
+          "more resources 3"
+        ]
+      }
+    },
+    "students": {
+      "S-5993218": []
+    }
   }
 }

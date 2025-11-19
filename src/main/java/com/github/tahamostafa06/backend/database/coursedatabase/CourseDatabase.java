@@ -1,8 +1,6 @@
 package com.github.tahamostafa06.backend.database.coursedatabase;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -13,7 +11,8 @@ import com.google.gson.reflect.TypeToken;
 public class CourseDatabase extends JsonDatabase<Course> {
 
 	public CourseDatabase() throws IOException {
-		super("Courses.json", new TypeToken<Map<String, Course>>(){});
+		super("Courses.json", new TypeToken<Map<String, Course>>() {
+		});
 	}
 
 	public Course addCourse(String instructorId, String title, String description) {
@@ -48,5 +47,3 @@ public class CourseDatabase extends JsonDatabase<Course> {
 	}
 
 }
-
-
