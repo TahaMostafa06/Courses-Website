@@ -26,6 +26,10 @@ public class Instructor extends UserApi {
         courseService.setCourseTitle(accessToken, courseItem, newTitle);
     }
 
+    public List<LessonItem> getMyLessonsForCourse(CourseItem courseItem) {
+        return courseService.getMyLessonsForCourse(accessToken, courseItem);
+    }
+
     public CourseItem createCourse(String title, String description) {
         return courseService.createCourse(accessToken, title, description);
     }

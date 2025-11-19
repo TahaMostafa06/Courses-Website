@@ -29,4 +29,17 @@ public class LessonItem {
     public String toString() {
         return lesson.getTitle();
     }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject)
+            return true;
+        if (otherObject == null)
+            return false;
+        if (getClass() != otherObject.getClass())
+            return false;
+        LessonItem otherItem = (LessonItem) otherObject;
+        // Assuming you have a unique ID field. If not, compare title/description
+        return this.lesson == otherItem.lesson;
+    }
 }
