@@ -1,192 +1,108 @@
 package com.github.tahamostafa06.gui.panels.instructor;
 
-import com.github.tahamostafa06.backend.api.Student;
-import com.github.tahamostafa06.backend.courseservice.CourseItem;
-import com.github.tahamostafa06.gui.models.StudentCourseListModel;
+import com.github.tahamostafa06.backend.api.Instructor;
+import com.github.tahamostafa06.gui.models.InstructorCourseListModel;
+
+import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 
 public class ViewEnrolledStudentsTab extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel courseDetailsPanel;
-    private javax.swing.JLabel courseInformationTitle;
-    private javax.swing.JList<CourseItem> courseListComponent;
+    private javax.swing.JList<com.github.tahamostafa06.backend.courseservice.CourseItem> courseListComponent;
     private javax.swing.JScrollPane courseListScrollPane;
-    private javax.swing.JLabel descriptionContentLabel;
-    private javax.swing.JLabel descriptionLabel;
-    private javax.swing.JLabel instructorLabel;
-    private javax.swing.JLabel instructorNameLabel;
-    private javax.swing.JLabel lessonsCountLabel;
-    private javax.swing.JLabel lessonsLabel;
-    private javax.swing.JLabel selectionPromptLabel;
-    private javax.swing.JButton viewLessonsButton;
+    private javax.swing.JList<String> studentList;
+    private javax.swing.JScrollPane studentScrollPane;
+    private javax.swing.JPanel studentsViewPanel;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
-    private Student student;
-    private StudentCourseListModel studentCourseListModel;
+    private Instructor instructor;
+    private InstructorCourseListModel instructorCourseListModel;
+    private DefaultListModel<String> studentListModel;
 
     public ViewEnrolledStudentsTab() {
         initComponents();
         courseListComponent.addListSelectionListener(this::onSelectionChange);
-        descriptionContentLabel.setVisible(false);
-        descriptionLabel.setVisible(false);
-        instructorLabel.setVisible(false);
-        instructorNameLabel.setVisible(false);
-        lessonsCountLabel.setVisible(false);
-        lessonsLabel.setVisible(false);
-        viewLessonsButton.setVisible(false);
-        selectionPromptLabel.setVisible(true);
+        studentListModel = new DefaultListModel<>();
+        studentList.setModel(studentListModel);
     }
 
-    public void updateCourses(Student student) {
-        this.student = student;
-        if (studentCourseListModel == null) {
-            studentCourseListModel = new StudentCourseListModel(student, StudentCourseListModel.EnrollmentFilter.ENROLLED);
-            courseListComponent.setModel(studentCourseListModel);
+    public void updateCourses(Instructor instructor) {
+        this.instructor = instructor;
+        if (instructorCourseListModel == null) {
+            instructorCourseListModel = new InstructorCourseListModel(instructor);
+            courseListComponent.setModel(instructorCourseListModel);
         } else {
-            studentCourseListModel.setStudent(student);
-            studentCourseListModel.setFilter(StudentCourseListModel.EnrollmentFilter.ENROLLED);
+            instructorCourseListModel.setInstructor(instructor);
         }
 
     }
-
-    private void viewLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewLessonsButtonActionPerformed
-        if (!courseListComponent.isSelectionEmpty()) {
-            var course = courseListComponent.getSelectedValue();
-            studentCourseListModel.update();
-            InstructorDashboardPanel.showLessonViewer(course);
-        }
-    }//GEN-LAST:event_viewLessonsButtonActionPerformed
 
     private void onSelectionChange(ListSelectionEvent evt) {
-        descriptionContentLabel.setVisible(!courseListComponent.isSelectionEmpty());
-        descriptionLabel.setVisible(!courseListComponent.isSelectionEmpty());
-        instructorLabel.setVisible(!courseListComponent.isSelectionEmpty());
-        instructorNameLabel.setVisible(!courseListComponent.isSelectionEmpty());
-        lessonsCountLabel.setVisible(!courseListComponent.isSelectionEmpty());
-        lessonsLabel.setVisible(!courseListComponent.isSelectionEmpty());
-        viewLessonsButton.setVisible(!courseListComponent.isSelectionEmpty());
-        selectionPromptLabel.setVisible(courseListComponent.isSelectionEmpty());
         if (!courseListComponent.isSelectionEmpty()) {
-            var course = courseListComponent.getSelectedValue();
-            instructorNameLabel.setText(student.getInstructorName(course));
-            lessonsCountLabel.setText(String.valueOf(student.getFinishedLessonsCount(course)) + " of " + String.valueOf(student.getLessonCount(course)));
-            descriptionContentLabel.setText(course.getDescription());
-            courseInformationTitle.setText(course.getTitle());
+            studentListModel.clear();
+            studentListModel.addAll(instructor.getMyStudentsForCourse(courseListComponent.getSelectedValue()));
         } else {
-            courseInformationTitle.setText("Course Information");
+            studentListModel.clear();
         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         courseListScrollPane = new javax.swing.JScrollPane();
         courseListComponent = new javax.swing.JList<>();
-        courseDetailsPanel = new javax.swing.JPanel();
-        courseInformationTitle = new javax.swing.JLabel();
-        selectionPromptLabel = new javax.swing.JLabel();
-        instructorLabel = new javax.swing.JLabel();
-        instructorNameLabel = new javax.swing.JLabel();
-        descriptionLabel = new javax.swing.JLabel();
-        descriptionContentLabel = new javax.swing.JLabel();
-        lessonsLabel = new javax.swing.JLabel();
-        lessonsCountLabel = new javax.swing.JLabel();
-        viewLessonsButton = new javax.swing.JButton();
+        studentsViewPanel = new javax.swing.JPanel();
+        titleLabel = new javax.swing.JLabel();
+        studentScrollPane = new javax.swing.JScrollPane();
+        studentList = new javax.swing.JList<>();
 
         courseListScrollPane.setViewportView(courseListComponent);
 
-        courseDetailsPanel.setLayout(new java.awt.GridBagLayout());
+        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD,
+                titleLabel.getFont().getSize() + 6));
+        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel.setText("Enrolled Students");
 
-        courseInformationTitle.setFont(courseInformationTitle.getFont().deriveFont(courseInformationTitle.getFont().getSize()+4f));
-        courseInformationTitle.setText("Course Information");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        courseDetailsPanel.add(courseInformationTitle, gridBagConstraints);
+        studentScrollPane.setViewportView(studentList);
 
-        selectionPromptLabel.setText("Select a course to view its information");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 40, 0);
-        courseDetailsPanel.add(selectionPromptLabel, gridBagConstraints);
-
-        instructorLabel.setFont(instructorLabel.getFont().deriveFont(instructorLabel.getFont().getStyle() | java.awt.Font.BOLD));
-        instructorLabel.setText("Instructor");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
-        courseDetailsPanel.add(instructorLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
-        courseDetailsPanel.add(instructorNameLabel, gridBagConstraints);
-
-        descriptionLabel.setFont(descriptionLabel.getFont().deriveFont(descriptionLabel.getFont().getStyle() | java.awt.Font.BOLD));
-        descriptionLabel.setText("Description");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
-        courseDetailsPanel.add(descriptionLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
-        courseDetailsPanel.add(descriptionContentLabel, gridBagConstraints);
-
-        lessonsLabel.setFont(lessonsLabel.getFont().deriveFont(lessonsLabel.getFont().getStyle() | java.awt.Font.BOLD));
-        lessonsLabel.setText("Lesson Progress");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
-        courseDetailsPanel.add(lessonsLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
-        courseDetailsPanel.add(lessonsCountLabel, gridBagConstraints);
-
-        viewLessonsButton.setText("View Lessons");
-        viewLessonsButton.addActionListener(this::viewLessonsButtonActionPerformed);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 8;
-        courseDetailsPanel.add(viewLessonsButton, gridBagConstraints);
+        javax.swing.GroupLayout studentsViewPanelLayout = new javax.swing.GroupLayout(studentsViewPanel);
+        studentsViewPanel.setLayout(studentsViewPanelLayout);
+        studentsViewPanelLayout.setHorizontalGroup(
+                studentsViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(studentsViewPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+                        .addComponent(studentScrollPane, javax.swing.GroupLayout.Alignment.TRAILING));
+        studentsViewPanelLayout.setVerticalGroup(
+                studentsViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(studentsViewPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(titleLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(studentScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 225,
+                                        Short.MAX_VALUE)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(courseListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(courseListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+                        .addComponent(studentsViewPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(courseListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(courseListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 158,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(studentsViewPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
 
 }

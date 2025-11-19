@@ -14,7 +14,9 @@ public class InstructorDashboardPanel extends CardPanel {
     private javax.swing.JButton logoutButton;
     private com.github.tahamostafa06.gui.panels.instructor.ManageCoursesTab manageCoursesTab;
     private javax.swing.JPanel navBarPanel;
+    private com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab viewEnrolledStudentsTab1;
     // End of variables declaration//GEN-END:variables
+    private ManageLessonsTab manageLessonsTab;
     private Instructor instructor;
     private static InstructorDashboardPanel instance;
 
@@ -68,6 +70,7 @@ public class InstructorDashboardPanel extends CardPanel {
 
         dashboardTabbedPane = new javax.swing.JTabbedPane();
         manageCoursesTab = new com.github.tahamostafa06.gui.panels.instructor.ManageCoursesTab();
+        viewEnrolledStudentsTab1 = new com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab();
         navBarPanel = new javax.swing.JPanel();
         instructorNameLabel = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
@@ -75,6 +78,7 @@ public class InstructorDashboardPanel extends CardPanel {
 
         dashboardTabbedPane.addChangeListener(this::dashboardTabbedPaneStateChanged);
         dashboardTabbedPane.addTab("Manage Courses", manageCoursesTab);
+        dashboardTabbedPane.addTab("My Students", viewEnrolledStudentsTab1);
 
         instructorNameLabel.setFont(instructorNameLabel.getFont().deriveFont(instructorNameLabel.getFont().getSize()+2f));
         instructorNameLabel.setText("Instructor Name");

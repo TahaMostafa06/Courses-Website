@@ -7,7 +7,6 @@ import javax.swing.event.ListSelectionEvent;
 public class ManageCoursesTab extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.github.tahamostafa06.gui.validation.AlertLabel alertLabel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JTextField courseDescriptionInputField;
     private javax.swing.JLabel courseDescriptionInputLabel;
@@ -19,6 +18,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     private javax.swing.JLabel courseTitleInputLabel;
     private javax.swing.JButton createNewButton;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editLessonsButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JLabel selectionPromptLabel;
     // End of variables declaration//GEN-END:variables
@@ -42,12 +42,12 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         createNewButton.setVisible(!showEditing);
         saveButton.setEnabled(false);
         deleteButton.setVisible(false);
+        editLessonsButton.setVisible(false);
         if (!showEditing) {
             if (!courseListComponent.isSelectionEmpty()) {
                 courseListComponent.clearSelection();
             }
             courseInformationTitle.setText("Course Information");
-            courseListComponent.clearSelection();
             createNewButton.requestFocus();
         } else {
             if (courseListComponent.isSelectionEmpty()) {
@@ -59,6 +59,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
                 courseTitleInputField.setText(courseListComponent.getSelectedValue().getTitle());
                 courseDescriptionInputField.setText(courseListComponent.getSelectedValue().getDescription());
                 deleteButton.setVisible(true);
+                editLessonsButton.setVisible(true);
             }
 
             courseTitleInputField.requestFocus();
@@ -151,6 +152,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -168,7 +170,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         deleteButton = new javax.swing.JButton();
         createNewButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        alertLabel = new com.github.tahamostafa06.gui.validation.AlertLabel();
+        editLessonsButton = new javax.swing.JButton();
 
         courseListScrollPane.setViewportView(courseListComponent);
 
@@ -277,14 +279,13 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(33, 21, 0, 21);
         courseDetailsPanel.add(cancelButton, gridBagConstraints);
 
-        alertLabel.setText("alertLabel1");
+        editLessonsButton.setText("Edit Lessons");
+        editLessonsButton.addActionListener(this::editLessonsButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 7, 0);
-        courseDetailsPanel.add(alertLabel, gridBagConstraints);
+        gridBagConstraints.ipadx = 5;
+        gridBagConstraints.ipady = 5;
+        gridBagConstraints.insets = new java.awt.Insets(3, 6, 3, 6);
+        courseDetailsPanel.add(editLessonsButton, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -298,7 +299,11 @@ public class ManageCoursesTab extends javax.swing.JPanel {
                                 .addComponent(courseListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 158,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                                .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 342,
+                                        Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void editLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editLessonsButtonActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_editLessonsButtonActionPerformed
 }
