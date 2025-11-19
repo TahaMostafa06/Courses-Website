@@ -14,7 +14,7 @@ public class InstructorDashboardPanel extends CardPanel {
     private javax.swing.JButton logoutButton;
     private com.github.tahamostafa06.gui.panels.instructor.ManageCoursesTab manageCoursesTab;
     private javax.swing.JPanel navBarPanel;
-    private com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab viewEnrolledStudentsTab1;
+    private com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab viewEnrolledStudentsTab;
     // End of variables declaration//GEN-END:variables
     private ManageLessonsTab manageLessonsTab;
     private Instructor instructor;
@@ -32,13 +32,6 @@ public class InstructorDashboardPanel extends CardPanel {
         // tabManager.setSelectedIndex(2);
     }
 
-    public static void goBackToEnrolledCourses() {
-        var tabManager = instance.dashboardTabbedPane;
-        tabManager.setSelectedIndex(1);
-        tabManager.remove(2);
-
-    }
-
     @Override
     public void receiveTransitionMessage(Object message) {
         instructor = (Instructor) message;
@@ -50,6 +43,7 @@ public class InstructorDashboardPanel extends CardPanel {
             return;
         instructorNameLabel.setText(instructor.getName());
         manageCoursesTab.updateCourses(instructor);
+        viewEnrolledStudentsTab.updateCourses(instructor);
     }
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_logoutButtonActionPerformed
@@ -70,7 +64,7 @@ public class InstructorDashboardPanel extends CardPanel {
 
         dashboardTabbedPane = new javax.swing.JTabbedPane();
         manageCoursesTab = new com.github.tahamostafa06.gui.panels.instructor.ManageCoursesTab();
-        viewEnrolledStudentsTab1 = new com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab();
+        viewEnrolledStudentsTab = new com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab();
         navBarPanel = new javax.swing.JPanel();
         instructorNameLabel = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
@@ -78,7 +72,7 @@ public class InstructorDashboardPanel extends CardPanel {
 
         dashboardTabbedPane.addChangeListener(this::dashboardTabbedPaneStateChanged);
         dashboardTabbedPane.addTab("Manage Courses", manageCoursesTab);
-        dashboardTabbedPane.addTab("My Students", viewEnrolledStudentsTab1);
+        dashboardTabbedPane.addTab("My Students", viewEnrolledStudentsTab);
 
         instructorNameLabel.setFont(instructorNameLabel.getFont().deriveFont(instructorNameLabel.getFont().getSize()+2f));
         instructorNameLabel.setText("Instructor Name");

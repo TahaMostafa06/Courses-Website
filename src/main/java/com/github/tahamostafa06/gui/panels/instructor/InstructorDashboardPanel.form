@@ -47,7 +47,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab" name="viewEnrolledStudentsTab1">
+        <Component class="com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab" name="viewEnrolledStudentsTab">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="My Students">
