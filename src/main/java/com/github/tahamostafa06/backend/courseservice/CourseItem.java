@@ -1,7 +1,5 @@
 package com.github.tahamostafa06.backend.courseservice;
 
-import java.util.Objects;
-
 import com.github.tahamostafa06.backend.database.coursedatabase.Course;
 
 public class CourseItem {

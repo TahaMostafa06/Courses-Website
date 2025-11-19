@@ -1,7 +1,5 @@
 package com.github.tahamostafa06.gui.models;
 
-import java.util.Objects;
-
 import javax.swing.AbstractListModel;
 
 import com.github.tahamostafa06.backend.api.Instructor;
