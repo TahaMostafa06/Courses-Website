@@ -35,7 +35,6 @@ public class ViewEnrolledStudentsTab extends javax.swing.JPanel {
         } else {
             instructorCourseListModel.setInstructor(instructor);
         }
-
     }
 
     private void onSelectionChange(ListSelectionEvent evt) {

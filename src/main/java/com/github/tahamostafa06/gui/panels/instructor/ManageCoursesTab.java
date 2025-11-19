@@ -106,6 +106,13 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         }
     }// GEN-LAST:event_deleteButtonActionPerformed
 
+    private void editLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editLessonsButtonActionPerformed
+        if (!courseListComponent.isSelectionEmpty()) {
+            var course = courseListComponent.getSelectedValue();
+            InstructorDashboardPanel.showLessonViewer(course);
+        }
+    }// GEN-LAST:event_editLessonsButtonActionPerformed
+
     private void onSelectionChange(ListSelectionEvent evt) {
         updateEditingSpace(!courseListComponent.isSelectionEmpty());
     }
@@ -302,8 +309,4 @@ public class ManageCoursesTab extends javax.swing.JPanel {
                                 .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 342,
                                         Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void editLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editLessonsButtonActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_editLessonsButtonActionPerformed
 }
