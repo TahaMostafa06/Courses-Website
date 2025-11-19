@@ -14,29 +14,7 @@ Input validation is done mostly on the frontend.
 **Database validation**\
 The project assumes all JSON database files follow their corresponding schemas. No validation or handling is taken care of. Duplicate keys will not all be taken in, only the last key - this is a limitation of the used JSON library (GSON) and its underlying data structures (Maps/ Sets).
 
-- `Users.json` schema
-```json
-{
-    "@userId" : {
-        "role" : "Student", 
-        "username" : "@username",
-        "email" : "@email",
-        "passwordHash" : "@passwordHash",
-        "enrolledCourses": ["@courseId", ...],
-        "progress" : [@progressInteger, ...]
-        /**
-        * constraints:
-        * size(progress) = size(enrolledCourses)
-        * forAll elem of progress: 0 >= elem >= 100
-        * enrolledCourses are valid course Ids
-        */
-    }, // Student
-    "@userId" : {
-        "role" : "Instructor",
-        "username" : "@username",
-        "email" : "@email",
-        "passwordHash" : "@passwordHash",
-        "createdCourses" : ["@courseId", ...]
-    } // Instructor
-}
-```
+student1 - student12
+instructor - instructor
+abc - abcabc123
+

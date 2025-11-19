@@ -1,44 +1,20 @@
 {
-  "userId": {
-    "role": "Student",
-    "username": "myUsername",
-    "email": "example@email.com",
-    "passwordHash": "ojmfimwuij"
-  },
-  "userId2": {
-    "role": "Instructor",
-    "username": "myUsername",
-    "email": "example@email.com",
-    "passwordHash": "ojmfimwuij"
-  },
-  "S--869268617087979105": {
-    "role": "Student",
-    "username": "youssef",
-    "email": "eee",
-    "passwordHash": "a2xPvamgKkQAg01uJ3hNnh/kr7+tagDrF1HzolTQPBY\u003d"
-  },
-  "S--1181595351040570491": {
-    "role": "Student",
-    "username": "youssef",
-    "email": "eee",
-    "passwordHash": "a2xPvamgKkQAg01uJ3hNnh/kr7+tagDrF1HzolTQPBY\u003d"
-  },
-  "S-2357836": {
-    "role": "Student",
-    "username": "youssef",
-    "email": "eee",
-    "passwordHash": "a2xPvamgKkQAg01uJ3hNnh/kr7+tagDrF1HzolTQPBY\u003d"
-  },
-  "S-4333638": {
+  "S-5993218": {
     "role": "Student",
     "username": "abc",
-    "email": "eee@gmail.com",
-    "passwordHash": "ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0\u003d"
+    "email": "abc@gmail.com",
+    "passwordHash": "8xM9B1WBuE1cllOcU6N67fdD30crCXtnVAdJJByZHUw\u003d"
   },
-  "S-1442920": {
+  "I-6206562": {
+    "role": "Instructor",
+    "username": "instructor",
+    "email": "instructor@email.com",
+    "passwordHash": "zy64lMxA9cbngZEAY4WSeKOyFKOhT+25yjNso5liuFY\u003d"
+  },
+  "S-3775733": {
     "role": "Student",
-    "username": "a",
-    "email": "efg@gmail.com",
-    "passwordHash": "ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0\u003d"
+    "username": "student1",
+    "email": "student1@email.com",
+    "passwordHash": "/AgBYGC/pZwZ/nSYeybeMGqSHXi8MXxBIP+rxL+SrDw\u003d"
   }
 }

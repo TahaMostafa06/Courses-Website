@@ -83,7 +83,7 @@ public class SignupValidator {
     }
 
     private boolean verifyPassword() {
-        boolean lengthCheck = (passwordField.getPassword().length > 8);
+        boolean lengthCheck = (passwordField.getPassword().length >= 8);
         boolean repeatedCheck = String.valueOf(passwordField.getPassword())
                 .equals(String.valueOf(repeatPasswordField.getPassword()));
         var check = lengthCheck && repeatedCheck;
