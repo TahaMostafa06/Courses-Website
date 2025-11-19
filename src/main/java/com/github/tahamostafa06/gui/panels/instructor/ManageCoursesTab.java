@@ -2,7 +2,6 @@ package com.github.tahamostafa06.gui.panels.instructor;
 
 import com.github.tahamostafa06.backend.api.Instructor;
 import com.github.tahamostafa06.gui.models.InstructorCourseListModel;
-import com.github.tahamostafa06.gui.validation.NonEmptyFieldValidator;
 import javax.swing.event.ListSelectionEvent;
 
 public class ManageCoursesTab extends javax.swing.JPanel {
@@ -25,14 +24,11 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private Instructor instructor;
     private InstructorCourseListModel instructorCourseListModel;
-    private NonEmptyFieldValidator nonEmptyFieldValidator;
 
     public ManageCoursesTab() {
         initComponents();
         courseListComponent.addListSelectionListener(this::onSelectionChange);
         updateEditingSpace(false);
-        nonEmptyFieldValidator = new NonEmptyFieldValidator(alertLabel, courseTitleInputField,
-                courseDescriptionInputField);
     }
 
     private void updateEditingSpace(boolean showEditing) {
@@ -59,7 +55,9 @@ public class ManageCoursesTab extends javax.swing.JPanel {
                 courseTitleInputField.setText("");
                 courseDescriptionInputField.setText("");
             } else {
-                courseInformationTitle.setText(courseListComponent.getSelectedValue().getTitle());
+                courseInformationTitle.setText("Editing: " + courseListComponent.getSelectedValue().getTitle());
+                courseTitleInputField.setText(courseListComponent.getSelectedValue().getTitle());
+                courseDescriptionInputField.setText(courseListComponent.getSelectedValue().getDescription());
                 deleteButton.setVisible(true);
             }
 
