@@ -45,6 +45,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         } else {
             studentCourseListModel.setStudent(student);
             studentCourseListModel.setFilter(StudentCourseListModel.EnrollmentFilter.ENROLLED);
+            onSelectionChange(null);
         }
 
     }

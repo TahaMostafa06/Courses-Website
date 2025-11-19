@@ -45,7 +45,7 @@ public class Instructor extends UserApi {
     public LessonItem addLesson(CourseItem courseItem, String title, String content,
             String additionalResources) {
         return courseService.addLesson(accessToken, courseItem, title, content,
-                List.of(additionalResources.split(",")));
+                List.of(additionalResources.split("(\\s*),(\\s*)")));
     }
 
     public void removeLesson(CourseItem courseItem, LessonItem lessonItem) {

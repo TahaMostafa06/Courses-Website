@@ -22,7 +22,8 @@ public class LessonItem {
     }
 
     public String getAdditionalResource() {
-        return lesson.getOptionalResources().toString();
+        var resString = lesson.getOptionalResources().toString();
+        return resString.substring(1, resString.length() - 1);
     }
 
     @Override

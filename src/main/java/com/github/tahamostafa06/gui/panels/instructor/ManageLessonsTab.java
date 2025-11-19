@@ -41,6 +41,8 @@ public class ManageLessonsTab extends javax.swing.JPanel {
         lessonContentLabel.setVisible(showEditing);
         lessonTitleInputLabel.setVisible(showEditing);
         lessonTitleInputField.setVisible(showEditing);
+        additionalResourcesInputField.setVisible(showEditing);
+        lessonAdditionalResourcesLabel.setVisible(showEditing);
         saveButton.setVisible(showEditing);
         cancelButton.setVisible(showEditing);
         selectionPromptLabel.setVisible(!showEditing);
@@ -130,12 +132,14 @@ public class ManageLessonsTab extends javax.swing.JPanel {
         var inputAdditionalResources = additionalResourcesInputField.getText();
         if (!lessonList.isSelectionEmpty()) {
             var lessonItem = lessonList.getSelectedValue();
-            if (lessonItem.getTitle().equals(inputTitle) && lessonItem.getContent().equals(inputContent) && lessonItem.getAdditionalResource().equals(inputAdditionalResources))
+            if (lessonItem.getTitle().equals(inputTitle) && lessonItem.getContent().equals(inputContent)
+                    && lessonItem.getAdditionalResource().equals(inputAdditionalResources))
                 saveButton.setEnabled(false);
             else
                 saveButton.setEnabled(true);
         } else {
-            saveButton.setEnabled(inputAdditionalResources.length() > 0 && inputContent.length() > 0 && inputTitle.length() > 0);
+            saveButton.setEnabled(
+                    inputAdditionalResources.length() > 0 && inputContent.length() > 0 && inputTitle.length() > 0);
         }
     }
 
