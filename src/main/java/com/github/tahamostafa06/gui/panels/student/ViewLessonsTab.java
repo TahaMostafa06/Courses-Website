@@ -15,7 +15,7 @@ public class ViewLessonsTab extends javax.swing.JPanel {
     private javax.swing.JLabel contentTextLabel;
     private javax.swing.JLabel courseTitle;
     private javax.swing.JPanel lessonDetailsPanel;
-    private javax.swing.JList<LessonItem> lessonListComponent;
+    private javax.swing.JList<com.github.tahamostafa06.backend.courseservice.LessonItem> lessonListComponent;
     private javax.swing.JScrollPane lessonListScrollPane;
     private javax.swing.JButton markDoneButton;
     private javax.swing.JLabel selectionPromptLabel;
@@ -103,7 +103,7 @@ public class ViewLessonsTab extends javax.swing.JPanel {
 
         lessonDetailsPanel.setLayout(new java.awt.GridBagLayout());
 
-        courseTitle.setFont(courseTitle.getFont().deriveFont(courseTitle.getFont().getSize()+4f));
+        courseTitle.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         courseTitle.setText("Course Title");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -111,6 +111,7 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 4;
         lessonDetailsPanel.add(courseTitle, gridBagConstraints);
 
+        selectionPromptLabel.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         selectionPromptLabel.setText("Select a lesson to view its information");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -119,7 +120,7 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 40, 0);
         lessonDetailsPanel.add(selectionPromptLabel, gridBagConstraints);
 
-        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        titleLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         titleLabel.setText("Title");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -136,7 +137,7 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         lessonDetailsPanel.add(titleTextLabel, gridBagConstraints);
 
-        contentLabel.setFont(contentLabel.getFont().deriveFont(contentLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        contentLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         contentLabel.setText("Content");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -153,7 +154,7 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         lessonDetailsPanel.add(contentTextLabel, gridBagConstraints);
 
-        additionalResourcesLabel.setFont(additionalResourcesLabel.getFont().deriveFont(additionalResourcesLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        additionalResourcesLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         additionalResourcesLabel.setText("Additional Resources");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -170,6 +171,7 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         lessonDetailsPanel.add(additionalResourcesTextLabel, gridBagConstraints);
 
+        markDoneButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         markDoneButton.setText("Complete Lesson");
         markDoneButton.addActionListener(this::markDoneButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();

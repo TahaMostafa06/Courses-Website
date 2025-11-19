@@ -77,15 +77,16 @@ public class StudentDashboardPanel extends CardPanel {
         dashboardTabbedPane.addTab("My Courses", viewEnrolledCoursesTab);
         dashboardTabbedPane.addTab("Lessons", viewLessonsTab);
 
-        studentNameLabel.setFont(studentNameLabel.getFont().deriveFont(studentNameLabel.getFont().getSize()+2f));
+        studentNameLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         studentNameLabel.setText("Student Name");
 
         logoutButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+        logoutButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         logoutButton.setForeground(javax.swing.UIManager.getDefaults().getColor("text"));
         logoutButton.setText("Log Out");
         logoutButton.addActionListener(this::logoutButtonActionPerformed);
 
-        studentRoleLabel.setFont(studentRoleLabel.getFont().deriveFont((studentRoleLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
+        studentRoleLabel.setFont(new java.awt.Font("SansSerif", 3, 18)); // NOI18N
         studentRoleLabel.setText("Student");
 
         javax.swing.GroupLayout navBarPanelLayout = new javax.swing.GroupLayout(navBarPanel);

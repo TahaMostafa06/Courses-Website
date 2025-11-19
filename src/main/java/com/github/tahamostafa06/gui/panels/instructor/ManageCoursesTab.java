@@ -153,7 +153,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -176,8 +176,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
 
         courseDetailsPanel.setLayout(new java.awt.GridBagLayout());
 
-        courseInformationTitle
-                .setFont(courseInformationTitle.getFont().deriveFont(courseInformationTitle.getFont().getSize() + 4f));
+        courseInformationTitle.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         courseInformationTitle.setText("Course Information");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -185,6 +184,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 4;
         courseDetailsPanel.add(courseInformationTitle, gridBagConstraints);
 
+        selectionPromptLabel.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         selectionPromptLabel.setText("Select a course to edit its information or create a new course");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -193,8 +193,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 40, 0);
         courseDetailsPanel.add(selectionPromptLabel, gridBagConstraints);
 
-        courseTitleInputLabel.setFont(courseTitleInputLabel.getFont()
-                .deriveFont(courseTitleInputLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        courseTitleInputLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         courseTitleInputLabel.setText("Title");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -203,8 +202,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         courseDetailsPanel.add(courseTitleInputLabel, gridBagConstraints);
 
-        courseDescriptionInputLabel.setFont(courseDescriptionInputLabel.getFont()
-                .deriveFont(courseDescriptionInputLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        courseDescriptionInputLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         courseDescriptionInputLabel.setText("Description");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -213,6 +211,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         courseDetailsPanel.add(courseDescriptionInputLabel, gridBagConstraints);
 
+        saveButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         saveButton.setText("Save");
         saveButton.addActionListener(this::saveButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -249,6 +248,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         courseDetailsPanel.add(courseDescriptionInputField, gridBagConstraints);
 
         deleteButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+        deleteButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         deleteButton.setForeground(javax.swing.UIManager.getDefaults().getColor("text"));
         deleteButton.setText("Delete");
         deleteButton.addActionListener(this::deleteButtonActionPerformed);
@@ -259,6 +259,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(33, 21, 0, 21);
         courseDetailsPanel.add(deleteButton, gridBagConstraints);
 
+        createNewButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         createNewButton.setText("Create New");
         createNewButton.addActionListener(this::createNewButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -269,6 +270,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(23, 0, 0, 0);
         courseDetailsPanel.add(createNewButton, gridBagConstraints);
 
+        cancelButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(this::cancelButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -279,6 +281,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(33, 21, 0, 21);
         courseDetailsPanel.add(cancelButton, gridBagConstraints);
 
+        editLessonsButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         editLessonsButton.setText("Edit Lessons");
         editLessonsButton.addActionListener(this::editLessonsButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -290,17 +293,17 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(courseListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(courseListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(courseListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 158,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 342,
-                                        Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(courseListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void editLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editLessonsButtonActionPerformed

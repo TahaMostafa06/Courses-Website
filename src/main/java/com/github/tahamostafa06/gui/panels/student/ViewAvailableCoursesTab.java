@@ -10,7 +10,7 @@ public class ViewAvailableCoursesTab extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel courseDetailsPanel;
     private javax.swing.JLabel courseInformationTitle;
-    private javax.swing.JList<CourseItem> courseListComponent;
+    private javax.swing.JList<com.github.tahamostafa06.backend.courseservice.CourseItem> courseListComponent;
     private javax.swing.JScrollPane courseListScrollPane;
     private javax.swing.JLabel descriptionContentLabel;
     private javax.swing.JLabel descriptionLabel;
@@ -113,7 +113,7 @@ public class ViewAvailableCoursesTab extends javax.swing.JPanel {
 
         courseDetailsPanel.setLayout(new java.awt.GridBagLayout());
 
-        courseInformationTitle.setFont(courseInformationTitle.getFont().deriveFont(courseInformationTitle.getFont().getSize()+4f));
+        courseInformationTitle.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         courseInformationTitle.setText("Course Information");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -121,6 +121,7 @@ public class ViewAvailableCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 4;
         courseDetailsPanel.add(courseInformationTitle, gridBagConstraints);
 
+        selectionPromptLabel.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         selectionPromptLabel.setText("Select a course to view its information");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -129,7 +130,7 @@ public class ViewAvailableCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 40, 0);
         courseDetailsPanel.add(selectionPromptLabel, gridBagConstraints);
 
-        instructorLabel.setFont(instructorLabel.getFont().deriveFont(instructorLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        instructorLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         instructorLabel.setText("Instructor");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -146,7 +147,7 @@ public class ViewAvailableCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         courseDetailsPanel.add(instructorNameLabel, gridBagConstraints);
 
-        descriptionLabel.setFont(descriptionLabel.getFont().deriveFont(descriptionLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        descriptionLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         descriptionLabel.setText("Description");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -163,7 +164,7 @@ public class ViewAvailableCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         courseDetailsPanel.add(descriptionContentLabel, gridBagConstraints);
 
-        enrolledStudentsLabel.setFont(enrolledStudentsLabel.getFont().deriveFont(enrolledStudentsLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        enrolledStudentsLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         enrolledStudentsLabel.setText("Enrolled Students");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -180,7 +181,7 @@ public class ViewAvailableCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         courseDetailsPanel.add(enrolledStudentsCountLabel, gridBagConstraints);
 
-        lessonsLabel.setFont(lessonsLabel.getFont().deriveFont(lessonsLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        lessonsLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         lessonsLabel.setText("Lessons");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -197,6 +198,7 @@ public class ViewAvailableCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         courseDetailsPanel.add(lessonsCountLabel, gridBagConstraints);
 
+        enrollButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         enrollButton.setText("Enroll");
         enrollButton.addActionListener(this::enrollButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();

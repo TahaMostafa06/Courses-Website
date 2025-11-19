@@ -107,10 +107,8 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="studentNameLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-              <FontInfo relative="true">
-                <Font component="studentNameLabel" property="font" relativeSize="true" size="2"/>
-              </FontInfo>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Student Name"/>
           </Properties>
@@ -119,6 +117,9 @@
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="60" green="58" id="Actions.Red" palette="3" red="db" type="palette"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="12" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="text" palette="3" red="ff" type="palette"/>
@@ -131,10 +132,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="studentRoleLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-              <FontInfo relative="true">
-                <Font component="studentRoleLabel" italic="true" property="font" relativeSize="true" size="0"/>
-              </FontInfo>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="18" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Student"/>
           </Properties>

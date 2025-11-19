@@ -74,15 +74,16 @@ public class InstructorDashboardPanel extends CardPanel {
         dashboardTabbedPane.addTab("Manage Courses", manageCoursesTab);
         dashboardTabbedPane.addTab("My Students", viewEnrolledStudentsTab);
 
-        instructorNameLabel.setFont(instructorNameLabel.getFont().deriveFont(instructorNameLabel.getFont().getSize()+2f));
+        instructorNameLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         instructorNameLabel.setText("Instructor Name");
 
         logoutButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+        logoutButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         logoutButton.setForeground(javax.swing.UIManager.getDefaults().getColor("text"));
         logoutButton.setText("Log Out");
         logoutButton.addActionListener(this::logoutButtonActionPerformed);
 
-        instructorRoleLabel.setFont(instructorRoleLabel.getFont().deriveFont((instructorRoleLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
+        instructorRoleLabel.setFont(new java.awt.Font("SansSerif", 3, 12)); // NOI18N
         instructorRoleLabel.setText("Instructor");
 
         javax.swing.GroupLayout navBarPanelLayout = new javax.swing.GroupLayout(navBarPanel);
@@ -97,7 +98,7 @@ public class InstructorDashboardPanel extends CardPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(navBarPanelLayout.createSequentialGroup()
                         .addComponent(instructorNameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 535, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 547, Short.MAX_VALUE)
                         .addComponent(logoutButton)))
                 .addContainerGap())
         );
