@@ -1,3 +1,5 @@
 *.bkp
-/JavaApplication5/nbproject/private/
-/nbproject/private/
+*nbproject/*
+.vscode/
+build/
+target/

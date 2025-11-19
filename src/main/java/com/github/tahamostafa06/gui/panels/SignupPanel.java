@@ -1,0 +1,328 @@
+package com.github.tahamostafa06.gui.panels;
+
+import com.github.tahamostafa06.backend.api.Instructor;
+import com.github.tahamostafa06.backend.api.Student;
+import com.github.tahamostafa06.backend.api.UserApi;
+import com.github.tahamostafa06.gui.validation.SignupValidator;
+
+public class SignupPanel extends CardPanel {
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSeparator authSeparator;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JLabel emailLabel;
+    private com.github.tahamostafa06.gui.validation.AlertLabel invalidityAlertLabel;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JProgressBar passwordStrengthBar;
+    private javax.swing.JLabel passwordStrengthLabel;
+    private javax.swing.JPasswordField repeatPasswordField;
+    private javax.swing.JLabel repeatPasswordLabel;
+    private javax.swing.JComboBox<String> roleComboBox;
+    private javax.swing.JLabel roleLabel;
+    private javax.swing.JButton submitButton;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JTextField usernameField;
+    private javax.swing.JLabel usernameLabel;
+    private javax.swing.JLabel welcomeLabel;
+    // End of variables declaration//GEN-END:variables
+    private SignupValidator signupValidator;
+
+    public SignupPanel() {
+        initComponents();
+        signupValidator = new SignupValidator(usernameField, passwordField, repeatPasswordField, roleComboBox,
+                emailField, invalidityAlertLabel, MainWindowFrame.getServer().getAuthHelper());
+    }
+
+    private void resetComponents() {
+        usernameField.setText("");
+        passwordField.setText("");
+        repeatPasswordField.setText("");
+        roleComboBox.setSelectedIndex(0);
+        emailField.setText("");
+        passwordStrengthBar.setVisible(false);
+        passwordStrengthLabel.setVisible(false);
+        repeatPasswordField.setVisible(false);
+        repeatPasswordLabel.setVisible(false);
+        invalidityAlertLabel.conceal();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        emailLabel = new javax.swing.JLabel();
+        emailField = new javax.swing.JTextField();
+        authSeparator = new javax.swing.JSeparator();
+        titleLabel = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        passwordLabel = new javax.swing.JLabel();
+        usernameField = new javax.swing.JTextField();
+        welcomeLabel = new javax.swing.JLabel();
+        passwordField = new javax.swing.JPasswordField();
+        submitButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
+        repeatPasswordLabel = new javax.swing.JLabel();
+        repeatPasswordField = new javax.swing.JPasswordField();
+        roleComboBox = new javax.swing.JComboBox<>();
+        roleLabel = new javax.swing.JLabel();
+        invalidityAlertLabel = new com.github.tahamostafa06.gui.validation.AlertLabel();
+        passwordStrengthBar = new javax.swing.JProgressBar();
+        passwordStrengthLabel = new javax.swing.JLabel();
+
+        setLayout(new java.awt.GridBagLayout());
+
+        emailLabel.setFont(emailLabel.getFont().deriveFont(emailLabel.getFont().getSize() + 4f));
+        emailLabel.setText("Email");
+        emailLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 16, 24, 16);
+        add(emailLabel, gridBagConstraints);
+
+        emailField.setFont(emailField.getFont().deriveFont(emailField.getFont().getSize() + 4f));
+        emailField.addActionListener(this::emailFieldActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 16, 0);
+        add(emailField, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        add(authSeparator, gridBagConstraints);
+
+        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD,
+                titleLabel.getFont().getSize() + 12));
+        titleLabel.setText("SkillForge");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(54, 143, 54, 143);
+        add(titleLabel, gridBagConstraints);
+
+        usernameLabel.setFont(usernameLabel.getFont().deriveFont(usernameLabel.getFont().getSize() + 4f));
+        usernameLabel.setText("Username");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
+        add(usernameLabel, gridBagConstraints);
+
+        passwordLabel.setFont(passwordLabel.getFont().deriveFont(passwordLabel.getFont().getSize() + 4f));
+        passwordLabel.setText("Password");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
+        add(passwordLabel, gridBagConstraints);
+
+        usernameField.setFont(usernameField.getFont().deriveFont(usernameField.getFont().getSize() + 4f));
+        usernameField.addActionListener(this::usernameFieldActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(usernameField, gridBagConstraints);
+
+        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(welcomeLabel.getFont().getSize() + 8f));
+        welcomeLabel.setText("Sign Up");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.insets = new java.awt.Insets(15, 39, 15, 39);
+        add(welcomeLabel, gridBagConstraints);
+
+        passwordField.setFont(passwordField.getFont().deriveFont(passwordField.getFont().getSize() + 4f));
+        passwordField.addActionListener(this::passwordFieldActionPerformed);
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyReleased(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(passwordField, gridBagConstraints);
+
+        submitButton.setText("Submit");
+        submitButton.addActionListener(this::submitButtonActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        add(submitButton, gridBagConstraints);
+
+        cancelButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+        cancelButton.setForeground(javax.swing.UIManager.getDefaults().getColor("text"));
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(this::cancelButtonActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        add(cancelButton, gridBagConstraints);
+
+        repeatPasswordLabel
+                .setFont(repeatPasswordLabel.getFont().deriveFont(repeatPasswordLabel.getFont().getSize() + 4f));
+        repeatPasswordLabel.setText("Repeat Password");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
+        add(repeatPasswordLabel, gridBagConstraints);
+
+        repeatPasswordField
+                .setFont(repeatPasswordField.getFont().deriveFont(repeatPasswordField.getFont().getSize() + 4f));
+        repeatPasswordField.addActionListener(this::repeatPasswordFieldActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(repeatPasswordField, gridBagConstraints);
+
+        roleComboBox.setFont(roleComboBox.getFont().deriveFont(roleComboBox.getFont().getSize() + 4f));
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Student", "Instructor" }));
+        roleComboBox.addActionListener(this::roleComboBoxActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(roleComboBox, gridBagConstraints);
+
+        roleLabel.setFont(roleLabel.getFont().deriveFont(roleLabel.getFont().getSize() + 4f));
+        roleLabel.setText("Role");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
+        add(roleLabel, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(invalidityAlertLabel, gridBagConstraints);
+
+        passwordStrengthBar.setString("");
+        passwordStrengthBar.setStringPainted(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 9;
+        add(passwordStrengthBar, gridBagConstraints);
+
+        passwordStrengthLabel.setText("Strength");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
+        add(passwordStrengthLabel, gridBagConstraints);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void passwordFieldKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_passwordFieldKeyReleased
+        var length = passwordField.getPassword().length;
+        if (length > 0) {
+            passwordStrengthBar.setVisible(true);
+            passwordStrengthLabel.setVisible(true);
+            repeatPasswordField.setVisible(true);
+            repeatPasswordLabel.setVisible(true);
+        }
+        if (length >= 24) {
+            passwordStrengthBar.setValue(100);
+            passwordStrengthBar.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
+            passwordStrengthBar.setString("Very Strong");
+        } else if (length >= 18) {
+            passwordStrengthBar.setValue(70);
+            passwordStrengthBar.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+            passwordStrengthBar.setString("Strong");
+        } else if (length >= 12) {
+            passwordStrengthBar.setValue(50);
+            passwordStrengthBar.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
+            passwordStrengthBar.setString("Good");
+        } else if (length >= 8) {
+            passwordStrengthBar.setValue(30);
+            passwordStrengthBar.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.GreyInline"));
+            passwordStrengthBar.setString("Acceptable");
+        } else {
+            passwordStrengthBar.setValue(length);
+            passwordStrengthBar.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+            passwordStrengthBar.setString("Too short");
+        }
+    }// GEN-LAST:event_passwordFieldKeyReleased
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
+        UserApi user = signupValidator.verifySignup();
+        if (user != null) {
+            resetComponents();
+            if (user.getClass() == Student.class)
+                MainWindowFrame.switchTo(MainWindowFrame.PANELS.StudentDashboardPanel, user);
+            else if (user.getClass() == Instructor.class)
+                MainWindowFrame.switchTo(MainWindowFrame.PANELS.InstructorDashboardPanel, user);
+        }
+    }// GEN-LAST:event_submitButtonActionPerformed
+
+    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_usernameFieldActionPerformed
+        passwordField.requestFocus();
+    }// GEN-LAST:event_usernameFieldActionPerformed
+
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_passwordFieldActionPerformed
+        repeatPasswordField.requestFocus();
+    }// GEN-LAST:event_passwordFieldActionPerformed
+
+    private void repeatPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_repeatPasswordFieldActionPerformed
+        roleComboBox.requestFocus();
+    }// GEN-LAST:event_repeatPasswordFieldActionPerformed
+
+    private void roleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_roleComboBoxActionPerformed
+        emailField.requestFocus();
+    }// GEN-LAST:event_roleComboBoxActionPerformed
+
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_emailFieldActionPerformed
+        submitButtonActionPerformed(evt);
+    }// GEN-LAST:event_emailFieldActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
+        cancelButton.setFocusable(false);
+        resetComponents();
+        cancelButton.setFocusable(true);
+        MainWindowFrame.switchTo(MainWindowFrame.PANELS.OnboardingPanel);
+    }// GEN-LAST:event_cancelButtonActionPerformed
+
+    @Override
+    public void receiveTransitionMessage(Object message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'receiveTransitionMessage'");
+    }
+}

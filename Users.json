@@ -1,0 +1,20 @@
+{
+  "S-5993218": {
+    "role": "Student",
+    "username": "abc",
+    "email": "abc@gmail.com",
+    "passwordHash": "8xM9B1WBuE1cllOcU6N67fdD30crCXtnVAdJJByZHUw\u003d"
+  },
+  "I-6206562": {
+    "role": "Instructor",
+    "username": "instructor",
+    "email": "instructor@email.com",
+    "passwordHash": "zy64lMxA9cbngZEAY4WSeKOyFKOhT+25yjNso5liuFY\u003d"
+  },
+  "S-3775733": {
+    "role": "Student",
+    "username": "student1",
+    "email": "student1@email.com",
+    "passwordHash": "/AgBYGC/pZwZ/nSYeybeMGqSHXi8MXxBIP+rxL+SrDw\u003d"
+  }
+}
