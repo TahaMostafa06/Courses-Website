@@ -3,7 +3,7 @@
     "title": "e",
     "description": "e",
     "instructorId": "I-6206562",
-    "status": "PENDING",
+    "status": "APPROVED",
     "lessons": {
       "L-5920399": {
         "title": "My second lesson",
@@ -24,6 +24,14 @@
     "description": "desc 1",
     "instructorId": "I-2077921",
     "status": "PENDING",
+    "lessons": {},
+    "students": {}
+  },
+  "C-3957421": {
+    "title": "course 3",
+    "description": "desc 3",
+    "instructorId": "I-277084",
+    "status": "DECLINED",
     "lessons": {},
     "students": {}
   }

@@ -1,8 +1,8 @@
 package com.github.tahamostafa06.gui.panels.admin;
 
-import com.github.tahamostafa06.gui.panels.instructor.*;
-import com.github.tahamostafa06.backend.api.Instructor;
-import com.github.tahamostafa06.gui.models.InstructorCourseListModel;
+import com.github.tahamostafa06.gui.panels.admin.*;
+import com.github.tahamostafa06.backend.api.Admin;
+import com.github.tahamostafa06.gui.models.AdminCourseListModel;
 import javax.swing.event.ListSelectionEvent;
 
 public class ManagePendingCoursesTab extends javax.swing.JPanel {
@@ -17,6 +17,8 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
     private javax.swing.JLabel courseInstructorInputLabel;
     private javax.swing.JList<com.github.tahamostafa06.backend.courseservice.CourseItem> courseListComponent;
     private javax.swing.JScrollPane courseListScrollPane;
+    private javax.swing.JComboBox<String> courseStatusComboBox;
+    private javax.swing.JLabel courseStatusLabel;
     private javax.swing.JTextField courseTitleInputField;
     private javax.swing.JLabel courseTitleInputLabel;
     private javax.swing.JButton createNewButton;
@@ -25,8 +27,8 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
     private javax.swing.JButton saveButton;
     private javax.swing.JLabel selectionPromptLabel;
     // End of variables declaration//GEN-END:variables
-    private Instructor instructor;
-    private InstructorCourseListModel instructorCourseListModel;
+    private Admin admin;
+    private AdminCourseListModel adminCourseListModel;
 
     public ManagePendingCoursesTab() {
         initComponents();
@@ -46,6 +48,8 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
         saveButton.setEnabled(false);
         deleteButton.setVisible(false);
         editLessonsButton.setVisible(false);
+        courseInstructorInputField.setVisible(showEditing);
+        courseInstructorInputLabel.setVisible(showEditing);
         if (!showEditing) {
             if (!courseListComponent.isSelectionEmpty()) {
                 courseListComponent.clearSelection();
@@ -69,13 +73,13 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
         }
     }
 
-    public void updateCourses(Instructor instructor) {
-        this.instructor = instructor;
-        if (instructorCourseListModel == null) {
-            instructorCourseListModel = new InstructorCourseListModel(instructor);
-            courseListComponent.setModel(instructorCourseListModel);
+    public void updateCourses(Admin admin) {
+        this.admin = admin;
+        if (adminCourseListModel == null) {
+            adminCourseListModel = new AdminCourseListModel(admin, AdminCourseListModel.StatusFilter.PENDING);
+            courseListComponent.setModel(adminCourseListModel);
         } else {
-            instructorCourseListModel.setInstructor(instructor);
+            adminCourseListModel.setAdmin(admin);
         }
     }
 
@@ -87,14 +91,17 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_saveButtonActionPerformed
         if (!courseListComponent.isSelectionEmpty()) {
             var course = courseListComponent.getSelectedValue();
-            instructor.setCourseTitle(course, courseTitleInputField.getText());
-            instructor.setCourseDescription(course, courseDescriptionInputField.getText());
+            admin.setCourseTitle(course, courseTitleInputField.getText());
+            admin.setCourseDescription(course, courseDescriptionInputField.getText());
+            admin.setCourseInstructor(course, courseInstructorInputField.getText());
+            admin.setCourseStatus(course, (String) courseStatusComboBox.getSelectedItem());
             updateEditingSpace(true);
-            instructorCourseListModel.update();
+            adminCourseListModel.update();
         } else {
-            var newCourse = instructor.createCourse(courseTitleInputField.getText(),
-                    courseDescriptionInputField.getText());
-            instructorCourseListModel.update();
+            var newCourse = admin.createCourse(courseTitleInputField.getText(),
+                    courseDescriptionInputField.getText(), courseInstructorInputField.getText(),
+                    (String) courseStatusComboBox.getSelectedItem());
+            adminCourseListModel.update();
             courseListComponent.setSelectedValue(newCourse, true);
             updateEditingSpace(true);
         }
@@ -103,8 +110,8 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deleteButtonActionPerformed
         if (!courseListComponent.isSelectionEmpty()) {
             var course = courseListComponent.getSelectedValue();
-            instructor.deleteCourse(course);
-            instructorCourseListModel.update();
+            admin.deleteCourse(course);
+            adminCourseListModel.update();
             updateEditingSpace(false);
         }
     }// GEN-LAST:event_deleteButtonActionPerformed
@@ -112,7 +119,7 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
     private void editLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editLessonsButtonActionPerformed
         if (!courseListComponent.isSelectionEmpty()) {
             var course = courseListComponent.getSelectedValue();
-            InstructorDashboardPanel.showLessonViewer(course);
+            AdminDashboardPanel.showLessonViewer(course);
         }
     }// GEN-LAST:event_editLessonsButtonActionPerformed
 
@@ -183,6 +190,8 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
         editLessonsButton = new javax.swing.JButton();
         courseInstructorInputField = new javax.swing.JTextField();
         courseInstructorInputLabel = new javax.swing.JLabel();
+        courseStatusComboBox = new javax.swing.JComboBox<>();
+        courseStatusLabel = new javax.swing.JLabel();
 
         courseListScrollPane.setViewportView(courseListComponent);
 
@@ -311,6 +320,26 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 31, 0, 9);
         courseDetailsPanel.add(courseInstructorInputLabel, gridBagConstraints);
 
+        courseStatusComboBox.setFont(courseStatusComboBox.getFont().deriveFont(courseStatusComboBox.getFont().getSize()+4f));
+        courseStatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDING", "APPROVED", "DECLINED" }));
+        courseStatusComboBox.setToolTipText("");
+        courseStatusComboBox.addActionListener(this::courseStatusComboBoxActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        courseDetailsPanel.add(courseStatusComboBox, gridBagConstraints);
+
+        courseStatusLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        courseStatusLabel.setText("Status");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 18, 8, 11);
+        courseDetailsPanel.add(courseStatusLabel, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -326,4 +355,8 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
                 .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void courseStatusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseStatusComboBoxActionPerformed
+        checkSaveButton();
+    }//GEN-LAST:event_courseStatusComboBoxActionPerformed
 }

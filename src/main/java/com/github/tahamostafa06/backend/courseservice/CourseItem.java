@@ -21,6 +21,14 @@ public class CourseItem {
         return course.getDescription();
     }
 
+    public String getStatus() {
+        return course.getStatus();
+    }
+    
+    public String getInstructor() {
+        return course.getInstructorId();
+    }
+    
     @Override
     public String toString() {
         return course.getTitle();

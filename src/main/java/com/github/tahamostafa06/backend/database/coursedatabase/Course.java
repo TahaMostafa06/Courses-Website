@@ -25,6 +25,15 @@ public class Course implements Record {
         lessons = new HashMap<>();
         students = new HashMap<>();
     }
+    
+    Course(String instructorId, String title, String description, String Status) {
+        this.title = title;
+        this.instructorId = instructorId;
+        this.description = description;
+        this.status = Status;
+        lessons = new HashMap<>();
+        students = new HashMap<>();
+    }
 
     public Lesson addLesson(String title, String content, Collection<String> optionalResources) {
         var lesson = new Lesson(title, content, optionalResources);

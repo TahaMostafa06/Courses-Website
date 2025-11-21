@@ -25,6 +25,7 @@ public class AdminDashboardPanel extends CardPanel {
     public AdminDashboardPanel() {
         initComponents();
         instance = this;
+        dashboardTabbedPane.remove(2);
         //allCoursesTab = new AllCoursesTab();
     }
 

@@ -292,10 +292,10 @@ public class CourseService {
         return pendingCourses;
     }
     
-    public CourseItem createCourse(LoginToken token, String title, String description, String instructor) {
+    public CourseItem createCourse(LoginToken token, String title, String description, String instructor, String Status) {
         if (!this.authenticationManager.authenticate(token, "Admin"))
             return null;
-        var course = courseDb.addCourse(instructor, title, description);
+        var course = courseDb.addCourse(instructor, title, description, Status);
         return new CourseItem(course);
     }
     
@@ -304,5 +304,12 @@ public class CourseService {
             return;
         var courseRecord = courseItem.getCourse();
         courseRecord.setInstructorId(instructorId);
+    }
+    
+    public void setCourseStatus(LoginToken token, CourseItem courseItem, String instructorId){
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return;
+        var courseRecord = courseItem.getCourse();
+        courseRecord.setStatus(instructorId);
     }
 }   

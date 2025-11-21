@@ -28,6 +28,11 @@ public class Admin extends UserApi{
     public void setCourseTitle(CourseItem courseItem, String newTitle) {
         courseService.setCourseTitle(accessToken, courseItem, newTitle);
     }
+    
+    public void setCourseStatus(CourseItem courseItem, String newStatus) {
+        courseService.setCourseStatus(accessToken, courseItem, newStatus);
+    }
+    
     public LessonItem addLesson(CourseItem courseItem, String title, String content,
             String additionalResources) {
         return courseService.addLesson(accessToken, courseItem, title, content,
@@ -56,9 +61,10 @@ public class Admin extends UserApi{
         courseService.setCourseInstructor(accessToken, courseItem, Instructor);
     }
     
-    public CourseItem createCourse(String title, String description, String Instructor) {
-        return courseService.createCourse(accessToken, title, description, Instructor);
+    public CourseItem createCourse(String title, String description, String Instructor, String Status) {
+        return courseService.createCourse(accessToken, title, description, Instructor, Status);
     }
+    
 
     public void deleteCourse(CourseItem courseItem) {
         courseService.deleteCourse(accessToken, courseItem);

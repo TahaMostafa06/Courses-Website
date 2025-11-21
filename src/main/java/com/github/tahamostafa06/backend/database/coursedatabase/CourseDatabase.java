@@ -21,6 +21,13 @@ public class CourseDatabase extends JsonDatabase<Course> {
 		records.put(courseId, course);
 		return course;
 	}
+        
+        public Course addCourse(String instructorId, String title, String description, String Status) {
+		var course = new Course(instructorId, title, description, Status);
+		var courseId = generateNewId(course);
+		records.put(courseId, course);
+		return course;
+	}
 
 	public void removeCourse(Course course) {
 		for (var courseEntry : records.entrySet()) {
