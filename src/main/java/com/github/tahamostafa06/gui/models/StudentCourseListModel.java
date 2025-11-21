@@ -35,7 +35,7 @@ public class StudentCourseListModel extends AbstractListModel<CourseItem> {
 
     @Override
     public int getSize() {
-        return getCourses().size();
+        return this.getCourses().size();
     }
 
     public void setStudent(Student student) {

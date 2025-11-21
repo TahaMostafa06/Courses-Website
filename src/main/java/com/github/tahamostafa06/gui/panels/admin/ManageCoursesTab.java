@@ -150,10 +150,11 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         var inputTitle = courseTitleInputField.getText();
         var inputDescription = courseDescriptionInputField.getText();
         var inputInstructor = courseInstructorInputField.getText();
+        var inputStatus = courseStatusComboBox.getSelectedItem();
         if (!courseListComponent.isSelectionEmpty()) {
             var course = courseListComponent.getSelectedValue();
             if (course.getTitle().equals(inputTitle) && course.getDescription().equals(inputDescription)
-                    && course.getStatus().equals(inputInstructor))
+                    && course.getInstructor().equals(inputInstructor) && course.getStatus().equals(inputStatus))
                 saveButton.setEnabled(false);
             else
                 saveButton.setEnabled(true);

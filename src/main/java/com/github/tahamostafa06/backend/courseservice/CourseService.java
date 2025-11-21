@@ -284,6 +284,7 @@ public class CourseService {
     public List<CourseItem> getPendingCourses(LoginToken token) {
         if (!this.authenticationManager.authenticate(token, "Admin"))
             return null;
+        System.out.println("Getting Courses!");
         var pendingCourses = new ArrayList<CourseItem>();
         for (var course : courseDb.getAllCourses()) {
             if (course.getStatus().equals("PENDING"))

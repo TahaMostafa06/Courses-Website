@@ -23,7 +23,7 @@
     "title": "course 1",
     "description": "desc 1",
     "instructorId": "I-2077921",
-    "status": "PENDING",
+    "status": "APPROVED",
     "lessons": {},
     "students": {}
   },
@@ -31,7 +31,7 @@
     "title": "course 3",
     "description": "desc 3",
     "instructorId": "I-277084",
-    "status": "DECLINED",
+    "status": "APPROVED",
     "lessons": {},
     "students": {}
   }

@@ -41,6 +41,10 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
         courseDescriptionInputLabel.setVisible(showEditing);
         courseTitleInputLabel.setVisible(showEditing);
         courseTitleInputField.setVisible(showEditing);
+        courseInstructorInputField.setVisible(showEditing);
+        courseInstructorInputLabel.setVisible(showEditing);
+        courseStatusComboBox.setVisible(showEditing);
+        courseStatusLabel.setVisible(showEditing);
         saveButton.setVisible(showEditing);
         cancelButton.setVisible(showEditing);
         selectionPromptLabel.setVisible(!showEditing);
@@ -48,8 +52,7 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
         saveButton.setEnabled(false);
         deleteButton.setVisible(false);
         editLessonsButton.setVisible(false);
-        courseInstructorInputField.setVisible(showEditing);
-        courseInstructorInputLabel.setVisible(showEditing);
+        
         if (!showEditing) {
             if (!courseListComponent.isSelectionEmpty()) {
                 courseListComponent.clearSelection();
@@ -65,6 +68,8 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
                 courseInformationTitle.setText("Editing: " + courseListComponent.getSelectedValue().getTitle());
                 courseTitleInputField.setText(courseListComponent.getSelectedValue().getTitle());
                 courseDescriptionInputField.setText(courseListComponent.getSelectedValue().getDescription());
+                courseInstructorInputField.setText(courseListComponent.getSelectedValue().getInstructor());
+                courseStatusComboBox.setSelectedItem(courseListComponent.getSelectedValue().getStatus());
                 deleteButton.setVisible(true);
                 editLessonsButton.setVisible(true);
             }
@@ -95,7 +100,7 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
             admin.setCourseDescription(course, courseDescriptionInputField.getText());
             admin.setCourseInstructor(course, courseInstructorInputField.getText());
             admin.setCourseStatus(course, (String) courseStatusComboBox.getSelectedItem());
-            updateEditingSpace(true);
+            updateEditingSpace(course.getStatus().equals("PENDING"));
             adminCourseListModel.update();
         } else {
             var newCourse = admin.createCourse(courseTitleInputField.getText(),
@@ -145,9 +150,12 @@ public class ManagePendingCoursesTab extends javax.swing.JPanel {
     private void checkSaveButton() {
         var inputTitle = courseTitleInputField.getText();
         var inputDescription = courseDescriptionInputField.getText();
+        var inputInstructor = courseInstructorInputField.getText();
+        var inputStatus = courseStatusComboBox.getSelectedItem();
         if (!courseListComponent.isSelectionEmpty()) {
             var course = courseListComponent.getSelectedValue();
-            if (course.getTitle().equals(inputTitle) && course.getDescription().equals(inputDescription))
+            if (course.getTitle().equals(inputTitle) && course.getDescription().equals(inputDescription)
+                    && course.getInstructor().equals(inputInstructor) && course.getStatus().equals(inputStatus))
                 saveButton.setEnabled(false);
             else
                 saveButton.setEnabled(true);

@@ -35,7 +35,7 @@ public class AdminCourseListModel extends AbstractListModel<CourseItem> {
 
     @Override
     public int getSize() {
-        return admin.getAllCourses().size();
+        return this.getCourses().size();
     }
 
     public void setAdmin(Admin admin) {

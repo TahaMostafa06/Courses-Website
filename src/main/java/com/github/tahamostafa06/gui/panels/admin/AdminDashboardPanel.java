@@ -47,7 +47,7 @@ public class AdminDashboardPanel extends CardPanel {
             return;
         adminNameLabel.setText(admin.getName());
         manageCoursesTab.updateCourses(admin);
-        // ManagePendingCoursesTab.updateCourses(admin);
+        managePendingCoursesTab.updateCourses(admin);
     }
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_logoutButtonActionPerformed
