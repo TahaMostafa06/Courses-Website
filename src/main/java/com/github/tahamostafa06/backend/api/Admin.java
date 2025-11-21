@@ -21,6 +21,10 @@ public class Admin extends UserApi{
         return courseService.getPendingCourses(accessToken);
     }
     
+    public List<LessonItem> getLessons(CourseItem course) {
+        return courseService.getLessons(accessToken, course);
+    }
+    
     public void setCourseDescription(CourseItem courseItem, String newDescription) {
         courseService.setCourseDescription(accessToken, courseItem, newDescription);
     }

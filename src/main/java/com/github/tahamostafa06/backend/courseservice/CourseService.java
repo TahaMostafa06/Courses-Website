@@ -104,7 +104,8 @@ public class CourseService {
     }
 
     public List<LessonItem> getLessons(LoginToken token, CourseItem courseItem) {
-        if (!this.authenticationManager.authenticate(token, "Student"))
+        if (!this.authenticationManager.authenticate(token, "Student") &&
+                !this.authenticationManager.authenticate(token, "Admin"))
             return null;
         var course = courseItem.getCourse();
         var allLessons = new ArrayList<LessonItem>();
@@ -219,7 +220,8 @@ public class CourseService {
 
     public LessonItem addLesson(LoginToken token, CourseItem courseItem, String title, String content,
             Collection<String> additionalResources) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
+        if (!this.authenticationManager.authenticate(token, "Instructor") &&
+                !this.authenticationManager.authenticate(token, "Admin"))
             return null;
         var courseRecord = courseItem.getCourse();
         if (!courseRecord.getInstructorId().equals(token.getUserId()))
@@ -284,7 +286,6 @@ public class CourseService {
     public List<CourseItem> getPendingCourses(LoginToken token) {
         if (!this.authenticationManager.authenticate(token, "Admin"))
             return null;
-        System.out.println("Getting Courses!");
         var pendingCourses = new ArrayList<CourseItem>();
         for (var course : courseDb.getAllCourses()) {
             if (course.getStatus().equals("PENDING"))
@@ -313,4 +314,5 @@ public class CourseService {
         var courseRecord = courseItem.getCourse();
         courseRecord.setStatus(instructorId);
     }
+    
 }   

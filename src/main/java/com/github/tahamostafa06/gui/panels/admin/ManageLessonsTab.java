@@ -4,7 +4,7 @@ import com.github.tahamostafa06.gui.panels.admin.*;
 import com.github.tahamostafa06.backend.api.Admin;
 import com.github.tahamostafa06.backend.courseservice.CourseItem;
 import com.github.tahamostafa06.backend.courseservice.LessonItem;
-import com.github.tahamostafa06.gui.models.InstructorLessonListModel;
+import com.github.tahamostafa06.gui.models.AdminLessonListModel;
 import javax.swing.event.ListSelectionEvent;
 
 public class ManageLessonsTab extends javax.swing.JPanel {
@@ -29,7 +29,7 @@ public class ManageLessonsTab extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private Admin admin;
     private CourseItem courseItem;
-    private InstructorLessonListModel instructorLessonListModel;
+    private AdminLessonListModel adminLessonListModel;
 
     public ManageLessonsTab() {
         initComponents();
@@ -78,12 +78,12 @@ public class ManageLessonsTab extends javax.swing.JPanel {
         this.admin = admin;
         this.courseItem = courseItem;
         courseNameLabel.setText(courseItem.getTitle());
-        if (instructorLessonListModel == null) {
-            //instructorLessonListModel = new InstructorLessonListModel(instructor, courseItem);
-            //lessonList.setModel(instructorLessonListModel);
+        if (adminLessonListModel == null) {
+            adminLessonListModel = new AdminLessonListModel(admin, courseItem);
+            lessonList.setModel(adminLessonListModel);
         } else {
-            //instructorLessonListModel.setInstructor(instructor);
-            //instructorLessonListModel.setCourseItem(courseItem);
+            adminLessonListModel.setAdmin(admin);
+            adminLessonListModel.setCourseItem(courseItem);
         }
 
     }
@@ -100,11 +100,11 @@ public class ManageLessonsTab extends javax.swing.JPanel {
             admin.setLessonContent(courseItem, lesson, contentInputField.getText());
             admin.setLessonAdditionalResources(courseItem, lesson, additionalResourcesInputField.getText());
             updateEditingSpace(true);
-            instructorLessonListModel.update();
+            adminLessonListModel.update();
         } else {
             var newLesson = admin.addLesson(courseItem, lessonTitleInputField.getText(),
                     contentInputField.getText(), additionalResourcesInputField.getText());
-            instructorLessonListModel.update();
+            adminLessonListModel.update();
             lessonList.setSelectedValue(newLesson, true);
             updateEditingSpace(true);
         }
@@ -114,7 +114,7 @@ public class ManageLessonsTab extends javax.swing.JPanel {
         if (!lessonList.isSelectionEmpty()) {
             var lesson = lessonList.getSelectedValue();
             admin.removeLesson(courseItem, lesson);
-            instructorLessonListModel.update();
+            adminLessonListModel.update();
             updateEditingSpace(false);
         }
     }// GEN-LAST:event_deleteButtonActionPerformed
