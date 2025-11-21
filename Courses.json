@@ -3,6 +3,7 @@
     "title": "e",
     "description": "e",
     "instructorId": "I-6206562",
+    "status": "PENDING",
     "lessons": {
       "L-5920399": {
         "title": "My second lesson",
@@ -17,5 +18,13 @@
     "students": {
       "S-5993218": []
     }
+  },
+  "C-8628571": {
+    "title": "course 1",
+    "description": "desc 1",
+    "instructorId": "I-2077921",
+    "status": "PENDING",
+    "lessons": {},
+    "students": {}
   }
 }

@@ -23,12 +23,7 @@ public class UserDatabase extends JsonDatabase<User> {
 
     @Override
     public String generateNewId(User user) {
-        String idPrefix = "";
-        if (user.getRole().equals("Student")) {
-            idPrefix = "S-";
-        } else if (user.getRole().equals("Instructor")) {
-            idPrefix = "I-";
-        }
+        String idPrefix = user.getRole().charAt(0) + "-";
         var generator = new Random();
         String id;
         var keys = this.records.keySet();

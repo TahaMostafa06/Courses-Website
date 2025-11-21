@@ -37,7 +37,7 @@ public class CourseService {
     private Boolean isStudentEnrolledIn(Course courseId, String studentId) {
         return getEnrolledStudents(courseId).contains(studentId);
     }
-
+    
     // Student API methods
     public void enroll(LoginToken token, CourseItem courseItem) {
         var course = courseItem.getCourse();
@@ -270,5 +270,39 @@ public class CourseService {
         lessonRecord.setOptionalResources(new ArrayList<String>(additionalResources));
 
     }
-
-}
+    
+    //Admin API Methods
+    public List<CourseItem> getAllCourses(LoginToken token) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return null;
+        var allCourses = new ArrayList<CourseItem>();
+        for (var course : courseDb.getAllCourses())
+            allCourses.add(new CourseItem(course));
+        return allCourses;
+    }
+    
+    public List<CourseItem> getPendingCourses(LoginToken token) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return null;
+        var pendingCourses = new ArrayList<CourseItem>();
+        for (var course : courseDb.getAllCourses()) {
+            if (course.getStatus().equals("PENDING"))
+                pendingCourses.add(new CourseItem(course));
+        }
+        return pendingCourses;
+    }
+    
+    public CourseItem createCourse(LoginToken token, String title, String description, String instructor) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return null;
+        var course = courseDb.addCourse(instructor, title, description);
+        return new CourseItem(course);
+    }
+    
+    public void setCourseInstructor(LoginToken token, CourseItem courseItem, String instructorId){
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return;
+        var courseRecord = courseItem.getCourse();
+        courseRecord.setInstructorId(instructorId);
+    }
+}   

@@ -13,6 +13,7 @@ public class Course implements Record {
     private String title;
     private String description;
     private String instructorId;
+    private String status;
     private Map<String, Lesson> lessons;
     private Map<String, ArrayList<String>> students; // studentId : [doneLessonId1, doneLessonId2]
 
@@ -20,6 +21,7 @@ public class Course implements Record {
         this.title = title;
         this.instructorId = instructorId;
         this.description = description;
+        this.status = "PENDING";
         lessons = new HashMap<>();
         students = new HashMap<>();
     }
@@ -55,7 +57,15 @@ public class Course implements Record {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public void setInstructorId(String instructorId){
+        this.instructorId = instructorId;
+    }
+    
     public String getTitle() {
         return title;
     }
@@ -68,6 +78,10 @@ public class Course implements Record {
         return instructorId;
     }
 
+    public String getStatus() {
+        return this.status;
+    }
+    
     public Map<String, Lesson> getLessons() {
         return lessons;
     }

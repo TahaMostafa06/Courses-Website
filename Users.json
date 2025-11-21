@@ -16,5 +16,23 @@
     "username": "student1",
     "email": "student1@email.com",
     "passwordHash": "/AgBYGC/pZwZ/nSYeybeMGqSHXi8MXxBIP+rxL+SrDw\u003d"
+  },
+  "I-2077921": {
+    "role": "Instructor",
+    "username": "instructor1",
+    "email": "email@gmail.com",
+    "passwordHash": "73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8\u003d"
+  },
+  "A-3402137": {
+    "role": "Admin",
+    "username": "admin test",
+    "email": "aa@gmail.com",
+    "passwordHash": "73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8\u003d"
+  },
+  "A-9783045": {
+    "role": "Admin",
+    "username": "admin test2",
+    "email": "admins@gmail.com",
+    "passwordHash": "73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8\u003d"
   }
 }
