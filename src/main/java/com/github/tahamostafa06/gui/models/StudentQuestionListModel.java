@@ -21,7 +21,6 @@ public class StudentQuestionListModel extends AbstractListModel<QuestionItem> {
         for (var question : lessonItem.getQuiz()) {
             questionItems.add(new QuestionItem(question));
         }
-        fireContentsChanged(this, 0, getSize() - 1);
     }
 
     public void setLessonItem(LessonItem lessonItem) {
@@ -31,12 +30,16 @@ public class StudentQuestionListModel extends AbstractListModel<QuestionItem> {
 
     @Override
     public QuestionItem getElementAt(int index) {
-        return new QuestionItem(lessonItem.getQuiz().get(index));
+        return questionItems.get(index);
     }
 
     @Override
     public int getSize() {
-        return lessonItem.getQuiz().size();
+        return questionItems.size();
     }
 
+    public void markAsAnswered(int index, boolean answered) {
+        getElementAt(index).markAnswered(answered);
+        fireContentsChanged(this, 0, getSize() - 1);
+    }
 }

@@ -15,8 +15,8 @@ public class QuestionItem {
         return question;
     }
 
-    public void markAnswered() {
-        this.answered = true;
+    public void markAnswered(boolean answered) {
+        this.answered = answered;
     }
 
     @Override

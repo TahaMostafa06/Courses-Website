@@ -44,6 +44,19 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         selectionPromptLabel.setVisible(!visible);
         quizCompletionStatusLabel.setVisible(visible);
         completionTitleLabel.setVisible(visible);
+        if (!lessonListComponent.isSelectionEmpty()) {
+            var lessonItem = lessonListComponent.getSelectedValue();
+            titleTextLabel.setText(lessonItem.getTitle());
+            additionalResourcesTextLabel.setText(lessonItem.getAdditionalResource());
+            contentTextLabel.setText(lessonItem.getContent());
+            if (student.isLessonDone(courseItem, lessonItem)) {
+                startQuizButton.setText("View Quiz");
+                quizCompletionStatusLabel.setText("Completed");
+            } else {
+                startQuizButton.setText("Start Quiz");
+                quizCompletionStatusLabel.setText("Incomplete");
+            }
+        }
     }
 
     public void updateLessonView(Student student, CourseItem courseItem) {
@@ -56,17 +69,6 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         } else {
             studentLessonListModel.setStudent(student);
             studentLessonListModel.setCourseItem(courseItem);
-        }
-        if (!lessonListComponent.isSelectionEmpty()) {
-            var lessonItem = lessonListComponent.getSelectedValue();
-            titleTextLabel.setText(lessonItem.getTitle());
-            additionalResourcesTextLabel.setText(lessonItem.getAdditionalResource());
-            contentTextLabel.setText(lessonItem.getContent());
-            if (student.isLessonDone(courseItem, lessonItem)) {
-                startQuizButton.setText("View Quiz");
-            } else {
-                startQuizButton.setText("Start Quiz");
-            }
         }
     }
 

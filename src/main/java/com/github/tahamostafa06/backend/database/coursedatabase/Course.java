@@ -9,7 +9,6 @@ import java.util.Random;
 
 import org.jspecify.annotations.NullMarked;
 
-import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.database.common.Record;
 
 public class Course implements Record {
@@ -39,7 +38,8 @@ public class Course implements Record {
     }
 
     @NullMarked
-    public Lesson addLesson(String title, String content, Collection<String> optionalResources, ArrayList<Question> quiz) {
+    public Lesson addLesson(String title, String content, Collection<String> optionalResources,
+            ArrayList<Question> quiz) {
         var lesson = new Lesson(title, content, optionalResources, quiz);
         String idPrefix = "L-";
         var generator = new Random();

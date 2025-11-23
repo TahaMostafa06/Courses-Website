@@ -8,7 +8,6 @@ import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.courseservice.CourseItem;
 import com.github.tahamostafa06.backend.courseservice.LessonItem;
 import com.github.tahamostafa06.backend.courseservice.QuestionItem;
-import com.github.tahamostafa06.backend.database.coursedatabase.Question;
 import com.github.tahamostafa06.backend.database.coursedatabase.StudentLessonProgress;
 import com.github.tahamostafa06.gui.models.StudentChoicesListModel;
 import com.github.tahamostafa06.gui.models.StudentQuestionListModel;
@@ -48,15 +47,18 @@ public class TakeQuizTab extends javax.swing.JPanel {
         if (questionListModel == null) {
             questionListModel = new StudentQuestionListModel(lessonItem);
             questionListComponent.setModel(questionListModel);
-        } else if (choicesListModel == null) {
-            choicesListModel = new StudentChoicesListModel(null);
-            choiceListComponent.setModel(choicesListModel);
         } else {
             questionListModel.setLessonItem(lessonItem);
         }
+        if (choicesListModel == null) {
+            choicesListModel = new StudentChoicesListModel(null);
+            choiceListComponent.setModel(choicesListModel);
+        }
         selectedChoices.clear();
-        selectedChoices.ensureCapacity(quiz.size());
-        selectedChoices.replaceAll(null);
+        for (var i = 0; i < quiz.size(); i++) {
+            selectedChoices.add(null);
+        }
+        submitButton.setEnabled(false);
     }
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
@@ -69,8 +71,9 @@ public class TakeQuizTab extends javax.swing.JPanel {
     }
 
     private void onChoiceSelectionChange(ListSelectionEvent evt) {
-        submitButton.setEnabled(selectedChoices.size() == lessonItem.getQuiz().size());
-        if (choiceListComponent.isSelectionEmpty())
+        submitButton.setEnabled(selectedChoices.stream().filter(s -> s != null).count() == lessonItem.getQuiz().size());
+        questionListModel.markAsAnswered(questionListComponent.getSelectedIndex(), !choiceListComponent.isSelectionEmpty());
+        if (choiceListComponent.isSelectionEmpty()) 
             return;
         var choice = choiceListComponent.getSelectedValue();
         selectedChoices.set(questionListComponent.getSelectedIndex(), choice);

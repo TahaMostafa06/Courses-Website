@@ -169,10 +169,9 @@ public class CourseService {
             studentLessonProgress.put(lessonId, new StudentLessonProgress());
         var lessonProgress = studentLessonProgress.get(lessonId);
         var passed = (totalScore == quiz.size()) || lessonProgress.isPassed();
-        ;
-        lessonProgress.getAttemptsAnswers().add(answers);
-        lessonProgress.getAttemptsQuestions().add(questions);
-        lessonProgress.getAttemptsScores().add(scores);
+        lessonProgress.addAnswers(answers);
+        lessonProgress.addQuestions(questions);
+        lessonProgress.addScores(scores);
         lessonProgress.setPassed(passed);
         if (passed) {
             // generate and store certificate;
