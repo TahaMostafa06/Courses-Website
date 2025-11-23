@@ -27,9 +27,11 @@
     "status": "APPROVED",
     "lessons": {
       "L-8956233": {
-        "title": "lesson 1",
-        "content": "content 1",
-        "optionalResources": [],
+        "title": "lesson 4",
+        "content": "content 4",
+        "optionalResources": [
+          "resources"
+        ],
         "quiz": [
           {
             "question": "How much seconds in an hour?",
@@ -49,6 +51,15 @@
           }
         ],
         "maxQuizRetries": -1
+      },
+      "L-9087903": {
+        "title": "new lesson",
+        "content": "content",
+        "optionalResources": [
+          "resources"
+        ],
+        "quiz": [],
+        "maxQuizRetries": 0
       }
     },
     "students": {

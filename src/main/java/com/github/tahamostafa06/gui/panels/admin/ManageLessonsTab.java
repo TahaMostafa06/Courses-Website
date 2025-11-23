@@ -99,6 +99,7 @@ public class ManageLessonsTab extends javax.swing.JPanel {
             admin.setLessonTitle(courseItem, lesson, lessonTitleInputField.getText());
             admin.setLessonContent(courseItem, lesson, contentInputField.getText());
             admin.setLessonAdditionalResources(courseItem, lesson, additionalResourcesInputField.getText());
+            System.out.println(lesson.getTitle() + " M " + lessonTitleInputField.getText());
             updateEditingSpace(true);
             adminLessonListModel.update();
         } else {
