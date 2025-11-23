@@ -139,6 +139,10 @@ public class Course implements Record {
         return students.get(studentID).get(lessonID).getAttemptsScores();
     }
 
+    public ArrayList<ArrayList<Integer>> getStudentAttemptScore(String lessonID, String studentID) {
+        return students.get(studentID).get(lessonID).getAttemptsScores();
+    }
+
     public ArrayList<ArrayList<String>> getStudentAttemptQuestions(String lessonID, String studentID) {
         return students.get(studentID).get(lessonID).getAttemptsQuestions();
     }
@@ -157,9 +161,12 @@ public class Course implements Record {
         return true;
     }
 
-    public Certificate generateCertificate(String studentID) {
+    public Certificate generateCertificate(String studentID,String courseID) {
         if (areAllLessonsPassed(studentID)) {
-            return new Certificate(certificateDb); 
+            if (certificateDb == null) {
+                certificateDb = new CertificateDatabase();
+            }
+            return certificateDb.createCourseCertificate(studentID, courseID);
         } 
         return null;
     }

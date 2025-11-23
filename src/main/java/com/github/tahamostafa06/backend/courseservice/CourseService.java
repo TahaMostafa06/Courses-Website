@@ -174,10 +174,18 @@ public class CourseService {
         lessonProgress.addQuestions(questions);
         lessonProgress.addScores(scores);
         lessonProgress.setPassed(passed);
-        if (passed) {
-            // generate and store certificate;
+        // Check if all lessons are done to generate certificate
+        boolean generateCertificateCondition = true;
+        for (var lessonID : courseRecord.getLessons().keySet()) { 
+            if (!studentLessonProgress.get(lessonID).isPassed()) {
+                generateCertificateCondition = false;
+                break;
+            }
         }
+        if (generateCertificateCondition)
+            courseRecord.generateCertificate(studentId, courseID);
     }
+    
 
     public boolean isLessonDone(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
         if (!this.authenticationManager.authenticate(token, "Student"))
