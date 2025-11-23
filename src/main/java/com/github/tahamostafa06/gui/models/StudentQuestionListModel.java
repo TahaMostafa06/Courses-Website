@@ -4,18 +4,14 @@ import java.util.ArrayList;
 
 import javax.swing.AbstractListModel;
 
-import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.courseservice.QuestionItem;
-import com.github.tahamostafa06.backend.database.coursedatabase.Question;
 import com.github.tahamostafa06.backend.database.coursedatabase.Quiz;
 
 public class StudentQuestionListModel extends AbstractListModel<QuestionItem> {
-    Student student;
     Quiz quiz;
     ArrayList<QuestionItem> questionItems;
 
-    public StudentQuestionListModel(Student student, Quiz quiz) {
-        this.student = student;
+    public StudentQuestionListModel(Quiz quiz) {
         this.quiz = quiz;
         updateQuestionItems();
     }
@@ -25,11 +21,7 @@ public class StudentQuestionListModel extends AbstractListModel<QuestionItem> {
         for (var question : quiz.getQuestions()) {
             questionItems.add(new QuestionItem(question));
         }
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-        updateQuestionItems();
+        fireContentsChanged(this, 0, getSize() - 1);
     }
 
     public void setQuiz(Quiz quiz) {

@@ -134,6 +134,12 @@ public class CourseService {
         return "";
     }
 
+    public StudentLessonProgress getStudentLessonProgress(LoginToken token, CourseItem courseItem,
+            LessonItem lessonItem) {
+        return courseItem.getCourse().getStudentLessonProgress().get(token.getUserId())
+                .get(getLessonId(courseItem.getCourse(), lessonItem.getLesson()));
+    }
+
     public void submitQuiz(LoginToken token, CourseItem courseItem, LessonItem lessonItem, Quiz quiz,
             ArrayList<String> answers) {
         if (!this.authenticationManager.authenticate(token, "Student"))

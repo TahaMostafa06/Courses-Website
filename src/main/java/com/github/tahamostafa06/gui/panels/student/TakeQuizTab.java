@@ -1,6 +1,13 @@
 package com.github.tahamostafa06.gui.panels.student;
 
+import java.util.ArrayList;
+
+import javax.swing.event.ListSelectionEvent;
+
 import com.github.tahamostafa06.backend.api.Student;
+import com.github.tahamostafa06.backend.courseservice.CourseItem;
+import com.github.tahamostafa06.backend.courseservice.LessonItem;
+import com.github.tahamostafa06.backend.courseservice.QuestionItem;
 import com.github.tahamostafa06.backend.database.coursedatabase.Quiz;
 import com.github.tahamostafa06.backend.database.coursedatabase.StudentLessonProgress;
 import com.github.tahamostafa06.gui.models.StudentChoicesListModel;
@@ -22,33 +29,56 @@ public class TakeQuizTab extends javax.swing.JPanel {
     Quiz quiz;
     StudentQuestionListModel questionListModel;
     StudentChoicesListModel choicesListModel;
+    ArrayList<String> selectedChoices = new ArrayList<>();
+    CourseItem courseItem;
+    LessonItem lessonItem;
 
     public TakeQuizTab() {
         initComponents();
+        questionListComponent.addListSelectionListener(this::onQuestionSelectionChange);
+        choiceListComponent.addListSelectionListener(this::onChoiceSelectionChange);
     }
 
-    public void updateQuizView(Student student, StudentLessonProgress progress, Quiz quiz) {
+    public void updateQuizView(Student student, CourseItem courseItem, LessonItem lessonItem,
+            StudentLessonProgress progress, Quiz quiz) {
         this.student = student;
         this.progress = progress;
         this.quiz = quiz;
+        this.courseItem = courseItem;
+        this.lessonItem = lessonItem;
         if (questionListModel == null) {
-            questionListModel = new StudentQuestionListModel(student, quiz);
+            questionListModel = new StudentQuestionListModel(quiz);
             questionListComponent.setModel(questionListModel);
         } else if (choicesListModel == null) {
-            choicesListModel = new StudentChoicesListModel(student, quiz.getQuestions()[0]);
+            choicesListModel = new StudentChoicesListModel(null);
             choiceListComponent.setModel(choicesListModel);
         } else {
             questionListModel.setQuiz(quiz);
-            questionListModel.setStudent(student);
-            choicesListModel.setQuestion(quiz.getQuestions()[0]);
-            choicesListModel.setStudent(student);
         }
-        // function: submit answers (String[] question, String[] answers) -> Integer[]
-        // progress.getAttemptsAnswers.add(List.of(choiceComponent.getAllChosenAnwers()))
-        // same for attempt questions
+        selectedChoices.clear();
+        selectedChoices.ensureCapacity(quiz.getQuestions().length);
+        selectedChoices.replaceAll(null);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
+        student.submitQuiz(courseItem, lessonItem, quiz, (ArrayList<String>) selectedChoices.clone());
+    }// GEN-LAST:event_submitButtonActionPerformed
+
+    private void onQuestionSelectionChange(ListSelectionEvent evt) {
+        var questionItem = questionListComponent.getSelectedValue();
+        choicesListModel.setQuestionItem(questionItem);
+    }
+
+    private void onChoiceSelectionChange(ListSelectionEvent evt) {
+        submitButton.setEnabled(selectedChoices.size() == quiz.getQuestions().length);
+        if (choiceListComponent.isSelectionEmpty())
+            return;
+        var choice = choiceListComponent.getSelectedValue();
+        selectedChoices.set(questionListComponent.getSelectedIndex(), choice);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         questionListScrollPane = new javax.swing.JScrollPane();
@@ -62,11 +92,15 @@ public class TakeQuizTab extends javax.swing.JPanel {
         questionListComponent.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         questionListScrollPane.setViewportView(questionListComponent);
 
-        questionsTitleLabel.setFont(questionsTitleLabel.getFont().deriveFont(questionsTitleLabel.getFont().getStyle() | java.awt.Font.BOLD, questionsTitleLabel.getFont().getSize()+6));
+        questionsTitleLabel.setFont(
+                questionsTitleLabel.getFont().deriveFont(questionsTitleLabel.getFont().getStyle() | java.awt.Font.BOLD,
+                        questionsTitleLabel.getFont().getSize() + 6));
         questionsTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         questionsTitleLabel.setText("Questions");
 
-        choicesTitleLabel.setFont(choicesTitleLabel.getFont().deriveFont(choicesTitleLabel.getFont().getStyle() | java.awt.Font.BOLD, choicesTitleLabel.getFont().getSize()+6));
+        choicesTitleLabel.setFont(
+                choicesTitleLabel.getFont().deriveFont(choicesTitleLabel.getFont().getStyle() | java.awt.Font.BOLD,
+                        choicesTitleLabel.getFont().getSize() + 6));
         choicesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         choicesTitleLabel.setText("Choices");
 
@@ -79,30 +113,33 @@ public class TakeQuizTab extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(questionListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
-            .addComponent(questionsTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(choiceListScrollPane)
-            .addComponent(submitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(choicesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(questionListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+                        .addComponent(questionsTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(choiceListScrollPane)
+                        .addComponent(submitButton, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(choicesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(questionsTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(questionListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(choicesTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(choiceListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(questionsTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(questionListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 152,
+                                        Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(choicesTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(choiceListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 189,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_submitButtonActionPerformed
-
 }

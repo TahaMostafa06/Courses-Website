@@ -1,11 +1,14 @@
 package com.github.tahamostafa06.backend.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.tahamostafa06.backend.auth.LoginToken;
 import com.github.tahamostafa06.backend.courseservice.CourseService;
 import com.github.tahamostafa06.backend.courseservice.CourseItem;
 import com.github.tahamostafa06.backend.courseservice.LessonItem;
+import com.github.tahamostafa06.backend.database.coursedatabase.Quiz;
+import com.github.tahamostafa06.backend.database.coursedatabase.StudentLessonProgress;
 import com.github.tahamostafa06.backend.userservice.UserService;
 
 public class Student extends UserApi {
@@ -46,12 +49,17 @@ public class Student extends UserApi {
         return courseService.getLessons(accessToken, course);
     }
 
-    public void completeLesson(CourseItem course, LessonItem lesson) {
-        courseService.completeLesson(accessToken, course, lesson);
+    public void submitQuiz(CourseItem course, LessonItem lesson, Quiz quiz, ArrayList<String> answers) {
+        courseService.submitQuiz(accessToken, course, lesson, quiz, null);
     }
 
     public boolean isLessonDone(CourseItem course, LessonItem lesson) {
         return courseService.isLessonDone(accessToken, course, lesson);
+    }
+
+    public StudentLessonProgress getStudentLessonProgress(CourseItem courseItem,
+            LessonItem lessonItem) {
+        return courseService.getStudentLessonProgress(accessToken, courseItem, lessonItem);
     }
 
 }

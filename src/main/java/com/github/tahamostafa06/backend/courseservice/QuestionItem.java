@@ -11,6 +11,10 @@ public class QuestionItem {
         this.answered = false;
     }
 
+    public Question getQuestion() {
+        return question;
+    }
+
     public void markAnswered() {
         this.answered = true;
     }

@@ -9,7 +9,7 @@ public class LessonItem {
         this.lesson = lesson;
     }
 
-    Lesson getLesson() {
+    public Lesson getLesson() {
         return lesson;
     }
 
