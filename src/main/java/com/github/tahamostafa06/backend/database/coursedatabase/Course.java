@@ -39,7 +39,7 @@ public class Course implements Record {
     }
 
     @NullMarked
-    public Lesson addLesson(String title, String content, Collection<String> optionalResources, Quiz quiz) {
+    public Lesson addLesson(String title, String content, Collection<String> optionalResources, ArrayList<Question> quiz) {
         var lesson = new Lesson(title, content, optionalResources, quiz);
         String idPrefix = "L-";
         var generator = new Random();
@@ -108,19 +108,16 @@ public class Course implements Record {
     }
 
     public ArrayList<Question> getQuizQuestions(Lesson lesson) {
-        ArrayList<Question> quizQuestions = new ArrayList<Question>();
-        for (var i : lesson.getQuiz().questions) {
-            quizQuestions.add(i);
-        }
-        return quizQuestions;
+        return lesson.quiz;
     }
 
     public String getAnswerForSpecificQuestion(Lesson lesson, String questionTitle) {
-        return lesson.getQuiz().getQuestion(questionTitle).correctAnswer;
-    }
-
-    public int getNumberOfQuizzes(Lesson lesson) {
-        return lesson.getQuiz().questions.length;
+        var questions = getQuizQuestions(lesson);
+        for (var q : questions) {
+            if (q.getQuestion().equals(questionTitle))
+                return q.getCorrectAnswer();
+        }
+        return "";
     }
 
     public int getMaxQuizScore(Lesson lesson) {
@@ -131,23 +128,19 @@ public class Course implements Record {
         return getAnswerForSpecificQuestion(lesson, questionTitle).equals(answer);
     }
 
-    public boolean getQuizStatusForStudent(String lessonId,String studentID){
+    public boolean getQuizStatusForStudent(String lessonId, String studentID) {
         return students.get(studentID).get(lessonId).isPassed();
     }
 
-    public ArrayList<ArrayList<Integer>> getStudentAttemptScores(String lessonID,String studentID){
+    public ArrayList<ArrayList<Integer>> getStudentAttemptScores(String lessonID, String studentID) {
         return students.get(studentID).get(lessonID).getAttemptsScores();
     }
 
-    public ArrayList<ArrayList<String>> getStudentAttemptQuestions(String lessonID,String studentID){
+    public ArrayList<ArrayList<String>> getStudentAttemptQuestions(String lessonID, String studentID) {
         return students.get(studentID).get(lessonID).getAttemptsQuestions();
     }
 
-    public ArrayList<ArrayList<String>> getStudentAttemptAnswers(String lessonID,String studentID){
+    public ArrayList<ArrayList<String>> getStudentAttemptAnswers(String lessonID, String studentID) {
         return students.get(studentID).get(lessonID).getAttemptsAnswers();
-    } 
-
-    public void getMaxRetries(String lessonID,String studentID){
-        return;
     }
-}   
+}

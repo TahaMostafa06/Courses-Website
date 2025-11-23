@@ -10,7 +10,7 @@ public class Lesson {
     String title;
     String content;
     ArrayList<String> optionalResources;
-    Quiz quiz;
+    ArrayList<Question> quiz;
     int maxQuizRetries;
 
     public void setTitle(String title) {
@@ -28,7 +28,7 @@ public class Lesson {
     }
 
     @NullMarked
-    Lesson(String title, String content, Collection<String> optionalResources, Quiz quiz) {
+    Lesson(String title, String content, Collection<String> optionalResources, ArrayList<Question> quiz) {
         this.title = title;
         this.content = content;
         this.optionalResources = new ArrayList<String>(optionalResources);
@@ -47,7 +47,7 @@ public class Lesson {
         return optionalResources;
     }
 
-    public Quiz getQuiz() {
+    public ArrayList<Question> getQuiz() {
         return quiz;
     }
 

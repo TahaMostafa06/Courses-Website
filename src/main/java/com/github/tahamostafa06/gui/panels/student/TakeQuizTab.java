@@ -8,7 +8,7 @@ import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.courseservice.CourseItem;
 import com.github.tahamostafa06.backend.courseservice.LessonItem;
 import com.github.tahamostafa06.backend.courseservice.QuestionItem;
-import com.github.tahamostafa06.backend.database.coursedatabase.Quiz;
+import com.github.tahamostafa06.backend.database.coursedatabase.Question;
 import com.github.tahamostafa06.backend.database.coursedatabase.StudentLessonProgress;
 import com.github.tahamostafa06.gui.models.StudentChoicesListModel;
 import com.github.tahamostafa06.gui.models.StudentQuestionListModel;
@@ -26,7 +26,6 @@ public class TakeQuizTab extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     Student student;
     StudentLessonProgress progress;
-    Quiz quiz;
     StudentQuestionListModel questionListModel;
     StudentChoicesListModel choicesListModel;
     ArrayList<String> selectedChoices = new ArrayList<>();
@@ -40,28 +39,28 @@ public class TakeQuizTab extends javax.swing.JPanel {
     }
 
     public void updateQuizView(Student student, CourseItem courseItem, LessonItem lessonItem,
-            StudentLessonProgress progress, Quiz quiz) {
+            StudentLessonProgress progress) {
         this.student = student;
         this.progress = progress;
-        this.quiz = quiz;
         this.courseItem = courseItem;
         this.lessonItem = lessonItem;
+        var quiz = lessonItem.getQuiz();
         if (questionListModel == null) {
-            questionListModel = new StudentQuestionListModel(quiz);
+            questionListModel = new StudentQuestionListModel(lessonItem);
             questionListComponent.setModel(questionListModel);
         } else if (choicesListModel == null) {
             choicesListModel = new StudentChoicesListModel(null);
             choiceListComponent.setModel(choicesListModel);
         } else {
-            questionListModel.setQuiz(quiz);
+            questionListModel.setLessonItem(lessonItem);
         }
         selectedChoices.clear();
-        selectedChoices.ensureCapacity(quiz.getQuestions().length);
+        selectedChoices.ensureCapacity(quiz.size());
         selectedChoices.replaceAll(null);
     }
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitButtonActionPerformed
-        student.submitQuiz(courseItem, lessonItem, quiz, (ArrayList<String>) selectedChoices.clone());
+        student.submitQuiz(courseItem, lessonItem, (ArrayList<String>) selectedChoices.clone());
     }// GEN-LAST:event_submitButtonActionPerformed
 
     private void onQuestionSelectionChange(ListSelectionEvent evt) {
@@ -70,7 +69,7 @@ public class TakeQuizTab extends javax.swing.JPanel {
     }
 
     private void onChoiceSelectionChange(ListSelectionEvent evt) {
-        submitButton.setEnabled(selectedChoices.size() == quiz.getQuestions().length);
+        submitButton.setEnabled(selectedChoices.size() == lessonItem.getQuiz().size());
         if (choiceListComponent.isSelectionEmpty())
             return;
         var choice = choiceListComponent.getSelectedValue();

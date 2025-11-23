@@ -3,7 +3,6 @@ package com.github.tahamostafa06.gui.panels.student;
 import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.courseservice.CourseItem;
 import com.github.tahamostafa06.backend.courseservice.LessonItem;
-import com.github.tahamostafa06.backend.database.coursedatabase.Quiz;
 import com.github.tahamostafa06.backend.database.coursedatabase.StudentLessonProgress;
 import com.github.tahamostafa06.gui.panels.CardPanel;
 import com.github.tahamostafa06.gui.panels.MainWindowFrame;
@@ -28,7 +27,7 @@ public class StudentDashboardPanel extends CardPanel {
         initComponents();
         instance = this;
         dashboardTabbedPane.remove(2);
-        dashboardTabbedPane.remove(3);
+        dashboardTabbedPane.remove(2);
     }
 
     public static void showLessonViewer(CourseItem selectedCourseItem) {
@@ -38,9 +37,9 @@ public class StudentDashboardPanel extends CardPanel {
         tabManager.setSelectedIndex(2);
     }
 
-    public static void showQuiz(CourseItem courseItem, LessonItem lesson, StudentLessonProgress progress, Quiz quiz) {
+    public static void showQuiz(CourseItem courseItem, LessonItem lesson, StudentLessonProgress progress) {
         var tabManager = instance.dashboardTabbedPane;
-        instance.takeQuizTab1.updateQuizView(instance.student, courseItem, lesson, progress, quiz);
+        instance.takeQuizTab1.updateQuizView(instance.student, courseItem, lesson, progress);
         tabManager.add("Quiz", instance.takeQuizTab1);
         tabManager.setSelectedIndex(3);
     }
@@ -64,10 +63,10 @@ public class StudentDashboardPanel extends CardPanel {
     }// GEN-LAST:event_logoutButtonActionPerformed
 
     private void dashboardTabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_dashboardTabbedPaneStateChanged
-        if (dashboardTabbedPane.getSelectedIndex() < 2 && dashboardTabbedPane.getTabCount() == 3) {
-            dashboardTabbedPane.remove(2);
-        } else if (dashboardTabbedPane.getSelectedIndex() < 3 && dashboardTabbedPane.getTabCount() == 4)  {
+        if (dashboardTabbedPane.getSelectedIndex() < 3 && dashboardTabbedPane.getTabCount() == 4) {
             dashboardTabbedPane.remove(3);
+        } else if (dashboardTabbedPane.getSelectedIndex() < 2 && dashboardTabbedPane.getTabCount() == 3) {
+            dashboardTabbedPane.remove(2);
         }
         updateAllChildren();
     }// GEN-LAST:event_dashboardTabbedPaneStateChanged

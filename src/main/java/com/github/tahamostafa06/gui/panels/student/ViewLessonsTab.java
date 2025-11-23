@@ -73,8 +73,7 @@ public class ViewLessonsTab extends javax.swing.JPanel {
     private void startQuizButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_startQuizButtonActionPerformed
         var lessonItem = lessonListComponent.getSelectedValue();
         StudentDashboardPanel.showQuiz(courseItem, lessonItem,
-                student.getStudentLessonProgress(courseItem, lessonItem),
-                lessonItem.getLesson().getQuiz());
+                student.getStudentLessonProgress(courseItem, lessonItem));
     }// GEN-LAST:event_startQuizButtonActionPerformed
 
     private void onSelectionChange(ListSelectionEvent evt) {

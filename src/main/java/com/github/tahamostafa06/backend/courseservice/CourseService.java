@@ -1,6 +1,5 @@
 package com.github.tahamostafa06.backend.courseservice;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import com.github.tahamostafa06.backend.auth.LoginToken;
 import com.github.tahamostafa06.backend.database.coursedatabase.Course;
 import com.github.tahamostafa06.backend.database.coursedatabase.CourseDatabase;
 import com.github.tahamostafa06.backend.database.coursedatabase.Lesson;
-import com.github.tahamostafa06.backend.database.coursedatabase.Quiz;
 import com.github.tahamostafa06.backend.database.coursedatabase.StudentLessonProgress;
 import com.github.tahamostafa06.backend.userservice.UserService;
 
@@ -140,7 +138,7 @@ public class CourseService {
                 .get(getLessonId(courseItem.getCourse(), lessonItem.getLesson()));
     }
 
-    public void submitQuiz(LoginToken token, CourseItem courseItem, LessonItem lessonItem, Quiz quiz,
+    public void submitQuiz(LoginToken token, CourseItem courseItem, LessonItem lessonItem,
             ArrayList<String> answers) {
         if (!this.authenticationManager.authenticate(token, "Student"))
             return;
@@ -151,8 +149,9 @@ public class CourseService {
         var questions = new ArrayList<String>();
         var correctAnswers = new ArrayList<String>();
         var scores = new ArrayList<Integer>();
-        for (var i = 0; i < quiz.getQuestions().length; i++) {
-            var question = quiz.getQuestions()[i];
+        var quiz = lessonRecord.getQuiz();
+        for (var i = 0; i < quiz.size(); i++) {
+            var question = quiz.get(i);
             questions.add(question.getQuestion());
             correctAnswers.add(question.getCorrectAnswer());
             if (answers.get(i).equals(question.getCorrectAnswer()))
@@ -169,7 +168,7 @@ public class CourseService {
         if (!studentLessonProgress.containsKey(lessonId))
             studentLessonProgress.put(lessonId, new StudentLessonProgress());
         var lessonProgress = studentLessonProgress.get(lessonId);
-        var passed = (totalScore == quiz.getQuestions().length) || lessonProgress.isPassed();
+        var passed = (totalScore == quiz.size()) || lessonProgress.isPassed();
         ;
         lessonProgress.getAttemptsAnswers().add(answers);
         lessonProgress.getAttemptsQuestions().add(questions);

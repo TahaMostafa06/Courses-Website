@@ -12,24 +12,24 @@
           "more resources 1",
           "more resources 2",
           "more resources 3"
-        ]
+        ],
+        "maxQuizRetries": 0
       }
     },
     "students": {
-      "S-5993218": []
+      "S-5993218": {}
     }
   },
   "C-8628571": {
     "title": "course 1",
     "description": "desc 1",
     "instructorId": "I-2077921",
-    "status": "DECLINED",
+    "status": "APPROVED",
     "lessons": {
       "L-8956233": {
         "title": "lesson 1",
         "content": "content 1",
         "optionalResources": [],
-        "maxQuizRetries": -1,
         "quiz": [
           {
             "question": "How much seconds in an hour?",
@@ -47,10 +47,12 @@
             ],
             "correctAnswer": "1"
           }
-        ]
+        ],
+        "maxQuizRetries": -1
       }
     },
     "students": {
+      "S-4333638": {},
       "studentId1": {
         "lessonId1": {
           "attemptsAnswers": [
@@ -74,8 +76,7 @@
           ],
           "passed": true
         }
-      },
-      "S-4333638": []
+      }
     }
   }
 }
