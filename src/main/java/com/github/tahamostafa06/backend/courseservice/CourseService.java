@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import com.github.tahamostafa06.backend.Certificate.Certificate;
 import com.github.tahamostafa06.backend.auth.AuthenticationManager;
 import com.github.tahamostafa06.backend.auth.LoginToken;
 import com.github.tahamostafa06.backend.database.coursedatabase.Course;
@@ -383,6 +384,27 @@ public class CourseService {
             return null;
         var courseRecord = courseItem.getCourse();
         return courseRecord.getStudentAttemptAnswers(lessonID, studentID);
+    }
+
+    public boolean isStudentEnrolled(LoginToken token, CourseItem courseItem) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return false;
+        var courseRecord = courseItem.getCourse();
+        return isStudentEnrolledIn(courseRecord, token.getUserId());
+    }
+
+    public boolean areAllLessonsPassed(LoginToken token, CourseItem courseItem) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return false;
+        var courseRecord = courseItem.getCourse();
+        return courseRecord.areAllLessonsPassed(token.getUserId());
+    }
+
+    public Certificate generateCertificate(LoginToken token, CourseItem courseItem) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return null;
+        var courseRecord = courseItem.getCourse();
+        return courseRecord.generateCertificate(token.getUserId());
     }
 
 }

@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import org.jspecify.annotations.NullMarked;
+import com.github.tahamostafa06.backend.Certificate.Certificate;
+import com.github.tahamostafa06.backend.Certificate.CertificateDatabase;
 
 import com.github.tahamostafa06.backend.database.common.Record;
 
@@ -18,6 +19,8 @@ public class Course implements Record {
     private String status;
     private HashMap<String, Lesson> lessons;
     private HashMap<String, HashMap<String, StudentLessonProgress>> students;
+    private CertificateDatabase certificateDb;
+    private Certificate certificate;
 
     Course(String instructorId, String title, String description) {
         this.title = title;
@@ -142,5 +145,23 @@ public class Course implements Record {
 
     public ArrayList<ArrayList<String>> getStudentAttemptAnswers(String lessonID, String studentID) {
         return students.get(studentID).get(lessonID).getAttemptsAnswers();
+    }
+
+    public boolean areAllLessonsPassed(String studentID) {
+        for (var lesson : getLessons().values()) {
+            var lessonID= lesson.getTitle();
+            var temp=students.get(studentID).get(lessonID).isPassed();
+            if (!temp) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public Certificate generateCertificate(String studentID) {
+        if (areAllLessonsPassed(studentID)) {
+            return new Certificate(certificateDb); 
+        } 
+        return null;
     }
 }

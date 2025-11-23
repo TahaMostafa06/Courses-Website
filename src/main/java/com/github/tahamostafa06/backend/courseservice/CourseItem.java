@@ -9,7 +9,7 @@ public class CourseItem {
         this.course = course;
     }
 
-    Course getCourse() {
+    public Course getCourse() {
         return course;
     }
 
