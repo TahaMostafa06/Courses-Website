@@ -34,5 +34,11 @@
     "username": "admin test2",
     "email": "admins@gmail.com",
     "passwordHash": "73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8\u003d"
+  },
+  "A-7822565": {
+    "role": "Admin",
+    "username": "mazen",
+    "email": "jjj@gmail.com",
+    "passwordHash": "73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8\u003d"
   }
 }

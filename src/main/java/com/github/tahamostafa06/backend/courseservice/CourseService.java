@@ -314,5 +314,6 @@ public class CourseService {
         var courseRecord = courseItem.getCourse();
         courseRecord.setStatus(instructorId);
     }
+
     
 }   

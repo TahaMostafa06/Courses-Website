@@ -2,8 +2,15 @@ package com.github.tahamostafa06.backend.database.coursedatabase;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 public class Lesson {
+
+    Quiz quiz;
+    private String title;
+    private String content;
+    private ArrayList<String> optionalResources;
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -17,17 +24,15 @@ public class Lesson {
         this.optionalResources = new ArrayList<String>(optionalResources);
     }
 
-    private String title;
-    private String content;
-    private ArrayList<String> optionalResources;
-
-    Lesson(String title, String content, Collection<String> optionalResources) {
+    Lesson(String title, String content, Collection<String> optionalResources,Quiz quiz) {
         if (title == null) title = "";
         this.title = title;
         if (content == null) content = "";
         this.content = content;
         if (optionalResources == null) optionalResources = new ArrayList<String>();
         this.optionalResources = new ArrayList<String>(optionalResources);
+        if (quiz==null) quiz=new Quiz();
+        this.quiz=quiz;
     }
 
     public String getTitle() {
@@ -41,4 +46,9 @@ public class Lesson {
     public ArrayList<String> getOptionalResources() {
         return optionalResources;
     }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+    
 }

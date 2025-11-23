@@ -15,7 +15,11 @@ public class Course implements Record {
     private String instructorId;
     private String status;
     private Map<String, Lesson> lessons;
-    private Map<String, ArrayList<String>> students; // studentId : [doneLessonId1, doneLessonId2]
+    private Map<String, ArrayList<String>> students;
+    // studentId : [
+    // "lessonId1" : {
+    // },
+    //  doneLessonId2]
 
     Course(String instructorId, String title, String description) {
         this.title = title;
@@ -101,6 +105,30 @@ public class Course implements Record {
 
     public List<String> getStudents() {
         return List.copyOf(students.keySet());
+    }
+
+    public ArrayList<Question> getQuizQuestions(Lesson lesson) {
+        ArrayList<Question> quizQuestions=new ArrayList<Question>();
+        for (var i : lesson.getQuiz().questions) {
+            quizQuestions.add(i);
+        }
+        return quizQuestions;
+    }
+
+    public String getAnswerForSpecificQuestion(Lesson lesson, String questionTitle){
+        return lesson.getQuiz().getQuestion(questionTitle).correctAnswer;
+    }
+
+    public int getNumberOfQuizzes(Lesson lesson){
+        return lesson.getQuiz().questions.length;
+    }
+    
+    public int getMaxQuizScore(Lesson lesson){
+        return getQuizQuestions(lesson).size();
+    }
+
+    public boolean checkUserAnswer(Lesson lesson, String questionTitle, String answer){
+        return getAnswerForSpecificQuestion(lesson, questionTitle).equals(answer);
     }
 }
 

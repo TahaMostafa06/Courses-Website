@@ -23,16 +23,58 @@
     "title": "course 1",
     "description": "desc 1",
     "instructorId": "I-2077921",
-    "status": "APPROVED",
-    "lessons": {},
-    "students": {}
-  },
-  "C-3957421": {
-    "title": "course 3",
-    "description": "desc 3",
-    "instructorId": "I-277084",
-    "status": "APPROVED",
-    "lessons": {},
-    "students": {}
+    "status": "DECLINED",
+    "lessons": {
+      "L-8956233": {
+        "title": "lesson 1",
+        "content": "content 1",
+        "optionalResources": [],
+        "quiz" : [
+    {
+      "question": "How much seconds in an hour?",
+      "choices": ["1", "2"],
+      "correctAnswer": "1",
+      "maxRetries": 0
+    },
+    {
+      "question": "How much minutes in an hour?",
+      "choices": ["1", "2"],
+      "correctAnswer": "1",
+      "maxRetries": 3
+    }
+  ]
+}
+      },
+  "students": {
+    "studentId1": [
+      {
+        "lessonId1": {
+          "attempts": [
+            {
+              "How much seconds in an hour?": {
+                "choice": "1",
+                "score": 1
+              }
+            },
+            {
+              "question 2": {".."}
+            }
+          ]
+        },
+        "passed": true
+      }
+    ],
+    "S-4333638": []
   }
 }
+}
+
+//  "C-3957421": {
+//    "title": "course 3",
+//    "description": "desc 3",
+//    "instructorId": "I-277084",
+//    "status": "APPROVED",
+//    "lessons": {},
+//    "students": {}
+//  }
+//}
