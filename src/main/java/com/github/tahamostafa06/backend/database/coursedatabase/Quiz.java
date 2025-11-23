@@ -4,12 +4,12 @@ public class Quiz {
     int maxRetries;
     Question[] questions;
 
-    public Question getQuestion(String questionId) {
-        for (var question : questions) {
-            if (question.question.equals(questionId)) {
-                return question;
-            }
-        }
-        return null;
+    public int getMaxRetries() {
+        return maxRetries;
     }
+
+    public Question[] getQuestions() {
+        return questions;
+    }
+
 }

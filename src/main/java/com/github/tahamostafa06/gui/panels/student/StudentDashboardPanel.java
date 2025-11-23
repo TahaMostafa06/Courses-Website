@@ -13,6 +13,7 @@ public class StudentDashboardPanel extends CardPanel {
     private javax.swing.JPanel navBarPanel;
     private javax.swing.JLabel studentNameLabel;
     private javax.swing.JLabel studentRoleLabel;
+    private com.github.tahamostafa06.gui.panels.student.TakeQuizTab takeQuizTab1;
     private com.github.tahamostafa06.gui.panels.student.ViewAvailableCoursesTab viewAvailableCoursesTab;
     private com.github.tahamostafa06.gui.panels.student.ViewEnrolledCoursesTab viewEnrolledCoursesTab;
     private com.github.tahamostafa06.gui.panels.student.ViewLessonsTab viewLessonsTab;
@@ -23,7 +24,7 @@ public class StudentDashboardPanel extends CardPanel {
     public StudentDashboardPanel() {
         initComponents();
         instance = this;
-        dashboardTabbedPane.remove(2);
+//        dashboardTabbedPane.remove(2);
     }
 
     public static void showLessonViewer(CourseItem selectedCourseItem) {
@@ -67,6 +68,7 @@ public class StudentDashboardPanel extends CardPanel {
         viewAvailableCoursesTab = new com.github.tahamostafa06.gui.panels.student.ViewAvailableCoursesTab();
         viewEnrolledCoursesTab = new com.github.tahamostafa06.gui.panels.student.ViewEnrolledCoursesTab();
         viewLessonsTab = new com.github.tahamostafa06.gui.panels.student.ViewLessonsTab();
+        takeQuizTab1 = new com.github.tahamostafa06.gui.panels.student.TakeQuizTab();
         navBarPanel = new javax.swing.JPanel();
         studentNameLabel = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
@@ -76,6 +78,7 @@ public class StudentDashboardPanel extends CardPanel {
         dashboardTabbedPane.addTab("Explore Courses", viewAvailableCoursesTab);
         dashboardTabbedPane.addTab("My Courses", viewEnrolledCoursesTab);
         dashboardTabbedPane.addTab("Lessons", viewLessonsTab);
+        dashboardTabbedPane.addTab("Quiz", takeQuizTab1);
 
         studentNameLabel.setFont(studentNameLabel.getFont().deriveFont(studentNameLabel.getFont().getSize()+2f));
         studentNameLabel.setText("Student Name");

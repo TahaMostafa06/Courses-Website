@@ -2,14 +2,16 @@ package com.github.tahamostafa06.backend.database.coursedatabase;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+
+import org.jspecify.annotations.NullMarked;
 
 public class Lesson {
 
+    String title;
+    String content;
+    ArrayList<String> optionalResources;
     Quiz quiz;
-    private String title;
-    private String content;
-    private ArrayList<String> optionalResources;
+    int maxQuizRetries;
 
     public void setTitle(String title) {
         this.title = title;
@@ -20,19 +22,17 @@ public class Lesson {
     }
 
     public void setOptionalResources(Collection<String> optionalResources) {
-        if (optionalResources == null) optionalResources = new ArrayList<String>();
+        if (optionalResources == null)
+            optionalResources = new ArrayList<String>();
         this.optionalResources = new ArrayList<String>(optionalResources);
     }
 
-    Lesson(String title, String content, Collection<String> optionalResources,Quiz quiz) {
-        if (title == null) title = "";
+    @NullMarked
+    Lesson(String title, String content, Collection<String> optionalResources, Quiz quiz) {
         this.title = title;
-        if (content == null) content = "";
         this.content = content;
-        if (optionalResources == null) optionalResources = new ArrayList<String>();
         this.optionalResources = new ArrayList<String>(optionalResources);
-        if (quiz==null) quiz=new Quiz();
-        this.quiz=quiz;
+        this.quiz = quiz;
     }
 
     public String getTitle() {
@@ -50,5 +50,5 @@ public class Lesson {
     public Quiz getQuiz() {
         return quiz;
     }
-    
+
 }
