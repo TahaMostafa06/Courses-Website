@@ -65,7 +65,8 @@ public class StudentDashboardPanel extends CardPanel {
     private void dashboardTabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_dashboardTabbedPaneStateChanged
         if (dashboardTabbedPane.getSelectedIndex() < 3 && dashboardTabbedPane.getTabCount() == 4) {
             dashboardTabbedPane.remove(3);
-        } else if (dashboardTabbedPane.getSelectedIndex() < 2 && dashboardTabbedPane.getTabCount() == 3) {
+        }
+        if (dashboardTabbedPane.getSelectedIndex() < 2 && dashboardTabbedPane.getTabCount() == 3) {
             dashboardTabbedPane.remove(2);
         }
         updateAllChildren();

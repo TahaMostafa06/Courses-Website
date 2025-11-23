@@ -148,8 +148,7 @@ public class Course implements Record {
     }
 
     public boolean areAllLessonsPassed(String studentID) {
-        for (var lesson : getLessons().values()) {
-            var lessonID ="L-"+lesson.getTitle();
+        for (var lessonID : getLessons().keySet()) { 
             var temp=students.get(studentID).get(lessonID).isPassed();
             if (!temp) {
                 return false;
