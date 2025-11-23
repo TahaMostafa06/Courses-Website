@@ -41,8 +41,8 @@ public class Course implements Record {
     }
 
     @NullMarked
-    public Lesson addLesson(String title, String content, Collection<String> optionalResources,
-            ArrayList<Question> quiz) {
+    public Lesson addLesson(String title, String content, Collection<String> optionalResources) {
+        ArrayList<Question> quiz = new ArrayList<>();
         var lesson = new Lesson(title, content, optionalResources, quiz);
         String idPrefix = "L-";
         var generator = new Random();

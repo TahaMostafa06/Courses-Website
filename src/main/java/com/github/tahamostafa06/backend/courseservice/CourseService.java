@@ -204,7 +204,8 @@ public class CourseService {
     }
 
     public void setCourseDescription(LoginToken token, CourseItem courseItem, String newDescription) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
+        if (!this.authenticationManager.authenticate(token, "Instructor")
+                && !this.authenticationManager.authenticate(token, "Admin"))
             return;
         var courseRecord = courseItem.getCourse();
         if (!courseRecord.getInstructorId().equals(token.getUserId()))
@@ -213,7 +214,8 @@ public class CourseService {
     }
 
     public void setCourseTitle(LoginToken token, CourseItem courseItem, String newTitle) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
+        if (!this.authenticationManager.authenticate(token, "Instructor")
+                && !this.authenticationManager.authenticate(token, "Admin"))
             return;
         var courseRecord = courseItem.getCourse();
         if (!courseRecord.getInstructorId().equals(token.getUserId()))
@@ -266,15 +268,15 @@ public class CourseService {
 
     public LessonItem addLesson(LoginToken token, CourseItem courseItem, String title, String content,
             Collection<String> additionalResources) {
-        if (!this.authenticationManager.authenticate(token, "Instructor") &&
-                !this.authenticationManager.authenticate(token, "Admin"))
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
             return null;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return null;
-        // var lesson = courseRecord.addLesson(title, content, additionalResources);
-        return null;
-        // return new LessonItem(lesson);
+        var lesson = courseRecord.addLesson(title, content, additionalResources);
+        return new LessonItem(lesson);
     }
 
     public void removeLesson(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
@@ -288,20 +290,24 @@ public class CourseService {
     }
 
     public void setLessonTitle(LoginToken token, CourseItem courseItem, LessonItem lessonItem, String title) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
             return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return;
         var lessonRecord = lessonItem.getLesson();
         lessonRecord.setTitle(title);
     }
 
     public void setLessonContent(LoginToken token, CourseItem courseItem, LessonItem lessonItem, String content) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
             return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return;
         var lessonRecord = lessonItem.getLesson();
         lessonRecord.setContent(content);
@@ -309,10 +315,12 @@ public class CourseService {
 
     public void setLessonAdditionalResources(LoginToken token, CourseItem courseItem, LessonItem lessonItem,
             Collection<String> additionalResources) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
             return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return;
         var lessonRecord = lessonItem.getLesson();
         lessonRecord.setOptionalResources(new ArrayList<String>(additionalResources));
