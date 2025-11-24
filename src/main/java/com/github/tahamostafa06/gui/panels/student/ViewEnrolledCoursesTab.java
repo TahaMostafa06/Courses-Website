@@ -7,10 +7,8 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import javax.swing.event.ListSelectionEvent;
 
 public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
@@ -23,6 +21,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
     private javax.swing.JLabel descriptionContentLabel;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JButton downloadCertificateButton;
+    private javax.swing.JButton downloadCertificateButton1;
     private javax.swing.JLabel instructorLabel;
     private javax.swing.JLabel instructorNameLabel;
     private javax.swing.JLabel lessonsCountLabel;
@@ -44,6 +43,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         lessonsLabel.setVisible(false);
         viewLessonsButton.setVisible(false);
         selectionPromptLabel.setVisible(true);
+        downloadCertificateButton.setVisible(false);
     }
 
     public void updateCourses(Student student) {
@@ -78,6 +78,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
             document.add(new Paragraph(cert.getIssueDate()));
             document.add(new Paragraph("This certificate is awarded to " + student.getName()));
             document.add(new Paragraph("for completing the course " + courseItem.getTitle()));
+            document.add(new Paragraph("Course ID " + student.getCourseId(courseItem)));
             document.add(new Paragraph("Certificate ID " + cert.getCertificateId()));
             document.add(new Paragraph("Student ID " + cert.getStudentId()));
             document.close();
@@ -115,6 +116,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -132,6 +134,7 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         lessonsCountLabel = new javax.swing.JLabel();
         viewLessonsButton = new javax.swing.JButton();
         downloadCertificateButton = new javax.swing.JButton();
+        downloadCertificateButton1 = new javax.swing.JButton();
 
         courseListScrollPane.setViewportView(courseListComponent);
 
@@ -218,9 +221,17 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
         downloadCertificateButton.addActionListener(this::downloadCertificateButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(24, 0, 24, 0);
         courseDetailsPanel.add(downloadCertificateButton, gridBagConstraints);
+
+        downloadCertificateButton1.setText("View Certificate");
+        downloadCertificateButton1.addActionListener(this::downloadCertificateButton1ActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(24, 0, 24, 0);
+        courseDetailsPanel.add(downloadCertificateButton1, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -234,8 +245,18 @@ public class ViewEnrolledCoursesTab extends javax.swing.JPanel {
                                 .addComponent(courseListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 158,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 268,
-                                        Short.MAX_VALUE)));
+                                .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void downloadCertificateButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_downloadCertificateButton1ActionPerformed
+        var courseItem = courseListComponent.getSelectedValue();
+        var cert = student.getCertificate(courseItem);
+        StudentDashboardPanel.showCertificate(student.getName(),
+                courseItem.getTitle(),
+                student.getCourseId(courseItem),
+                cert.getCertificateId(),
+                cert.getStudentId());
+    }// GEN-LAST:event_downloadCertificateButton1ActionPerformed
 
 }

@@ -25,6 +25,10 @@ public class Student extends UserApi {
         courseService.enroll(accessToken, course);
     }
 
+    public String getCourseId(CourseItem course) {
+        return courseService.getCourseId(course);
+    }
+
     public List<CourseItem> getAvailableCourses() {
         return courseService.getAvailableCourses(accessToken);
     }

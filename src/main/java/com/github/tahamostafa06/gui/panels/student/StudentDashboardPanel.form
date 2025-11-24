@@ -74,20 +74,11 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.github.tahamostafa06.gui.panels.student.ViewCertificates" name="viewCertificates">
+        <Component class="com.github.tahamostafa06.gui.panels.student.ViewCertificate" name="viewCertificate1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="View Certificate">
-                <Property name="tabTitle" type="java.lang.String" value="View Certificate"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="com.github.tahamostafa06.gui.panels.student.Insights" name="insights1">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab6">
-                <Property name="tabTitle" type="java.lang.String" value="tab6"/>
+              <JTabbedPaneConstraints tabName="Certificate">
+                <Property name="tabTitle" type="java.lang.String" value="Certificate"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

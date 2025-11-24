@@ -9,6 +9,7 @@ public class InstructorDashboardPanel extends CardPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane dashboardTabbedPane;
+    private com.github.tahamostafa06.gui.panels.instructor.InsightsTab insightsTab;
     private javax.swing.JLabel instructorNameLabel;
     private javax.swing.JLabel instructorRoleLabel;
     private javax.swing.JButton logoutButton;
@@ -61,12 +62,13 @@ public class InstructorDashboardPanel extends CardPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         dashboardTabbedPane = new javax.swing.JTabbedPane();
         manageCoursesTab = new com.github.tahamostafa06.gui.panels.instructor.ManageCoursesTab();
         viewEnrolledStudentsTab = new com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab();
+        insightsTab = new com.github.tahamostafa06.gui.panels.instructor.InsightsTab();
         navBarPanel = new javax.swing.JPanel();
         instructorNameLabel = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
@@ -76,8 +78,20 @@ public class InstructorDashboardPanel extends CardPanel {
         dashboardTabbedPane.addTab("Manage Courses", manageCoursesTab);
         dashboardTabbedPane.addTab("My Students", viewEnrolledStudentsTab);
 
-        instructorNameLabel.setFont(
-                instructorNameLabel.getFont().deriveFont(instructorNameLabel.getFont().getSize() + 2f));
+        javax.swing.GroupLayout insightsTabLayout = new javax.swing.GroupLayout(insightsTab);
+        insightsTab.setLayout(insightsTabLayout);
+        insightsTabLayout.setHorizontalGroup(
+            insightsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 721, Short.MAX_VALUE)
+        );
+        insightsTabLayout.setVerticalGroup(
+            insightsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 454, Short.MAX_VALUE)
+        );
+
+        dashboardTabbedPane.addTab("Insights", insightsTab);
+
+        instructorNameLabel.setFont(instructorNameLabel.getFont().deriveFont(instructorNameLabel.getFont().getSize()+2f));
         instructorNameLabel.setText("Instructor Name");
 
         logoutButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
@@ -85,69 +99,50 @@ public class InstructorDashboardPanel extends CardPanel {
         logoutButton.setText("Log Out");
         logoutButton.addActionListener(this::logoutButtonActionPerformed);
 
-        instructorRoleLabel.setFont(instructorRoleLabel.getFont()
-                .deriveFont((instructorRoleLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
+        instructorRoleLabel.setFont(instructorRoleLabel.getFont().deriveFont((instructorRoleLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
         instructorRoleLabel.setText("Instructor");
 
         javax.swing.GroupLayout navBarPanelLayout = new javax.swing.GroupLayout(navBarPanel);
         navBarPanel.setLayout(navBarPanelLayout);
         navBarPanelLayout.setHorizontalGroup(
-                navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(navBarPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(navBarPanelLayout.createParallelGroup(
-                                        javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(navBarPanelLayout
-                                                .createSequentialGroup()
-                                                .addComponent(instructorRoleLabel)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                        .addGroup(navBarPanelLayout
-                                                .createSequentialGroup()
-                                                .addComponent(instructorNameLabel)
-                                                .addPreferredGap(
-                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        535,
-                                                        Short.MAX_VALUE)
-                                                .addComponent(logoutButton)))
-                                .addContainerGap()));
+            navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navBarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(navBarPanelLayout.createSequentialGroup()
+                        .addComponent(instructorRoleLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(navBarPanelLayout.createSequentialGroup()
+                        .addComponent(instructorNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 535, Short.MAX_VALUE)
+                        .addComponent(logoutButton)))
+                .addContainerGap())
+        );
         navBarPanelLayout.setVerticalGroup(
-                navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navBarPanelLayout
-                                .createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(navBarPanelLayout.createParallelGroup(
-                                        javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(instructorNameLabel)
-                                        .addComponent(logoutButton))
-                                .addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(instructorRoleLabel,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        24,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap()));
+            navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navBarPanelLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(instructorNameLabel)
+                    .addComponent(logoutButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(instructorRoleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(dashboardTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                721, Short.MAX_VALUE)
-                        .addComponent(navBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dashboardTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+            .addComponent(navBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                                .createSequentialGroup()
-                                .addComponent(navBarPanel,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dashboardTabbedPane,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        489,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(navBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dashboardTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 }

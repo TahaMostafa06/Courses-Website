@@ -71,6 +71,7 @@ public class TakeQuizTab extends javax.swing.JPanel {
     }
 
     private void onChoiceSelectionChange(ListSelectionEvent evt) {
+        if (progress.isPassed()) return;
         submitButton.setEnabled(selectedChoices.stream().filter(s -> s != null).count() == lessonItem.getQuiz().size());
         questionListModel.markAsAnswered(questionListComponent.getSelectedIndex(), !choiceListComponent.isSelectionEmpty());
         if (choiceListComponent.isSelectionEmpty()) 

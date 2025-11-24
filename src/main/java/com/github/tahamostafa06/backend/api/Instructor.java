@@ -1,5 +1,6 @@
 package com.github.tahamostafa06.backend.api;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.github.tahamostafa06.backend.auth.LoginToken;
@@ -12,6 +13,10 @@ public class Instructor extends UserApi {
 
     public Instructor(LoginToken accessToken, CourseService courseService, UserService userService) {
         super(accessToken, courseService, userService);
+    }
+
+    public HashMap<String, Double> getCourseCompletions() {
+        return courseService.getCourseCompletions();
     }
 
     public List<CourseItem> getMyCourses() {

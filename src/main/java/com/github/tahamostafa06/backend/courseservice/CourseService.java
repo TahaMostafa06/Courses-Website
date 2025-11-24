@@ -27,6 +27,34 @@ public class CourseService {
         this.authenticationManager = authenticationManager;
     }
 
+    public String getCourseId(CourseItem courseItem) {
+        return courseDb.getIdByRecord(courseItem.getCourse());
+    }
+
+    // courseTitle: % lesson completed
+    public HashMap<String, Double> getCourseCompletions() {
+        var map = new HashMap<String, Double>();
+        for (var course : courseDb.getAllCourses()) {
+            var percentDone = 0.0;
+            for (var student : course.getStudentLessonProgress().values()) {
+                var amountDone = 0.0;
+                var totalAmount = (double) student.values().size();
+                for (var lesson : student.values()) {
+                    if (lesson.isPassed())
+                        amountDone += 1;
+                }
+                percentDone = (amountDone / totalAmount) * 100;
+            }
+            map.put(course.getTitle(), percentDone);
+        }
+        return map;
+    }
+
+    // lessonTitle: quiz Average %
+    public HashMap<String, Double> getQuizAverages(CourseItem courseItem) {
+        return null;
+    }
+
     // Private methods
 
     private Set<String> getEnrolledStudents(Course course) {
