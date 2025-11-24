@@ -57,7 +57,8 @@ public class CourseService {
         var allCourses = courseDb.getAllCourses();
         var availableCourses = new ArrayList<CourseItem>();
         for (var course : allCourses) {
-            if (!isStudentEnrolledIn(course, token.getUserId())) {
+            if (!isStudentEnrolledIn(course, token.getUserId())
+                    && course.getStatus().equals("APPROVED")) {
                 availableCourses.add(new CourseItem(course));
             }
         }
@@ -70,7 +71,8 @@ public class CourseService {
         var allCourses = courseDb.getAllCourses();
         var enrolledCourses = new ArrayList<CourseItem>();
         for (var course : allCourses) {
-            if (isStudentEnrolledIn(course, token.getUserId())) {
+            if (isStudentEnrolledIn(course, token.getUserId())
+                    && course.getStatus().equals("APPROVED")) {
                 enrolledCourses.add(new CourseItem(course));
             }
         }
