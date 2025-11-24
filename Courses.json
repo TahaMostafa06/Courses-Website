@@ -27,10 +27,10 @@
     "status": "APPROVED",
     "lessons": {
       "L-8956233": {
-        "title": "lesson 4",
-        "content": "content 4",
+        "title": "lesson 5",
+        "content": "content 5",
         "optionalResources": [
-          "resources"
+          "resources 2"
         ],
         "quiz": [
           {
@@ -54,6 +54,15 @@
       },
       "L-9087903": {
         "title": "new lesson",
+        "content": "content",
+        "optionalResources": [
+          "resources"
+        ],
+        "quiz": [],
+        "maxQuizRetries": 0
+      },
+      "L-1370995": {
+        "title": "lessons",
         "content": "content",
         "optionalResources": [
           "resources"

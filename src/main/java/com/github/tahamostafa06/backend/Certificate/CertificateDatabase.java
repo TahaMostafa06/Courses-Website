@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CertificateDatabase {
-    private List<Certificate> certificates = new ArrayList<>();
+    private final List<Certificate> certificates = new ArrayList<>();
     
     public Certificate createCourseCertificate(String studentId, String courseId) {
         Certificate certificate = new Certificate(studentId, courseId);
@@ -11,7 +11,7 @@ public class CertificateDatabase {
         return certificate;
     }
 
-    public boolean checkCertificateExistence(String studentID,String courseID) {
+    public boolean checkCertificateExistence(String studentID, String courseID) {
         for (Certificate cert : certificates) {
             if (cert.getStudentId().equals(studentID) && cert.getCourseId().equals(courseID)) {
                 return true;

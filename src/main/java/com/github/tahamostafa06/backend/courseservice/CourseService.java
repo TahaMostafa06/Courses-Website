@@ -183,7 +183,7 @@ public class CourseService {
             }
         }
         if (generateCertificateCondition)
-            courseRecord.generateCertificate(studentId, courseID);
+            courseRecord.generateCertificate(studentId);
     }
     
 
@@ -212,21 +212,23 @@ public class CourseService {
     }
 
     public void setCourseDescription(LoginToken token, CourseItem courseItem, String newDescription) {
-        if (!this.authenticationManager.authenticate(token, "Instructor")
-                && !this.authenticationManager.authenticate(token, "Admin"))
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
             return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return;
         courseRecord.setDescription(newDescription);
     }
 
     public void setCourseTitle(LoginToken token, CourseItem courseItem, String newTitle) {
-        if (!this.authenticationManager.authenticate(token, "Instructor")
-                && !this.authenticationManager.authenticate(token, "Admin"))
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
             return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return;
         courseRecord.setTitle(newTitle);
     }
@@ -331,7 +333,7 @@ public class CourseService {
         if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return;
         var lessonRecord = lessonItem.getLesson();
-        lessonRecord.setOptionalResources(new ArrayList<String>(additionalResources));
+        lessonRecord.setOptionalResources(new ArrayList<>(additionalResources));
 
     }
 

@@ -17,6 +17,7 @@ public class Course implements Record {
     private String description;
     private String instructorId;
     private String status;
+    private String ID;
     private HashMap<String, Lesson> lessons;
     private HashMap<String, HashMap<String, StudentLessonProgress>> students;
     private CertificateDatabase certificateDb;
@@ -82,6 +83,13 @@ public class Course implements Record {
         this.instructorId = instructorId;
     }
 
+    public void setID(String ID){
+        this.ID = ID;
+    }
+    public String getID(){
+        return ID;
+    }
+    
     public String getTitle() {
         return title;
     }
@@ -161,12 +169,12 @@ public class Course implements Record {
         return true;
     }
 
-    public Certificate generateCertificate(String studentID,String courseID) {
+    public Certificate generateCertificate(String studentID) {
         if (areAllLessonsPassed(studentID)) {
             if (certificateDb == null) {
                 certificateDb = new CertificateDatabase();
             }
-            return certificateDb.createCourseCertificate(studentID, courseID);
+            return certificateDb.createCourseCertificate(studentID, this.getID());
         } 
         return null;
     }

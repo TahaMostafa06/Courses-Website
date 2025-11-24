@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Certificate {
-    private String certificateId;
-    private String studentId;
-    private String courseId;
-    private String issueDate;
+    private final String certificateId;
+    private final String studentId;
+    private final String courseId;
+    private final String issueDate;
 
     
     public Certificate(String studentId, String courseId) {
