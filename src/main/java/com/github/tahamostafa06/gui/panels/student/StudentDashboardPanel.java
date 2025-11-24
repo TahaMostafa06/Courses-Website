@@ -50,7 +50,7 @@ public class StudentDashboardPanel extends CardPanel {
             String studentId) {
         var tabManager = instance.dashboardTabbedPane;
         instance.viewCertificate1.updateText(studentName, courseTitle, courseId, certificateId, studentId);
-        tabManager.add("Certificate", instance.viewLessonsTab);
+        tabManager.add("Certificate", instance.viewCertificate1);
         tabManager.setSelectedIndex(2);
     }
 
