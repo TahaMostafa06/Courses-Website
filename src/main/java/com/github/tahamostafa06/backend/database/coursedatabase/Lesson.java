@@ -3,7 +3,16 @@ package com.github.tahamostafa06.backend.database.coursedatabase;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.jspecify.annotations.NullMarked;
+
 public class Lesson {
+
+    String title;
+    String content;
+    ArrayList<String> optionalResources;
+    ArrayList<Question> quiz;
+    int maxQuizRetries;
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -13,21 +22,21 @@ public class Lesson {
     }
 
     public void setOptionalResources(Collection<String> optionalResources) {
-        if (optionalResources == null) optionalResources = new ArrayList<String>();
+        if (optionalResources == null)
+            optionalResources = new ArrayList<String>();
         this.optionalResources = new ArrayList<String>(optionalResources);
     }
 
-    private String title;
-    private String content;
-    private ArrayList<String> optionalResources;
+    public int getMaxRetries() {
+        return maxQuizRetries;
+    }
 
-    Lesson(String title, String content, Collection<String> optionalResources) {
-        if (title == null) title = "";
+    @NullMarked
+    Lesson(String title, String content, Collection<String> optionalResources, ArrayList<Question> quiz) {
         this.title = title;
-        if (content == null) content = "";
         this.content = content;
-        if (optionalResources == null) optionalResources = new ArrayList<String>();
         this.optionalResources = new ArrayList<String>(optionalResources);
+        this.quiz = quiz;
     }
 
     public String getTitle() {
@@ -41,4 +50,9 @@ public class Lesson {
     public ArrayList<String> getOptionalResources() {
         return optionalResources;
     }
+
+    public ArrayList<Question> getQuiz() {
+        return quiz;
+    }
+
 }

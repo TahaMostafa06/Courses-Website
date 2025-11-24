@@ -1,0 +1,29 @@
+package com.github.tahamostafa06.backend.courseservice;
+
+import com.github.tahamostafa06.backend.database.coursedatabase.Question;
+
+public class QuestionItem {
+    private final Question question;
+    private boolean answered;
+
+    public QuestionItem(Question question) {
+        this.question = question;
+        this.answered = false;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void markAnswered(boolean answered) {
+        this.answered = answered;
+    }
+
+    @Override
+    public String toString() {
+        if (!answered)
+            return question.getQuestion();
+        else
+            return question.getQuestion() + " [answered]";
+    }
+}

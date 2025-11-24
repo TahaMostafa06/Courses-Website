@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+import com.github.tahamostafa06.backend.api.Admin;
 import com.github.tahamostafa06.backend.api.Instructor;
 import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.api.UserApi;
@@ -53,10 +54,13 @@ public class AuthenticationHelper {
         var userId = userDb.getIdByRecord(user);
         var token = new LoginToken(user.getRole(), userId);
         authenticationManager.addToken(token);
-        if (user.getRole().equals("Instructor"))
+        if (user.getRole().equals("Instructor")){
             return new Instructor(token, courseService, userService);
-        else
+        }else if(user.getRole().equals("Student")){
             return new Student(token, courseService, userService);
+        }else{
+            return new Admin(token, courseService, userService); //change student to admin
+        }
     }
 
     public UserApi signUp(String role, String username, String email, String password) throws UserAlreadyExists, EmailAlreadyInUse {
@@ -69,9 +73,12 @@ public class AuthenticationHelper {
         var userId = userDb.getIdByRecord(user);
         var token = new LoginToken(user.getRole(), userId);
         authenticationManager.addToken(token);
-        if (user.getRole().equals("Instructor"))
+        if (user.getRole().equals("Instructor")){
             return new Instructor(token, courseService, userService);
-        else
+        }else if(user.getRole().equals("Student")){
             return new Student(token, courseService, userService);
+        }else{
+            return new Admin(token, courseService, userService); //change student to admin
+        }
     }
 }

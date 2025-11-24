@@ -2,14 +2,17 @@ package com.github.tahamostafa06.backend.courseservice;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 import com.github.tahamostafa06.backend.auth.AuthenticationManager;
 import com.github.tahamostafa06.backend.auth.LoginToken;
+import com.github.tahamostafa06.backend.database.coursedatabase.Certificate;
 import com.github.tahamostafa06.backend.database.coursedatabase.Course;
 import com.github.tahamostafa06.backend.database.coursedatabase.CourseDatabase;
 import com.github.tahamostafa06.backend.database.coursedatabase.Lesson;
+import com.github.tahamostafa06.backend.database.coursedatabase.StudentLessonProgress;
 import com.github.tahamostafa06.backend.userservice.UserService;
 
 public class CourseService {
@@ -24,14 +27,42 @@ public class CourseService {
         this.authenticationManager = authenticationManager;
     }
 
+    public String getCourseId(CourseItem courseItem) {
+        return courseDb.getIdByRecord(courseItem.getCourse());
+    }
+
+    // courseTitle: % lesson completed
+    public HashMap<String, Double> getCourseCompletions() {
+        var map = new HashMap<String, Double>();
+        for (var course : courseDb.getAllCourses()) {
+            var percentDone = 0.0;
+            for (var student : course.getStudentLessonProgress().values()) {
+                var amountDone = 0.0;
+                var totalAmount = (double) student.values().size();
+                for (var lesson : student.values()) {
+                    if (lesson.isPassed())
+                        amountDone += 1;
+                }
+                percentDone = (amountDone / totalAmount) * 100;
+            }
+            map.put(course.getTitle(), percentDone);
+        }
+        return map;
+    }
+
+    // lessonTitle: quiz Average %
+    public HashMap<String, Double> getQuizAverages(CourseItem courseItem) {
+        return null;
+    }
+
     // Private methods
 
     private Set<String> getEnrolledStudents(Course course) {
-        return course.getStudentsAndLessonsDone().keySet();
+        return course.getStudentLessonProgress().keySet();
     }
 
     private Integer getEnrolledStudentsCount(Course course) {
-        return course.getStudentsAndLessonsDone().keySet().size();
+        return getEnrolledStudents(course).size();
     }
 
     private Boolean isStudentEnrolledIn(Course courseId, String studentId) {
@@ -45,7 +76,7 @@ public class CourseService {
             return;
         if (isStudentEnrolledIn(course, token.getUserId()))
             return;
-        course.getStudentsAndLessonsDone().put(token.getUserId(), new ArrayList<String>());
+        course.getStudentLessonProgress().put(token.getUserId(), new HashMap<>());
     }
 
     public List<CourseItem> getAvailableCourses(LoginToken token) {
@@ -54,7 +85,8 @@ public class CourseService {
         var allCourses = courseDb.getAllCourses();
         var availableCourses = new ArrayList<CourseItem>();
         for (var course : allCourses) {
-            if (!isStudentEnrolledIn(course, token.getUserId())) {
+            if (!isStudentEnrolledIn(course, token.getUserId())
+                    && course.getStatus().equals("APPROVED")) {
                 availableCourses.add(new CourseItem(course));
             }
         }
@@ -67,7 +99,8 @@ public class CourseService {
         var allCourses = courseDb.getAllCourses();
         var enrolledCourses = new ArrayList<CourseItem>();
         for (var course : allCourses) {
-            if (isStudentEnrolledIn(course, token.getUserId())) {
+            if (isStudentEnrolledIn(course, token.getUserId())
+                    && course.getStatus().equals("APPROVED")) {
                 enrolledCourses.add(new CourseItem(course));
             }
         }
@@ -100,11 +133,18 @@ public class CourseService {
         if (!this.authenticationManager.authenticate(token, "Student"))
             return null;
         var course = courseItem.getCourse();
-        return course.getStudentsAndLessonsDone().get(token.getUserId()).size();
+        var studentProgress = course.getStudentLessonProgress().get(token.getUserId());
+        var count = 0;
+        for (var lessonProgress : studentProgress.values()) {
+            if (lessonProgress.isPassed())
+                count += 1;
+        }
+        return count;
     }
 
     public List<LessonItem> getLessons(LoginToken token, CourseItem courseItem) {
-        if (!this.authenticationManager.authenticate(token, "Student"))
+        if (!this.authenticationManager.authenticate(token, "Student") &&
+                !this.authenticationManager.authenticate(token, "Admin"))
             return null;
         var course = courseItem.getCourse();
         var allLessons = new ArrayList<LessonItem>();
@@ -123,15 +163,61 @@ public class CourseService {
         return "";
     }
 
-    public void completeLesson(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
+    public StudentLessonProgress getStudentLessonProgress(LoginToken token, CourseItem courseItem,
+            LessonItem lessonItem) {
+        return courseItem.getCourse().getStudentLessonProgress().get(token.getUserId())
+                .get(getLessonId(courseItem.getCourse(), lessonItem.getLesson()));
+    }
+
+    public void submitQuiz(LoginToken token, CourseItem courseItem, LessonItem lessonItem,
+            ArrayList<String> answers) {
         if (!this.authenticationManager.authenticate(token, "Student"))
             return;
         var courseRecord = courseItem.getCourse();
         var lessonRecord = lessonItem.getLesson();
         var studentId = token.getUserId();
         var lessonId = getLessonId(courseRecord, lessonRecord);
-        var getStudentProgress = courseRecord.getStudentsAndLessonsDone().get(studentId);
-        getStudentProgress.add(lessonId);
+        var questions = new ArrayList<String>();
+        var correctAnswers = new ArrayList<String>();
+        var scores = new ArrayList<Integer>();
+        var quiz = lessonRecord.getQuiz();
+        for (var i = 0; i < quiz.size(); i++) {
+            var question = quiz.get(i);
+            questions.add(question.getQuestion());
+            correctAnswers.add(question.getCorrectAnswer());
+            if (answers.get(i).equals(question.getCorrectAnswer()))
+                scores.add(1);
+            else
+                scores.add(0);
+        }
+        var totalScore = 0;
+        for (var score : scores) {
+            totalScore += score;
+        }
+        scores.add(totalScore);
+        var studentLessonProgress = courseRecord.getStudentLessonProgress().get(studentId);
+        if (!studentLessonProgress.containsKey(lessonId))
+            studentLessonProgress.put(lessonId, new StudentLessonProgress());
+        var lessonProgress = studentLessonProgress.get(lessonId);
+        var passed = (totalScore == quiz.size()) || lessonProgress.isPassed();
+        lessonProgress.addAnswers(answers);
+        lessonProgress.addQuestions(questions);
+        lessonProgress.addScores(scores);
+        lessonProgress.setPassed(passed);
+        // Check if all lessons are done to generate certificate
+        boolean generateCertificateCondition = true;
+        for (var lessonID : courseRecord.getLessons().keySet()) {
+            if (!studentLessonProgress.get(lessonID).isPassed()) {
+                generateCertificateCondition = false;
+                break;
+            }
+        }
+        if (generateCertificateCondition)
+            courseRecord.generateCertificate(studentId);
+    }
+
+    public Certificate getCertificate(LoginToken token, CourseItem courseItem) {
+        return courseItem.getCourse().getCertificate(token.getUserId());
     }
 
     public boolean isLessonDone(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
@@ -139,9 +225,29 @@ public class CourseService {
             return false;
         var courseRecord = courseItem.getCourse();
         var lessonRecord = lessonItem.getLesson();
-        var studentId = token.getUserId();
-        var getStudentProgress = courseRecord.getStudentsAndLessonsDone().get(studentId);
-        return getStudentProgress.contains(getLessonId(courseRecord, lessonRecord));
+        var studentLessonProgress = courseRecord.getStudentLessonProgress().get(token.getUserId());
+        if (!studentLessonProgress.containsKey(getLessonId(courseRecord, lessonRecord)))
+            return false;
+        else
+            return studentLessonProgress.get(getLessonId(courseRecord, lessonRecord)).isPassed();
+    }
+
+    public boolean isLessonAttempted(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
+        return getAttemptsCount(token, courseItem, lessonItem) > 0;
+    }
+
+    public int getAttemptsCount(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
+        if (!this.authenticationManager.authenticate(token, "Student"))
+            return 0;
+        var courseRecord = courseItem.getCourse();
+        var lessonRecord = lessonItem.getLesson();
+        var studentLessonProgress = courseRecord.getStudentLessonProgress().get(token.getUserId());
+        if (studentLessonProgress.containsKey(getLessonId(courseRecord, lessonRecord))) {
+            var answers = studentLessonProgress.get(getLessonId(courseRecord, lessonRecord)).getAttemptsAnswers();
+            if (answers != null)
+                return answers.size();
+        }
+        return 0;
     }
 
     // Instructor API Methods
@@ -157,19 +263,23 @@ public class CourseService {
     }
 
     public void setCourseDescription(LoginToken token, CourseItem courseItem, String newDescription) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
             return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return;
         courseRecord.setDescription(newDescription);
     }
 
     public void setCourseTitle(LoginToken token, CourseItem courseItem, String newTitle) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
             return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return;
         courseRecord.setTitle(newTitle);
     }
@@ -197,10 +307,10 @@ public class CourseService {
         if (!courseRecord.getInstructorId().equals(token.getUserId()))
             return null;
         var myStudentsNames = new ArrayList<String>();
-        for (var student : courseRecord.getStudentsAndLessonsDone().keySet()) {
-            var studentName = userService.getUsernameById(student);
-            myStudentsNames.add(studentName);
-        }
+        // for (var student : courseRecord.getStudentsAndLessonsDone().keySet()) {
+        // var studentName = userService.getUsernameById(student);
+        // myStudentsNames.add(studentName);
+        // }
         return myStudentsNames;
     }
 
@@ -219,56 +329,151 @@ public class CourseService {
 
     public LessonItem addLesson(LoginToken token, CourseItem courseItem, String title, String content,
             Collection<String> additionalResources) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
             return null;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
             return null;
         var lesson = courseRecord.addLesson(title, content, additionalResources);
-
         return new LessonItem(lesson);
     }
 
     public void removeLesson(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
         if (!this.authenticationManager.authenticate(token, "Instructor"))
-            return ;
+            return;
         var courseRecord = courseItem.getCourse();
         if (!courseRecord.getInstructorId().equals(token.getUserId()))
-            return ;
+            return;
         var lessonRecord = lessonItem.getLesson();
         courseRecord.removeLesson(lessonRecord);
     }
 
     public void setLessonTitle(LoginToken token, CourseItem courseItem, LessonItem lessonItem, String title) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
-            return ;
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
+            return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
-            return ;
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
+            return;
         var lessonRecord = lessonItem.getLesson();
         lessonRecord.setTitle(title);
     }
 
     public void setLessonContent(LoginToken token, CourseItem courseItem, LessonItem lessonItem, String content) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
-            return ;
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
+            return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
-            return ;
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
+            return;
         var lessonRecord = lessonItem.getLesson();
         lessonRecord.setContent(content);
     }
 
     public void setLessonAdditionalResources(LoginToken token, CourseItem courseItem, LessonItem lessonItem,
             Collection<String> additionalResources) {
-        if (!this.authenticationManager.authenticate(token, "Instructor"))
-            return ;
+        boolean isInstructor = this.authenticationManager.authenticate(token, "Instructor");
+        boolean isAdmin = this.authenticationManager.authenticate(token, "Admin");
+        if (!isInstructor && !isAdmin)
+            return;
         var courseRecord = courseItem.getCourse();
-        if (!courseRecord.getInstructorId().equals(token.getUserId()))
-            return ;
+        if (!courseRecord.getInstructorId().equals(token.getUserId()) && !isAdmin)
+            return;
         var lessonRecord = lessonItem.getLesson();
-        lessonRecord.setOptionalResources(new ArrayList<String>(additionalResources));
+        lessonRecord.setOptionalResources(new ArrayList<>(additionalResources));
 
+    }
+
+    // Admin API Methods
+    public List<CourseItem> getAllCourses(LoginToken token) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return null;
+        var allCourses = new ArrayList<CourseItem>();
+        for (var course : courseDb.getAllCourses())
+            allCourses.add(new CourseItem(course));
+        return allCourses;
+    }
+
+    public List<CourseItem> getPendingCourses(LoginToken token) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return null;
+        var pendingCourses = new ArrayList<CourseItem>();
+        for (var course : courseDb.getAllCourses()) {
+            if (course.getStatus().equals("PENDING"))
+                pendingCourses.add(new CourseItem(course));
+        }
+        return pendingCourses;
+    }
+
+    public CourseItem createCourse(LoginToken token, String title, String description, String instructor,
+            String Status) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return null;
+        var course = courseDb.addCourse(instructor, title, description, Status);
+        return new CourseItem(course);
+    }
+
+    public void setCourseInstructor(LoginToken token, CourseItem courseItem, String instructorId) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return;
+        var courseRecord = courseItem.getCourse();
+        courseRecord.setInstructorId(instructorId);
+    }
+
+    public void setCourseStatus(LoginToken token, CourseItem courseItem, String instructorId) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return;
+        var courseRecord = courseItem.getCourse();
+        courseRecord.setStatus(instructorId);
+    }
+
+    public ArrayList<ArrayList<Integer>> getStudentAttemptScores(LoginToken token, CourseItem courseItem,
+            String lessonID, String studentID) {
+        if (!this.authenticationManager.authenticate(token, "Instructor"))
+            return null;
+        var courseRecord = courseItem.getCourse();
+        return courseRecord.getStudentAttemptScores(lessonID, studentID);
+    }
+
+    public ArrayList<ArrayList<String>> getStudentAttemptQuestions(LoginToken token, CourseItem courseItem,
+            String lessonID, String studentID) {
+        if (!this.authenticationManager.authenticate(token, "Instructor"))
+            return null;
+        var courseRecord = courseItem.getCourse();
+        return courseRecord.getStudentAttemptQuestions(lessonID, studentID);
+    }
+
+    public ArrayList<ArrayList<String>> getStudentAttemptAnswers(LoginToken token, CourseItem courseItem,
+            String lessonID, String studentID) {
+        if (!this.authenticationManager.authenticate(token, "Instructor"))
+            return null;
+        var courseRecord = courseItem.getCourse();
+        return courseRecord.getStudentAttemptAnswers(lessonID, studentID);
+    }
+
+    public boolean isStudentEnrolled(LoginToken token, CourseItem courseItem) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return false;
+        var courseRecord = courseItem.getCourse();
+        return isStudentEnrolledIn(courseRecord, token.getUserId());
+    }
+
+    public boolean areAllLessonsPassed(LoginToken token, CourseItem courseItem) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return false;
+        var courseRecord = courseItem.getCourse();
+        return courseRecord.areAllLessonsPassed(token.getUserId());
+    }
+
+    public Certificate generateCertificate(LoginToken token, CourseItem courseItem) {
+        if (!this.authenticationManager.authenticate(token, "Admin"))
+            return null;
+        var courseRecord = courseItem.getCourse();
+        return courseRecord.generateCertificate(token.getUserId());
     }
 
 }

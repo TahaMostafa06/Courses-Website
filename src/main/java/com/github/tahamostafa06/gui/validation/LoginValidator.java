@@ -26,11 +26,25 @@ public class LoginValidator {
         this.authHelper = authHelper;
         var usernameVerifier = new InputVerifier() {
             @Override
+            public boolean shouldYieldFocus(JComponent self, JComponent other) {
+                if(other == passwordField)
+                    return true;
+                return verify(self);
+            }
+            
+            @Override
             public boolean verify(JComponent component) {
                 return verifyUsernameLength();
             }
         };
         var passwordVerifier = new InputVerifier() {
+            @Override
+            public boolean shouldYieldFocus(JComponent self, JComponent other) {
+                if(other == usernameField)
+                    return true;
+                return verify(self);
+            }
+            
             @Override
             public boolean verify(JComponent component) {
                 return verifyPasswordLength();

@@ -1,6 +1,9 @@
 package com.github.tahamostafa06.backend.courseservice;
 
+import java.util.ArrayList;
+
 import com.github.tahamostafa06.backend.database.coursedatabase.Lesson;
+import com.github.tahamostafa06.backend.database.coursedatabase.Question;
 
 public class LessonItem {
     private final Lesson lesson;
@@ -9,7 +12,7 @@ public class LessonItem {
         this.lesson = lesson;
     }
 
-    Lesson getLesson() {
+    public Lesson getLesson() {
         return lesson;
     }
 
@@ -42,5 +45,9 @@ public class LessonItem {
         LessonItem otherItem = (LessonItem) otherObject;
         // Assuming you have a unique ID field. If not, compare title/description
         return this.lesson == otherItem.lesson;
+    }
+
+    public ArrayList<Question> getQuiz() {
+        return lesson.getQuiz();
     }
 }

@@ -1,6 +1,5 @@
 package com.github.tahamostafa06.backend.api;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.github.tahamostafa06.backend.auth.LoginToken;
@@ -9,20 +8,23 @@ import com.github.tahamostafa06.backend.courseservice.CourseService;
 import com.github.tahamostafa06.backend.courseservice.LessonItem;
 import com.github.tahamostafa06.backend.userservice.UserService;
 
-public class Instructor extends UserApi {
-
-    public Instructor(LoginToken accessToken, CourseService courseService, UserService userService) {
+public class Admin extends UserApi{
+    
+    public Admin(LoginToken accessToken, CourseService courseService, UserService userService) {
         super(accessToken, courseService, userService);
     }
-
-    public HashMap<String, Double> getCourseCompletions() {
-        return courseService.getCourseCompletions();
+    public List<CourseItem> getAllCourses() {
+        return courseService.getAllCourses(accessToken);
     }
-
-    public List<CourseItem> getMyCourses() {
-        return courseService.getMyCourses(accessToken);
+    
+    public List<CourseItem> getPendingCourses() {
+        return courseService.getPendingCourses(accessToken);
     }
-
+    
+    public List<LessonItem> getLessons(CourseItem course) {
+        return courseService.getLessons(accessToken, course);
+    }
+    
     public void setCourseDescription(CourseItem courseItem, String newDescription) {
         courseService.setCourseDescription(accessToken, courseItem, newDescription);
     }
@@ -30,23 +32,11 @@ public class Instructor extends UserApi {
     public void setCourseTitle(CourseItem courseItem, String newTitle) {
         courseService.setCourseTitle(accessToken, courseItem, newTitle);
     }
-
-    public List<LessonItem> getMyLessonsForCourse(CourseItem courseItem) {
-        return courseService.getMyLessonsForCourse(accessToken, courseItem);
+    
+    public void setCourseStatus(CourseItem courseItem, String newStatus) {
+        courseService.setCourseStatus(accessToken, courseItem, newStatus);
     }
-
-    public CourseItem createCourse(String title, String description) {
-        return courseService.createCourse(accessToken, title, description);
-    }
-
-    public void deleteCourse(CourseItem courseItem) {
-        courseService.deleteCourse(accessToken, courseItem);
-    }
-
-    public List<String> getMyStudentsForCourse(CourseItem courseItem) {
-        return courseService.getMyStudentsForCourse(accessToken, courseItem);
-    }
-
+    
     public LessonItem addLesson(CourseItem courseItem, String title, String content,
             String additionalResources) {
         return courseService.addLesson(accessToken, courseItem, title, content,
@@ -70,5 +60,17 @@ public class Instructor extends UserApi {
         courseService.setLessonAdditionalResources(accessToken, courseItem, lessonItem,
                 List.of(additionalResources.split(",")));
     }
+    
+    public void setCourseInstructor(CourseItem courseItem, String Instructor) {
+        courseService.setCourseInstructor(accessToken, courseItem, Instructor);
+    }
+    
+    public CourseItem createCourse(String title, String description, String Instructor, String Status) {
+        return courseService.createCourse(accessToken, title, description, Instructor, Status);
+    }
+    
 
+    public void deleteCourse(CourseItem courseItem) {
+        courseService.deleteCourse(accessToken, courseItem);
+    }
 }

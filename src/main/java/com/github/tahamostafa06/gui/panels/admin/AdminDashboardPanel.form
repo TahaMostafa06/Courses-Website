@@ -38,46 +38,33 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="com.github.tahamostafa06.gui.panels.instructor.ManageCoursesTab" name="manageCoursesTab">
+        <Component class="com.github.tahamostafa06.gui.panels.admin.ManageCoursesTab" name="manageCoursesTab">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Manage Courses">
-                <Property name="tabTitle" type="java.lang.String" value="Manage Courses"/>
+              <JTabbedPaneConstraints tabName="All Courses">
+                <Property name="tabTitle" type="java.lang.String" value="All Courses"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab" name="viewEnrolledStudentsTab">
+        <Component class="com.github.tahamostafa06.gui.panels.admin.ManagePendingCoursesTab" name="managePendingCoursesTab">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="My Students">
-                <Property name="tabTitle" type="java.lang.String" value="My Students"/>
+              <JTabbedPaneConstraints tabName="Pending Courses">
+                <Property name="tabTitle" type="java.lang.String" value="Pending Courses"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
         </Component>
-        <Container class="com.github.tahamostafa06.gui.panels.instructor.InsightsTab" name="insightsTab">
+        <Component class="com.github.tahamostafa06.gui.panels.admin.ManageLessonsTab" name="manageLessonsTab">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Insights">
-                <Property name="tabTitle" type="java.lang.String" value="Insights"/>
+              <JTabbedPaneConstraints tabName="Manage Lessons">
+                <Property name="tabTitle" type="java.lang.String" value="Manage Lessons"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="721" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="454" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="navBarPanel">
@@ -89,12 +76,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="instructorRoleLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="adminRoleLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="instructorNameLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="535" max="32767" attributes="0"/>
+                          <Component id="adminNameLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="553" max="32767" attributes="0"/>
                           <Component id="logoutButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -107,25 +94,25 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="instructorNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="adminNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="logoutButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="instructorRoleLabel" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="adminRoleLabel" min="-2" pref="24" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="instructorNameLabel">
+        <Component class="javax.swing.JLabel" name="adminNameLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
               <FontInfo relative="true">
-                <Font component="instructorNameLabel" property="font" relativeSize="true" size="2"/>
+                <Font component="adminNameLabel" property="font" relativeSize="true" size="2"/>
               </FontInfo>
             </Property>
-            <Property name="text" type="java.lang.String" value="Instructor Name"/>
+            <Property name="text" type="java.lang.String" value="Admin Name"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="logoutButton">
@@ -142,14 +129,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="instructorRoleLabel">
+        <Component class="javax.swing.JLabel" name="adminRoleLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
               <FontInfo relative="true">
-                <Font component="instructorRoleLabel" italic="true" property="font" relativeSize="true" size="0"/>
+                <Font component="adminRoleLabel" italic="true" property="font" relativeSize="true" size="0"/>
               </FontInfo>
             </Property>
-            <Property name="text" type="java.lang.String" value="Instructor"/>
+            <Property name="text" type="java.lang.String" value="Admin"/>
           </Properties>
         </Component>
       </SubComponents>

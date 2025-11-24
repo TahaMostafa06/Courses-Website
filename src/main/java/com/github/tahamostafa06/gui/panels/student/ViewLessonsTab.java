@@ -2,7 +2,6 @@ package com.github.tahamostafa06.gui.panels.student;
 
 import com.github.tahamostafa06.backend.api.Student;
 import com.github.tahamostafa06.backend.courseservice.CourseItem;
-import com.github.tahamostafa06.backend.courseservice.LessonItem;
 import com.github.tahamostafa06.gui.models.StudentLessonListModel;
 import javax.swing.event.ListSelectionEvent;
 
@@ -11,14 +10,16 @@ public class ViewLessonsTab extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel additionalResourcesLabel;
     private javax.swing.JLabel additionalResourcesTextLabel;
+    private javax.swing.JLabel completionTitleLabel;
     private javax.swing.JLabel contentLabel;
     private javax.swing.JLabel contentTextLabel;
     private javax.swing.JLabel courseTitle;
     private javax.swing.JPanel lessonDetailsPanel;
-    private javax.swing.JList<LessonItem> lessonListComponent;
+    private javax.swing.JList<com.github.tahamostafa06.backend.courseservice.LessonItem> lessonListComponent;
     private javax.swing.JScrollPane lessonListScrollPane;
-    private javax.swing.JButton markDoneButton;
+    private javax.swing.JLabel quizCompletionStatusLabel;
     private javax.swing.JLabel selectionPromptLabel;
+    private javax.swing.JButton startQuizButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel titleTextLabel;
     // End of variables declaration//GEN-END:variables
@@ -29,14 +30,48 @@ public class ViewLessonsTab extends javax.swing.JPanel {
     public ViewLessonsTab() {
         initComponents();
         lessonListComponent.addListSelectionListener(this::onSelectionChange);
-        contentTextLabel.setVisible(false);
-        contentLabel.setVisible(false);
-        titleLabel.setVisible(false);
-        titleTextLabel.setVisible(false);
-        additionalResourcesTextLabel.setVisible(false);
-        additionalResourcesLabel.setVisible(false);
-        markDoneButton.setVisible(false);
-        selectionPromptLabel.setVisible(true);
+        setInfoPaneVisibility(false);
+    }
+
+    private void setInfoPaneVisibility(boolean visible) {
+        contentTextLabel.setVisible(visible);
+        contentLabel.setVisible(visible);
+        titleLabel.setVisible(visible);
+        titleTextLabel.setVisible(visible);
+        additionalResourcesTextLabel.setVisible(visible);
+        additionalResourcesLabel.setVisible(visible);
+        startQuizButton.setVisible(visible);
+        selectionPromptLabel.setVisible(!visible);
+        quizCompletionStatusLabel.setVisible(visible);
+        completionTitleLabel.setVisible(visible);
+        if (!lessonListComponent.isSelectionEmpty()) {
+            var lessonItem = lessonListComponent.getSelectedValue();
+            titleTextLabel.setText(lessonItem.getTitle());
+            additionalResourcesTextLabel.setText(lessonItem.getAdditionalResource());
+            contentTextLabel.setText(lessonItem.getContent());
+            if (!student.isLessonAttempted(courseItem, lessonItem)) {
+                startQuizButton.setText("Start Quiz");
+                quizCompletionStatusLabel.setText("Not started");
+            }
+            if (student.isLessonDone(courseItem, lessonItem)) {
+                startQuizButton.setText("View Quiz");
+                quizCompletionStatusLabel.setText("Completed");
+            } else {
+                startQuizButton.setText("Retake Quiz");
+                startQuizButton.setEnabled(true);
+                var allowedAttempts = lessonItem.getLesson().getMaxRetries() + 1;
+                var attempts = student.getAttemptsCount(courseItem, lessonItem);
+                if (allowedAttempts <= 0) {
+                    quizCompletionStatusLabel.setText("Didn't pass quiz yet");
+                } else if (allowedAttempts > 0 && attempts < allowedAttempts) {
+                    quizCompletionStatusLabel.setText("Didn't pass quiz yet (" + attempts + "/" + allowedAttempts + " attempts)");
+                } else {
+                    quizCompletionStatusLabel.setText("Didn't pass quiz (" + attempts + "/" + allowedAttempts + " attempts)");
+                    startQuizButton.setText("Cannot Retake Quiz");
+                    startQuizButton.setEnabled(false);
+                }
+            }
+        }
     }
 
     public void updateLessonView(Student student, CourseItem courseItem) {
@@ -50,39 +85,20 @@ public class ViewLessonsTab extends javax.swing.JPanel {
             studentLessonListModel.setStudent(student);
             studentLessonListModel.setCourseItem(courseItem);
         }
-
     }
 
-    private void markDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_markDoneButtonActionPerformed
-        if (!lessonListComponent.isSelectionEmpty()) {
-            var lessonItem = lessonListComponent.getSelectedValue();
-            student.completeLesson(courseItem, lessonItem);
-            studentLessonListModel.update();
-            markDoneButton.setEnabled(false);
-        }
-    }// GEN-LAST:event_markDoneButtonActionPerformed
+    private void startQuizButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_startQuizButtonActionPerformed
+        var lessonItem = lessonListComponent.getSelectedValue();
+        StudentDashboardPanel.showQuiz(courseItem, lessonItem,
+                student.getStudentLessonProgress(courseItem, lessonItem));
+    }// GEN-LAST:event_startQuizButtonActionPerformed
 
     private void onSelectionChange(ListSelectionEvent evt) {
-        contentTextLabel.setVisible(!lessonListComponent.isSelectionEmpty());
-        contentLabel.setVisible(!lessonListComponent.isSelectionEmpty());
-        titleLabel.setVisible(!lessonListComponent.isSelectionEmpty());
-        titleTextLabel.setVisible(!lessonListComponent.isSelectionEmpty());
-        additionalResourcesTextLabel.setVisible(!lessonListComponent.isSelectionEmpty());
-        additionalResourcesLabel.setVisible(!lessonListComponent.isSelectionEmpty());
-        markDoneButton.setVisible(!lessonListComponent.isSelectionEmpty());
-        selectionPromptLabel.setVisible(lessonListComponent.isSelectionEmpty());
-        if (!lessonListComponent.isSelectionEmpty()) {
-            var lessonItem = lessonListComponent.getSelectedValue();
-            titleTextLabel.setText(lessonItem.getTitle());
-            additionalResourcesTextLabel.setText(lessonItem.getAdditionalResource());
-            contentTextLabel.setText(lessonItem.getContent());
-            markDoneButton.setEnabled(!student.isLessonDone(courseItem, lessonItem));
-        }
+        setInfoPaneVisibility(!lessonListComponent.isSelectionEmpty());
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -97,13 +113,15 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         contentTextLabel = new javax.swing.JLabel();
         additionalResourcesLabel = new javax.swing.JLabel();
         additionalResourcesTextLabel = new javax.swing.JLabel();
-        markDoneButton = new javax.swing.JButton();
+        startQuizButton = new javax.swing.JButton();
+        completionTitleLabel = new javax.swing.JLabel();
+        quizCompletionStatusLabel = new javax.swing.JLabel();
 
         lessonListScrollPane.setViewportView(lessonListComponent);
 
         lessonDetailsPanel.setLayout(new java.awt.GridBagLayout());
 
-        courseTitle.setFont(courseTitle.getFont().deriveFont(courseTitle.getFont().getSize()+4f));
+        courseTitle.setFont(courseTitle.getFont().deriveFont(courseTitle.getFont().getSize() + 4f));
         courseTitle.setText("Course Title");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -153,7 +171,8 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         lessonDetailsPanel.add(contentTextLabel, gridBagConstraints);
 
-        additionalResourcesLabel.setFont(additionalResourcesLabel.getFont().deriveFont(additionalResourcesLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        additionalResourcesLabel.setFont(additionalResourcesLabel.getFont()
+                .deriveFont(additionalResourcesLabel.getFont().getStyle() | java.awt.Font.BOLD));
         additionalResourcesLabel.setText("Additional Resources");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -170,27 +189,45 @@ public class ViewLessonsTab extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
         lessonDetailsPanel.add(additionalResourcesTextLabel, gridBagConstraints);
 
-        markDoneButton.setText("Complete Lesson");
-        markDoneButton.addActionListener(this::markDoneButtonActionPerformed);
+        startQuizButton.setText("Start Quiz");
+        startQuizButton.addActionListener(this::startQuizButtonActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 8;
-        lessonDetailsPanel.add(markDoneButton, gridBagConstraints);
+        gridBagConstraints.gridy = 10;
+        lessonDetailsPanel.add(startQuizButton, gridBagConstraints);
+
+        completionTitleLabel.setFont(completionTitleLabel.getFont()
+                .deriveFont(completionTitleLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        completionTitleLabel.setText("Quiz Completion");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
+        lessonDetailsPanel.add(completionTitleLabel, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(4, 9, 4, 9);
+        lessonDetailsPanel.add(quizCompletionStatusLabel, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lessonListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(lessonDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lessonListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lessonDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lessonListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lessonDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(lessonListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 158,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lessonDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 268,
+                                        Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
 
 }

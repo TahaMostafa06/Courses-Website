@@ -2,6 +2,7 @@ package com.github.tahamostafa06.gui.panels;
 
 import com.github.tahamostafa06.backend.api.Instructor;
 import com.github.tahamostafa06.backend.api.Student;
+import com.github.tahamostafa06.backend.api.Admin;
 import com.github.tahamostafa06.backend.api.UserApi;
 import com.github.tahamostafa06.gui.validation.LoginValidator;
 
@@ -146,10 +147,13 @@ public class LoginPanel extends CardPanel {
         UserApi login = loginValidator.verifyLogin();
         if (login != null) {
             resetComponents();
-            if (login.getClass() == Student.class)
+            if (login.getClass() == Student.class){
                 MainWindowFrame.switchTo(MainWindowFrame.PANELS.StudentDashboardPanel, login);
-            else if (login.getClass() == Instructor.class)
+            }else if (login.getClass() == Instructor.class){
                 MainWindowFrame.switchTo(MainWindowFrame.PANELS.InstructorDashboardPanel, login);
+            }else{
+                MainWindowFrame.switchTo(MainWindowFrame.PANELS.AdminDashboardPanel, login);
+            }
         }
     }// GEN-LAST:event_submitButtonActionPerformed
 

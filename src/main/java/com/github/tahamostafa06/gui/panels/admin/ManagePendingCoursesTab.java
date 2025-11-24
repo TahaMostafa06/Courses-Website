@@ -1,10 +1,11 @@
-package com.github.tahamostafa06.gui.panels.instructor;
+package com.github.tahamostafa06.gui.panels.admin;
 
-import com.github.tahamostafa06.backend.api.Instructor;
-import com.github.tahamostafa06.gui.models.InstructorCourseListModel;
+import com.github.tahamostafa06.gui.panels.admin.*;
+import com.github.tahamostafa06.backend.api.Admin;
+import com.github.tahamostafa06.gui.models.AdminCourseListModel;
 import javax.swing.event.ListSelectionEvent;
 
-public class ManageCoursesTab extends javax.swing.JPanel {
+public class ManagePendingCoursesTab extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
@@ -12,8 +13,11 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     private javax.swing.JLabel courseDescriptionInputLabel;
     private javax.swing.JPanel courseDetailsPanel;
     private javax.swing.JLabel courseInformationTitle;
+    private javax.swing.JTextField courseInstructorInputField;
+    private javax.swing.JLabel courseInstructorInputLabel;
     private javax.swing.JList<com.github.tahamostafa06.backend.courseservice.CourseItem> courseListComponent;
     private javax.swing.JScrollPane courseListScrollPane;
+    private javax.swing.JComboBox<String> courseStatusComboBox;
     private javax.swing.JLabel courseStatusLabel;
     private javax.swing.JTextField courseTitleInputField;
     private javax.swing.JLabel courseTitleInputLabel;
@@ -23,10 +27,10 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     private javax.swing.JButton saveButton;
     private javax.swing.JLabel selectionPromptLabel;
     // End of variables declaration//GEN-END:variables
-    private Instructor instructor;
-    private InstructorCourseListModel instructorCourseListModel;
+    private Admin admin;
+    private AdminCourseListModel adminCourseListModel;
 
-    public ManageCoursesTab() {
+    public ManagePendingCoursesTab() {
         initComponents();
         courseListComponent.addListSelectionListener(this::onSelectionChange);
         updateEditingSpace(false);
@@ -37,14 +41,18 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         courseDescriptionInputLabel.setVisible(showEditing);
         courseTitleInputLabel.setVisible(showEditing);
         courseTitleInputField.setVisible(showEditing);
+        courseInstructorInputField.setVisible(showEditing);
+        courseInstructorInputLabel.setVisible(showEditing);
+        courseStatusComboBox.setVisible(showEditing);
+        courseStatusLabel.setVisible(showEditing);
         saveButton.setVisible(showEditing);
         cancelButton.setVisible(showEditing);
-        courseStatusLabel.setVisible(showEditing);
         selectionPromptLabel.setVisible(!showEditing);
         createNewButton.setVisible(!showEditing);
         saveButton.setEnabled(false);
         deleteButton.setVisible(false);
         editLessonsButton.setVisible(false);
+        
         if (!showEditing) {
             if (!courseListComponent.isSelectionEmpty()) {
                 courseListComponent.clearSelection();
@@ -56,12 +64,12 @@ public class ManageCoursesTab extends javax.swing.JPanel {
                 courseInformationTitle.setText("Create New Course");
                 courseTitleInputField.setText("");
                 courseDescriptionInputField.setText("");
-                courseStatusLabel.setText("Status: PENDING");
             } else {
                 courseInformationTitle.setText("Editing: " + courseListComponent.getSelectedValue().getTitle());
                 courseTitleInputField.setText(courseListComponent.getSelectedValue().getTitle());
                 courseDescriptionInputField.setText(courseListComponent.getSelectedValue().getDescription());
-                courseStatusLabel.setText("Status: " + courseListComponent.getSelectedValue().getStatus());
+                courseInstructorInputField.setText(courseListComponent.getSelectedValue().getInstructor());
+                courseStatusComboBox.setSelectedItem(courseListComponent.getSelectedValue().getStatus());
                 deleteButton.setVisible(true);
                 editLessonsButton.setVisible(true);
             }
@@ -70,13 +78,13 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         }
     }
 
-    public void updateCourses(Instructor instructor) {
-        this.instructor = instructor;
-        if (instructorCourseListModel == null) {
-            instructorCourseListModel = new InstructorCourseListModel(instructor);
-            courseListComponent.setModel(instructorCourseListModel);
+    public void updateCourses(Admin admin) {
+        this.admin = admin;
+        if (adminCourseListModel == null) {
+            adminCourseListModel = new AdminCourseListModel(admin, AdminCourseListModel.StatusFilter.PENDING);
+            courseListComponent.setModel(adminCourseListModel);
         } else {
-            instructorCourseListModel.setInstructor(instructor);
+            adminCourseListModel.setAdmin(admin);
         }
     }
 
@@ -88,14 +96,17 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_saveButtonActionPerformed
         if (!courseListComponent.isSelectionEmpty()) {
             var course = courseListComponent.getSelectedValue();
-            instructor.setCourseTitle(course, courseTitleInputField.getText());
-            instructor.setCourseDescription(course, courseDescriptionInputField.getText());
-            updateEditingSpace(true);
-            instructorCourseListModel.update();
+            admin.setCourseTitle(course, courseTitleInputField.getText());
+            admin.setCourseDescription(course, courseDescriptionInputField.getText());
+            admin.setCourseInstructor(course, courseInstructorInputField.getText());
+            admin.setCourseStatus(course, (String) courseStatusComboBox.getSelectedItem());
+            updateEditingSpace(course.getStatus().equals("PENDING"));
+            adminCourseListModel.update();
         } else {
-            var newCourse = instructor.createCourse(courseTitleInputField.getText(),
-                    courseDescriptionInputField.getText());
-            instructorCourseListModel.update();
+            var newCourse = admin.createCourse(courseTitleInputField.getText(),
+                    courseDescriptionInputField.getText(), courseInstructorInputField.getText(),
+                    (String) courseStatusComboBox.getSelectedItem());
+            adminCourseListModel.update();
             courseListComponent.setSelectedValue(newCourse, true);
             updateEditingSpace(true);
         }
@@ -104,8 +115,8 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deleteButtonActionPerformed
         if (!courseListComponent.isSelectionEmpty()) {
             var course = courseListComponent.getSelectedValue();
-            instructor.deleteCourse(course);
-            instructorCourseListModel.update();
+            admin.deleteCourse(course);
+            adminCourseListModel.update();
             updateEditingSpace(false);
         }
     }// GEN-LAST:event_deleteButtonActionPerformed
@@ -113,7 +124,7 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     private void editLessonsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editLessonsButtonActionPerformed
         if (!courseListComponent.isSelectionEmpty()) {
             var course = courseListComponent.getSelectedValue();
-            InstructorDashboardPanel.showLessonViewer(course);
+            AdminDashboardPanel.showLessonViewer(course);
         }
     }// GEN-LAST:event_editLessonsButtonActionPerformed
 
@@ -139,9 +150,12 @@ public class ManageCoursesTab extends javax.swing.JPanel {
     private void checkSaveButton() {
         var inputTitle = courseTitleInputField.getText();
         var inputDescription = courseDescriptionInputField.getText();
+        var inputInstructor = courseInstructorInputField.getText();
+        var inputStatus = courseStatusComboBox.getSelectedItem();
         if (!courseListComponent.isSelectionEmpty()) {
             var course = courseListComponent.getSelectedValue();
-            if (course.getTitle().equals(inputTitle) && course.getDescription().equals(inputDescription))
+            if (course.getTitle().equals(inputTitle) && course.getDescription().equals(inputDescription)
+                    && course.getInstructor().equals(inputInstructor) && course.getStatus().equals(inputStatus))
                 saveButton.setEnabled(false);
             else
                 saveButton.setEnabled(true);
@@ -182,6 +196,9 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         createNewButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         editLessonsButton = new javax.swing.JButton();
+        courseInstructorInputField = new javax.swing.JTextField();
+        courseInstructorInputLabel = new javax.swing.JLabel();
+        courseStatusComboBox = new javax.swing.JComboBox<>();
         courseStatusLabel = new javax.swing.JLabel();
 
         courseListScrollPane.setViewportView(courseListComponent);
@@ -295,14 +312,40 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.ipady = 5;
         gridBagConstraints.insets = new java.awt.Insets(3, 6, 3, 6);
         courseDetailsPanel.add(editLessonsButton, gridBagConstraints);
-
-        courseStatusLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        courseStatusLabel.setText("Status: APPROVED");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        courseDetailsPanel.add(courseInstructorInputField, gridBagConstraints);
+
+        courseInstructorInputLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        courseInstructorInputLabel.setText("Instructor");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 31, 0, 9);
+        courseDetailsPanel.add(courseInstructorInputLabel, gridBagConstraints);
+
+        courseStatusComboBox.setFont(courseStatusComboBox.getFont().deriveFont(courseStatusComboBox.getFont().getSize()+4f));
+        courseStatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDING", "APPROVED", "DECLINED" }));
+        courseStatusComboBox.setToolTipText("");
+        courseStatusComboBox.addActionListener(this::courseStatusComboBoxActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        courseDetailsPanel.add(courseStatusComboBox, gridBagConstraints);
+
+        courseStatusLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        courseStatusLabel.setText("Status");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 18, 8, 11);
         courseDetailsPanel.add(courseStatusLabel, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -320,4 +363,8 @@ public class ManageCoursesTab extends javax.swing.JPanel {
                 .addComponent(courseDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void courseStatusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseStatusComboBoxActionPerformed
+        checkSaveButton();
+    }//GEN-LAST:event_courseStatusComboBoxActionPerformed
 }

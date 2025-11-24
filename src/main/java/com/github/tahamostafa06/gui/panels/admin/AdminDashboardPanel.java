@@ -1,63 +1,58 @@
-package com.github.tahamostafa06.gui.panels.instructor;
+package com.github.tahamostafa06.gui.panels.admin;
 
-import com.github.tahamostafa06.backend.api.Instructor;
+import com.github.tahamostafa06.gui.panels.admin.*;
+import com.github.tahamostafa06.backend.api.Admin;
 import com.github.tahamostafa06.backend.courseservice.CourseItem;
 import com.github.tahamostafa06.gui.panels.CardPanel;
 import com.github.tahamostafa06.gui.panels.MainWindowFrame;
 
-public class InstructorDashboardPanel extends CardPanel {
+public class AdminDashboardPanel extends CardPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel adminNameLabel;
+    private javax.swing.JLabel adminRoleLabel;
     private javax.swing.JTabbedPane dashboardTabbedPane;
-    private com.github.tahamostafa06.gui.panels.instructor.InsightsTab insightsTab;
-    private javax.swing.JLabel instructorNameLabel;
-    private javax.swing.JLabel instructorRoleLabel;
     private javax.swing.JButton logoutButton;
-    private com.github.tahamostafa06.gui.panels.instructor.ManageCoursesTab manageCoursesTab;
+    private com.github.tahamostafa06.gui.panels.admin.ManageCoursesTab manageCoursesTab;
+    private com.github.tahamostafa06.gui.panels.admin.ManageLessonsTab manageLessonsTab;
+    private com.github.tahamostafa06.gui.panels.admin.ManagePendingCoursesTab managePendingCoursesTab;
     private javax.swing.JPanel navBarPanel;
-    private com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab viewEnrolledStudentsTab;
     // End of variables declaration//GEN-END:variables
-    private ManageLessonsTab manageLessonsTab;
-    private Instructor instructor;
-    private static InstructorDashboardPanel instance;
+    //private AllCoursesTab allCoursesTab;
+    private Admin admin;
+    private static AdminDashboardPanel instance;
 
-    public InstructorDashboardPanel() {
+    public AdminDashboardPanel() {
         initComponents();
         instance = this;
-        manageLessonsTab = new ManageLessonsTab();
+        dashboardTabbedPane.remove(2);
+        //allCoursesTab = new AllCoursesTab();
     }
 
     public static void showLessonViewer(CourseItem selectedCourseItem) {
         var tabManager = instance.dashboardTabbedPane;
-        instance.manageLessonsTab.updateLessonView(instance.instructor, selectedCourseItem);
+        instance.manageLessonsTab.updateLessonView(instance.admin, selectedCourseItem);
         tabManager.add("Lessons", instance.manageLessonsTab);
         tabManager.setSelectedIndex(2);
     }
-
+    
     @Override
     public void receiveTransitionMessage(Object message) {
-        instructor = (Instructor) message;
+        admin = (Admin) message;
         updateAllChildren();
     }
 
     private void updateAllChildren() {
-        if (instructor == null)
+        if (admin == null)
             return;
-        instructorNameLabel.setText(instructor.getName());
-        manageCoursesTab.updateCourses(instructor);
-        viewEnrolledStudentsTab.updateCourses(instructor);
+        adminNameLabel.setText(admin.getName());
+        manageCoursesTab.updateCourses(admin);
+        managePendingCoursesTab.updateCourses(admin);
     }
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_logoutButtonActionPerformed
         MainWindowFrame.switchTo(MainWindowFrame.PANELS.OnboardingPanel);
     }// GEN-LAST:event_logoutButtonActionPerformed
-
-    private void dashboardTabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_dashboardTabbedPaneStateChanged
-        if (dashboardTabbedPane.getSelectedIndex() != 2 && dashboardTabbedPane.getTabCount() == 3) {
-            dashboardTabbedPane.remove(2);
-        }
-        updateAllChildren();
-    }// GEN-LAST:event_dashboardTabbedPaneStateChanged
 
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
@@ -66,41 +61,29 @@ public class InstructorDashboardPanel extends CardPanel {
     private void initComponents() {
 
         dashboardTabbedPane = new javax.swing.JTabbedPane();
-        manageCoursesTab = new com.github.tahamostafa06.gui.panels.instructor.ManageCoursesTab();
-        viewEnrolledStudentsTab = new com.github.tahamostafa06.gui.panels.instructor.ViewEnrolledStudentsTab();
-        insightsTab = new com.github.tahamostafa06.gui.panels.instructor.InsightsTab();
+        manageCoursesTab = new com.github.tahamostafa06.gui.panels.admin.ManageCoursesTab();
+        managePendingCoursesTab = new com.github.tahamostafa06.gui.panels.admin.ManagePendingCoursesTab();
+        manageLessonsTab = new com.github.tahamostafa06.gui.panels.admin.ManageLessonsTab();
         navBarPanel = new javax.swing.JPanel();
-        instructorNameLabel = new javax.swing.JLabel();
+        adminNameLabel = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
-        instructorRoleLabel = new javax.swing.JLabel();
+        adminRoleLabel = new javax.swing.JLabel();
 
         dashboardTabbedPane.addChangeListener(this::dashboardTabbedPaneStateChanged);
-        dashboardTabbedPane.addTab("Manage Courses", manageCoursesTab);
-        dashboardTabbedPane.addTab("My Students", viewEnrolledStudentsTab);
+        dashboardTabbedPane.addTab("All Courses", manageCoursesTab);
+        dashboardTabbedPane.addTab("Pending Courses", managePendingCoursesTab);
+        dashboardTabbedPane.addTab("Manage Lessons", manageLessonsTab);
 
-        javax.swing.GroupLayout insightsTabLayout = new javax.swing.GroupLayout(insightsTab);
-        insightsTab.setLayout(insightsTabLayout);
-        insightsTabLayout.setHorizontalGroup(
-            insightsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 721, Short.MAX_VALUE)
-        );
-        insightsTabLayout.setVerticalGroup(
-            insightsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 454, Short.MAX_VALUE)
-        );
-
-        dashboardTabbedPane.addTab("Insights", insightsTab);
-
-        instructorNameLabel.setFont(instructorNameLabel.getFont().deriveFont(instructorNameLabel.getFont().getSize()+2f));
-        instructorNameLabel.setText("Instructor Name");
+        adminNameLabel.setFont(adminNameLabel.getFont().deriveFont(adminNameLabel.getFont().getSize()+2f));
+        adminNameLabel.setText("Admin Name");
 
         logoutButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
         logoutButton.setForeground(javax.swing.UIManager.getDefaults().getColor("text"));
         logoutButton.setText("Log Out");
         logoutButton.addActionListener(this::logoutButtonActionPerformed);
 
-        instructorRoleLabel.setFont(instructorRoleLabel.getFont().deriveFont((instructorRoleLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
-        instructorRoleLabel.setText("Instructor");
+        adminRoleLabel.setFont(adminRoleLabel.getFont().deriveFont((adminRoleLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
+        adminRoleLabel.setText("Admin");
 
         javax.swing.GroupLayout navBarPanelLayout = new javax.swing.GroupLayout(navBarPanel);
         navBarPanel.setLayout(navBarPanelLayout);
@@ -110,11 +93,11 @@ public class InstructorDashboardPanel extends CardPanel {
                 .addContainerGap()
                 .addGroup(navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(navBarPanelLayout.createSequentialGroup()
-                        .addComponent(instructorRoleLabel)
+                        .addComponent(adminRoleLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(navBarPanelLayout.createSequentialGroup()
-                        .addComponent(instructorNameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 535, Short.MAX_VALUE)
+                        .addComponent(adminNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 553, Short.MAX_VALUE)
                         .addComponent(logoutButton)))
                 .addContainerGap())
         );
@@ -123,10 +106,10 @@ public class InstructorDashboardPanel extends CardPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navBarPanelLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addGroup(navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(instructorNameLabel)
+                    .addComponent(adminNameLabel)
                     .addComponent(logoutButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(instructorRoleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(adminRoleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -145,4 +128,11 @@ public class InstructorDashboardPanel extends CardPanel {
                 .addComponent(dashboardTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void dashboardTabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_dashboardTabbedPaneStateChanged
+        if (dashboardTabbedPane.getSelectedIndex() != 2 && dashboardTabbedPane.getTabCount() == 3) {
+            dashboardTabbedPane.remove(2);
+        }
+        updateAllChildren();
+    }//GEN-LAST:event_dashboardTabbedPaneStateChanged
 }

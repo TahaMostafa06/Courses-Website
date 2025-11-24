@@ -3,6 +3,7 @@
     "title": "e",
     "description": "e",
     "instructorId": "I-6206562",
+    "status": "APPROVED",
     "lessons": {
       "L-5920399": {
         "title": "My second lesson",
@@ -11,11 +12,194 @@
           "more resources 1",
           "more resources 2",
           "more resources 3"
-        ]
+        ],
+        "maxQuizRetries": 0
       }
     },
     "students": {
-      "S-5993218": []
+      "S-1222462": {},
+      "S-5993218": {}
     }
+  },
+  "C-8628571": {
+    "title": "course 1",
+    "description": "desc 1",
+    "instructorId": "I-2077921",
+    "status": "APPROVED",
+    "lessons": {
+      "L-8956233": {
+        "title": "lesson 5",
+        "content": "content 5",
+        "optionalResources": [
+          "resources 2"
+        ],
+        "quiz": [
+          {
+            "question": "How much seconds in an hour?",
+            "choices": [
+              "1",
+              "2"
+            ],
+            "correctAnswer": "1"
+          },
+          {
+            "question": "How much minutes in an hour?",
+            "choices": [
+              "1",
+              "2"
+            ],
+            "correctAnswer": "1"
+          }
+        ],
+        "maxQuizRetries": -1
+      }
+    },
+    "students": {
+      "S-4333638": {},
+      "S-1222462": {
+        "L-8956233": {
+          "attemptsAnswers": [
+            [
+              "1",
+              "2"
+            ],
+            [
+              "1",
+              "2"
+            ]
+          ],
+          "attemptsQuestions": [
+            [
+              "How much seconds in an hour?",
+              "How much minutes in an hour?"
+            ],
+            [
+              "How much seconds in an hour?",
+              "How much minutes in an hour?"
+            ]
+          ],
+          "attemptsScores": [
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "passed": false
+        }
+      },
+      "S-3775733": {
+        "L-8956233": {
+          "attemptsAnswers": [
+            [
+              "1",
+              "2"
+            ],
+            [
+              "1",
+              "1"
+            ],
+            [
+              "2",
+              "2"
+            ],
+            [
+              "1",
+              "1"
+            ],
+            [
+              "1",
+              "1"
+            ]
+          ],
+          "attemptsQuestions": [
+            [
+              "How much seconds in an hour?",
+              "How much minutes in an hour?"
+            ],
+            [
+              "How much seconds in an hour?",
+              "How much minutes in an hour?"
+            ],
+            [
+              "How much seconds in an hour?",
+              "How much minutes in an hour?"
+            ],
+            [
+              "How much seconds in an hour?",
+              "How much minutes in an hour?"
+            ],
+            [
+              "How much seconds in an hour?",
+              "How much minutes in an hour?"
+            ]
+          ],
+          "attemptsScores": [
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              1,
+              1,
+              2
+            ]
+          ],
+          "passed": true
+        }
+      },
+      "studentId1": {
+        "lessonId1": {
+          "attemptsAnswers": [
+            [
+              "1",
+              "2"
+            ]
+          ],
+          "attemptsQuestions": [
+            [
+              "How much minutes in an hour",
+              "question 2"
+            ]
+          ],
+          "attemptsScores": [
+            [
+              1,
+              1,
+              2
+            ]
+          ],
+          "passed": true
+        }
+      }
+    },
+    "certificates": [
+      {
+        "certificateId": "defb7bde-227d-4e98-bece-19da958040f9",
+        "studentId": "S-3775733",
+        "issueDate": "2025-11-24T07:49:15.395467900"
+      }
+    ]
   }
 }

@@ -1,5 +1,6 @@
 package com.github.tahamostafa06.gui.panels;
 
+import com.github.tahamostafa06.gui.panels.admin.AdminDashboardPanel;
 import com.github.tahamostafa06.gui.panels.instructor.InstructorDashboardPanel;
 import com.github.tahamostafa06.gui.panels.student.StudentDashboardPanel;
 import java.awt.CardLayout;
@@ -21,7 +22,8 @@ public class MainWindowFrame extends javax.swing.JFrame {
     private SignupPanel signupPanel;
     private StudentDashboardPanel studentDashboardPanel;
     private InstructorDashboardPanel instructorDashboardPanel;
-
+    private AdminDashboardPanel adminDashboardPanel;
+    
     public MainWindowFrame() {
         instance = this;
         try {
@@ -52,12 +54,14 @@ public class MainWindowFrame extends javax.swing.JFrame {
         signupPanel = new SignupPanel();
         studentDashboardPanel = new StudentDashboardPanel();
         instructorDashboardPanel = new InstructorDashboardPanel();
+        adminDashboardPanel = new AdminDashboardPanel();
         registerCard(onboardingPanel);
         registerCard(loginPanel);
         registerCard(signupPanel);
         registerCard(loginPanel);
         registerCard(studentDashboardPanel);
         registerCard(instructorDashboardPanel);
+        registerCard(adminDashboardPanel);
         switchTo(PANELS.OnboardingPanel);
 
         pack();
@@ -88,8 +92,9 @@ public class MainWindowFrame extends javax.swing.JFrame {
         LoginPanel,
         SignupPanel,
         StudentDashboardPanel,
-        InstructorDashboardPanel;
-
+        InstructorDashboardPanel,
+        AdminDashboardPanel;
+        
         private CardPanel instance;
     }
 
