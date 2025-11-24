@@ -27,6 +27,10 @@ public class Lesson {
         this.optionalResources = new ArrayList<String>(optionalResources);
     }
 
+    public int getMaxRetries() {
+        return maxQuizRetries;
+    }
+
     @NullMarked
     Lesson(String title, String content, Collection<String> optionalResources, ArrayList<Question> quiz) {
         this.title = title;

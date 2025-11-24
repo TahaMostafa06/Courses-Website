@@ -7,6 +7,7 @@ import com.github.tahamostafa06.backend.auth.LoginToken;
 import com.github.tahamostafa06.backend.courseservice.CourseService;
 import com.github.tahamostafa06.backend.courseservice.CourseItem;
 import com.github.tahamostafa06.backend.courseservice.LessonItem;
+import com.github.tahamostafa06.backend.database.coursedatabase.Certificate;
 import com.github.tahamostafa06.backend.database.coursedatabase.StudentLessonProgress;
 import com.github.tahamostafa06.backend.userservice.UserService;
 
@@ -14,6 +15,10 @@ public class Student extends UserApi {
 
     public Student(LoginToken accessToken, CourseService courseService, UserService userService) {
         super(accessToken, courseService, userService);
+    }
+
+    public Certificate getCertificate(CourseItem course) {
+        return courseService.getCertificate(accessToken, course);
     }
 
     public void enroll(CourseItem course) {
@@ -54,6 +59,14 @@ public class Student extends UserApi {
 
     public boolean isLessonDone(CourseItem course, LessonItem lesson) {
         return courseService.isLessonDone(accessToken, course, lesson);
+    }
+
+    public boolean isLessonAttempted(CourseItem course, LessonItem lesson) {
+        return courseService.isLessonAttempted(accessToken, course, lesson);
+    }
+
+    public int getAttemptsCount(CourseItem course, LessonItem lesson) {
+        return courseService.getAttemptsCount(accessToken, course, lesson);
     }
 
     public StudentLessonProgress getStudentLessonProgress(CourseItem courseItem,

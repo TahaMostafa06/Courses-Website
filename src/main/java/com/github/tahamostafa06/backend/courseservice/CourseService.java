@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import com.github.tahamostafa06.backend.Certificate.Certificate;
 import com.github.tahamostafa06.backend.auth.AuthenticationManager;
 import com.github.tahamostafa06.backend.auth.LoginToken;
+import com.github.tahamostafa06.backend.database.coursedatabase.Certificate;
 import com.github.tahamostafa06.backend.database.coursedatabase.Course;
 import com.github.tahamostafa06.backend.database.coursedatabase.CourseDatabase;
 import com.github.tahamostafa06.backend.database.coursedatabase.Lesson;
@@ -178,7 +178,7 @@ public class CourseService {
         lessonProgress.setPassed(passed);
         // Check if all lessons are done to generate certificate
         boolean generateCertificateCondition = true;
-        for (var lessonID : courseRecord.getLessons().keySet()) { 
+        for (var lessonID : courseRecord.getLessons().keySet()) {
             if (!studentLessonProgress.get(lessonID).isPassed()) {
                 generateCertificateCondition = false;
                 break;
@@ -187,7 +187,10 @@ public class CourseService {
         if (generateCertificateCondition)
             courseRecord.generateCertificate(studentId);
     }
-    
+
+    public Certificate getCertificate(LoginToken token, CourseItem courseItem) {
+        return courseItem.getCourse().getCertificate(token.getUserId());
+    }
 
     public boolean isLessonDone(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
         if (!this.authenticationManager.authenticate(token, "Student"))
@@ -199,6 +202,24 @@ public class CourseService {
             return false;
         else
             return studentLessonProgress.get(getLessonId(courseRecord, lessonRecord)).isPassed();
+    }
+
+    public boolean isLessonAttempted(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
+        return getAttemptsCount(token, courseItem, lessonItem) > 0;
+    }
+
+    public int getAttemptsCount(LoginToken token, CourseItem courseItem, LessonItem lessonItem) {
+        if (!this.authenticationManager.authenticate(token, "Student"))
+            return 0;
+        var courseRecord = courseItem.getCourse();
+        var lessonRecord = lessonItem.getLesson();
+        var studentLessonProgress = courseRecord.getStudentLessonProgress().get(token.getUserId());
+        if (studentLessonProgress.containsKey(getLessonId(courseRecord, lessonRecord))) {
+            var answers = studentLessonProgress.get(getLessonId(courseRecord, lessonRecord)).getAttemptsAnswers();
+            if (answers != null)
+                return answers.size();
+        }
+        return 0;
     }
 
     // Instructor API Methods

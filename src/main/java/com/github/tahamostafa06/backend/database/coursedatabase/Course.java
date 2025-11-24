@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import org.jspecify.annotations.NullMarked;
-import com.github.tahamostafa06.backend.Certificate.Certificate;
-import com.github.tahamostafa06.backend.Certificate.CertificateDatabase;
 
 import com.github.tahamostafa06.backend.database.common.Record;
 
@@ -17,11 +15,9 @@ public class Course implements Record {
     private String description;
     private String instructorId;
     private String status;
-    private String ID;
     private HashMap<String, Lesson> lessons;
     private HashMap<String, HashMap<String, StudentLessonProgress>> students;
-    private CertificateDatabase certificateDb;
-    private Certificate certificate;
+    private ArrayList<Certificate> certificates;
 
     Course(String instructorId, String title, String description) {
         this.title = title;
@@ -83,13 +79,6 @@ public class Course implements Record {
         this.instructorId = instructorId;
     }
 
-    public void setID(String ID){
-        this.ID = ID;
-    }
-    public String getID(){
-        return ID;
-    }
-    
     public String getTitle() {
         return title;
     }
@@ -160,8 +149,8 @@ public class Course implements Record {
     }
 
     public boolean areAllLessonsPassed(String studentID) {
-        for (var lessonID : getLessons().keySet()) { 
-            var temp=students.get(studentID).get(lessonID).isPassed();
+        for (var lessonID : getLessons().keySet()) {
+            var temp = students.get(studentID).get(lessonID).isPassed();
             if (!temp) {
                 return false;
             }
@@ -169,13 +158,27 @@ public class Course implements Record {
         return true;
     }
 
-    public Certificate generateCertificate(String studentID) {
-        if (areAllLessonsPassed(studentID)) {
-            if (certificateDb == null) {
-                certificateDb = new CertificateDatabase();
+    public Certificate generateCertificate(String studentId) {
+        if (areAllLessonsPassed(studentId)) {
+            if (certificates == null) {
+                certificates = new ArrayList<>();
             }
-            return certificateDb.createCourseCertificate(studentID, this.getID());
-        } 
+            var cert = new Certificate(studentId);
+            certificates.add(cert);
+            return cert;
+        }
+        return null;
+    }
+
+    public Certificate getCertificate(String studentId) {
+        if (certificates == null) {
+            certificates = new ArrayList<>();
+            return null;
+        }
+        for (var cert : certificates) {
+            if (cert.getStudentId().equals(studentId))
+                return cert;
+        }
         return null;
     }
 }

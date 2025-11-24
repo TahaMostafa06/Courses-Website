@@ -1,6 +1,5 @@
 package com.github.tahamostafa06.gui.panels.admin;
 
-import com.github.tahamostafa06.gui.panels.admin.*;
 import com.github.tahamostafa06.backend.api.Admin;
 import com.github.tahamostafa06.gui.models.AdminCourseListModel;
 import javax.swing.event.ListSelectionEvent;
@@ -320,6 +319,8 @@ public class ManageCoursesTab extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 31, 0, 9);
         courseDetailsPanel.add(courseInstructorInputLabel, gridBagConstraints);
+
+        courseInstructorInputField.setEditable(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;

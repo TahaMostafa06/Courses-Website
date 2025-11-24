@@ -49,12 +49,27 @@ public class ViewLessonsTab extends javax.swing.JPanel {
             titleTextLabel.setText(lessonItem.getTitle());
             additionalResourcesTextLabel.setText(lessonItem.getAdditionalResource());
             contentTextLabel.setText(lessonItem.getContent());
+            if (!student.isLessonAttempted(courseItem, lessonItem)) {
+                startQuizButton.setText("Start Quiz");
+                quizCompletionStatusLabel.setText("Not started");
+            }
             if (student.isLessonDone(courseItem, lessonItem)) {
                 startQuizButton.setText("View Quiz");
                 quizCompletionStatusLabel.setText("Completed");
             } else {
-                startQuizButton.setText("Start Quiz");
-                quizCompletionStatusLabel.setText("Incomplete");
+                startQuizButton.setText("Retake Quiz");
+                startQuizButton.setEnabled(true);
+                var allowedAttempts = lessonItem.getLesson().getMaxRetries() + 1;
+                var attempts = student.getAttemptsCount(courseItem, lessonItem);
+                if (allowedAttempts <= 0) {
+                    quizCompletionStatusLabel.setText("Didn't pass quiz yet");
+                } else if (allowedAttempts > 0 && attempts < allowedAttempts) {
+                    quizCompletionStatusLabel.setText("Didn't pass quiz yet (" + attempts + "/" + allowedAttempts + " attempts)");
+                } else {
+                    quizCompletionStatusLabel.setText("Didn't pass quiz (" + attempts + "/" + allowedAttempts + " attempts)");
+                    startQuizButton.setText("Cannot Retake Quiz");
+                    startQuizButton.setEnabled(false);
+                }
             }
         }
     }
