@@ -40,5 +40,11 @@
     "username": "mazen",
     "email": "jjj@gmail.com",
     "passwordHash": "73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8\u003d"
+  },
+  "S-1222462": {
+    "role": "Student",
+    "username": "student test",
+    "email": "email3@email.com",
+    "passwordHash": "73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8\u003d"
   }
 }
